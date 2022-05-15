@@ -1,0 +1,834 @@
+# Generated with protoc-gen-openapi
+# https://github.com/google/gnostic/tree/master/cmd/protoc-gen-openapi
+
+openapi: 3.0.3
+info:
+    title: CrossRefs API
+    version: v1alpha1
+servers:
+    - url: https://crossrefs.animeapis.com
+paths:
+    /v1alpha1/crossrefs:
+        get:
+            tags:
+                - Referrer
+            operationId: Referrer_ListCrossRefs
+            parameters:
+                - name: pageSize
+                  in: query
+                  description: The maximum number of users to return. Server may return fewer users than requested.  The maximum page_size is 100 If unspecified, server will pick an appropriate default.
+                  schema:
+                    type: integer
+                    format: int32
+                - name: pageToken
+                  in: query
+                  description: The value returned from the previous call.
+                  schema:
+                    type: string
+                - name: filter.prefix
+                  in: query
+                  description: specifies the prefix of the CrossRefs name to search in
+                  schema:
+                    type: string
+                - name: filter.pendingOnly
+                  in: query
+                  description: if true only crossreferences with pendings are returned
+                  schema:
+                    type: boolean
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/animeshon.crossrefs.v1alpha1.ListCrossRefsResponse'
+                default:
+                    description: Default error response
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/google.rpc.Status'
+        post:
+            tags:
+                - Referrer
+            description: CreateCrossRef creates a new crossref.
+            operationId: Referrer_CreateCrossRef
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/animeshon.crossrefs.v1alpha1.CreateCrossRefRequest'
+                required: true
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/animeshon.crossrefs.v1alpha1.CrossRef'
+                default:
+                    description: Default error response
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/google.rpc.Status'
+    /v1alpha1/crossrefs/*/{*}:
+        get:
+            tags:
+                - Referrer
+            description: GetCrossRef returns a crossref.
+            operationId: Referrer_GetCrossRef
+            parameters:
+                - name: '*'
+                  in: path
+                  description: The * id.
+                  required: true
+                  schema:
+                    type: string
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/animeshon.crossrefs.v1alpha1.CrossRef'
+                default:
+                    description: Default error response
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/google.rpc.Status'
+        patch:
+            tags:
+                - Referrer
+            operationId: Referrer_UpdateCrossRef
+            parameters:
+                - name: '*'
+                  in: path
+                  description: The * id.
+                  required: true
+                  schema:
+                    type: string
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/animeshon.crossrefs.v1alpha1.UpdateCrossRefRequest'
+                required: true
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/animeshon.crossrefs.v1alpha1.UpdateCrossRefResponse'
+                default:
+                    description: Default error response
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/google.rpc.Status'
+    /v1alpha1/crossrefs:analyze:
+        post:
+            tags:
+                - Referrer
+            description: Analyzes and proposes new cross-references according to their similarity.
+            operationId: Referrer_AnalyzeCrossRefs
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/animeshon.crossrefs.v1alpha1.AnalyzeCrossRefRequest'
+                required: true
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/google.longrunning.Operation'
+                default:
+                    description: Default error response
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/google.rpc.Status'
+    /v1alpha1/crossrefs:batchCreate:
+        post:
+            tags:
+                - Referrer
+            description: |-
+                BatchCreateCrossRefs creates new crossrefs in batch.
+                 The limit is of 10 crossreferences and it's blocking.
+                 It ensures that the crossreferences are created in the database
+                 but not propagated to the other services
+            operationId: Referrer_BatchCreateCrossRefs
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/animeshon.crossrefs.v1alpha1.BatchCreateCrossRefsRequest'
+                required: true
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/animeshon.crossrefs.v1alpha1.BatchCreateCrossRefsResponse'
+                default:
+                    description: Default error response
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/google.rpc.Status'
+    /v1alpha1/crossrefs:count:
+        get:
+            tags:
+                - Referrer
+            operationId: Referrer_CountCrossRefs
+            parameters:
+                - name: filter.prefix
+                  in: query
+                  description: specifies the prefix of the CrossRefs name to search in
+                  schema:
+                    type: string
+                - name: filter.pendingOnly
+                  in: query
+                  description: if true only crossreferences with pendings are returned
+                  schema:
+                    type: boolean
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/animeshon.crossrefs.v1alpha1.CountCrossRefsResponse'
+                default:
+                    description: Default error response
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/google.rpc.Status'
+    /v1alpha1/crossrefs:export:
+        post:
+            tags:
+                - Referrer
+            description: |-
+                Exports the cross-references to Cloud Pub/Sub for a full synchronization.
+                 This operation is usually called after a new import with a clean database.
+            operationId: Referrer_ExportCrossRefs
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/animeshon.crossrefs.v1alpha1.ExportCrossRefRequest'
+                required: true
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/google.longrunning.Operation'
+                default:
+                    description: Default error response
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/google.rpc.Status'
+    /v1alpha1/crossrefs:import:
+        post:
+            tags:
+                - Referrer
+            description: Imports already existing cross-references from third-parties.
+            operationId: Referrer_ImportCrossRefs
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/animeshon.crossrefs.v1alpha1.ImportCrossRefRequest'
+                required: true
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/google.longrunning.Operation'
+                default:
+                    description: Default error response
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/google.rpc.Status'
+    /v1alpha1/crossrefs:initialize:
+        post:
+            tags:
+                - Referrer
+            description: |-
+                Initialize the cross-references using specific namespaces for each kind.
+                 This operation first analyzes the entities meeting the kind and namespace precondition
+                 to match new entities with existing ones
+            operationId: Referrer_InitializeCrossRefs
+            requestBody:
+                content:
+                    application/json: {}
+                required: true
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/google.longrunning.Operation'
+                default:
+                    description: Default error response
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/google.rpc.Status'
+    /v1alpha1/parodies:analyze:
+        post:
+            tags:
+                - Referrer
+            operationId: Referrer_AnalyzeParodies
+            requestBody:
+                content:
+                    application/json: {}
+                required: true
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/google.longrunning.Operation'
+                default:
+                    description: Default error response
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/google.rpc.Status'
+    /v1alpha1/parodies:export:
+        post:
+            tags:
+                - Referrer
+            operationId: Referrer_ExportParodies
+            requestBody:
+                content:
+                    application/json: {}
+                required: true
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/google.longrunning.Operation'
+                default:
+                    description: Default error response
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/google.rpc.Status'
+    /v1alpha1/universes/{universe}:
+        get:
+            tags:
+                - Referrer
+            operationId: Referrer_GetUniverse
+            parameters:
+                - name: universe
+                  in: path
+                  description: The universe id.
+                  required: true
+                  schema:
+                    type: string
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/animeshon.crossrefs.v1alpha1.Universe'
+                default:
+                    description: Default error response
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/google.rpc.Status'
+        patch:
+            tags:
+                - Referrer
+            operationId: Referrer_UpdateUniverse
+            parameters:
+                - name: universe
+                  in: path
+                  description: The universe id.
+                  required: true
+                  schema:
+                    type: string
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/animeshon.crossrefs.v1alpha1.UpdateUniverseRequest'
+                required: true
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/animeshon.crossrefs.v1alpha1.Universe'
+                default:
+                    description: Default error response
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/google.rpc.Status'
+    /v1alpha1/universes/{universe}:expand:
+        post:
+            tags:
+                - Referrer
+            operationId: Referrer_ExpandUniverse
+            parameters:
+                - name: universe
+                  in: path
+                  description: The universe id.
+                  required: true
+                  schema:
+                    type: string
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/animeshon.crossrefs.v1alpha1.ExpandUniverseRequest'
+                required: true
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/animeshon.crossrefs.v1alpha1.ExpandUniverseResponse'
+                default:
+                    description: Default error response
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/google.rpc.Status'
+    /v1alpha1/wormhole/namespaces/{namespace}/*/{*}:
+        get:
+            tags:
+                - Referrer
+            operationId: Referrer_GetWormhole
+            parameters:
+                - name: namespace
+                  in: path
+                  description: The namespace id.
+                  required: true
+                  schema:
+                    type: string
+                - name: '*'
+                  in: path
+                  description: The * id.
+                  required: true
+                  schema:
+                    type: string
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/animeshon.crossrefs.v1alpha1.Wormhole'
+                default:
+                    description: Default error response
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/google.rpc.Status'
+    /v1alpha1/wormhole/namespaces/{namespace}/*/{*}/crossrefs:
+        get:
+            tags:
+                - Referrer
+            operationId: Referrer_ListWormholeCrossRefs
+            parameters:
+                - name: namespace
+                  in: path
+                  description: The namespace id.
+                  required: true
+                  schema:
+                    type: string
+                - name: '*'
+                  in: path
+                  description: The * id.
+                  required: true
+                  schema:
+                    type: string
+                - name: withApproved
+                  in: query
+                  description: search wormhole entity in approved edges
+                  schema:
+                    type: boolean
+                - name: withPending
+                  in: query
+                  description: search wormhole entity in pending edges
+                  schema:
+                    type: boolean
+                - name: withPartial
+                  in: query
+                  description: search wormhole entity in partial edges
+                  schema:
+                    type: boolean
+                - name: withRejected
+                  in: query
+                  description: search wormhole entity in rejected edges
+                  schema:
+                    type: boolean
+                - name: crossRefsExclusion
+                  in: query
+                  description: list of CrossRefs to exclude
+                  schema:
+                    type: array
+                    items:
+                        type: string
+                - name: prefix
+                  in: query
+                  description: prefix of the CrossRefs name to search
+                  schema:
+                    type: string
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/animeshon.crossrefs.v1alpha1.ListWormholeCrossRefsResponse'
+                default:
+                    description: Default error response
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/google.rpc.Status'
+components:
+    schemas:
+        animeshon.crossrefs.v1alpha1.AnalyzeCrossRefRequest:
+            type: object
+            properties:
+                config:
+                    $ref: '#/components/schemas/animeshon.crossrefs.v1alpha1.AnalyzeCrossRefRequest_AnalyzeCrossRefConfig'
+                targetKinds:
+                    type: object
+                    additionalProperties:
+                        $ref: '#/components/schemas/animeshon.crossrefs.v1alpha1.AnalyzeCrossRefRequest_AnalyzeCrossRefTargetConfig'
+                    description: Kind configurations
+        animeshon.crossrefs.v1alpha1.AnalyzeCrossRefRequest_AnalyzeCrossRefConfig:
+            type: object
+            properties:
+                tollerance:
+                    type: integer
+                    description: Tollerance of the match in pct
+                    format: int32
+                opts:
+                    type: object
+                    additionalProperties:
+                        type: boolean
+                    description: Map of all options for the analysis
+        animeshon.crossrefs.v1alpha1.AnalyzeCrossRefRequest_AnalyzeCrossRefNamespaceConfig:
+            type: object
+            properties:
+                namespace:
+                    type: string
+                    description: Namespace to analyze
+                config:
+                    $ref: '#/components/schemas/animeshon.crossrefs.v1alpha1.AnalyzeCrossRefRequest_AnalyzeCrossRefConfig'
+        animeshon.crossrefs.v1alpha1.AnalyzeCrossRefRequest_AnalyzeCrossRefTargetConfig:
+            type: object
+            properties:
+                targetKind:
+                    type: string
+                    description: Kind to analyze
+                config:
+                    $ref: '#/components/schemas/animeshon.crossrefs.v1alpha1.AnalyzeCrossRefRequest_AnalyzeCrossRefConfig'
+                namespaces:
+                    type: object
+                    additionalProperties:
+                        $ref: '#/components/schemas/animeshon.crossrefs.v1alpha1.AnalyzeCrossRefRequest_AnalyzeCrossRefNamespaceConfig'
+                    description: Namespace configurations
+        animeshon.crossrefs.v1alpha1.BatchCreateCrossRefsRequest:
+            required:
+                - crossrefs
+            type: object
+            properties:
+                crossrefs:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/animeshon.crossrefs.v1alpha1.CrossRef'
+        animeshon.crossrefs.v1alpha1.BatchCreateCrossRefsResponse:
+            type: object
+            properties:
+                crossrefs:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/animeshon.crossrefs.v1alpha1.CrossRef'
+                    description: The list of crossrefs to create.
+        animeshon.crossrefs.v1alpha1.CountCrossRefsResponse:
+            type: object
+            properties:
+                count:
+                    type: integer
+                    format: int32
+        animeshon.crossrefs.v1alpha1.CreateCrossRefRequest:
+            required:
+                - crossref
+            type: object
+            properties:
+                crossref:
+                    $ref: '#/components/schemas/animeshon.crossrefs.v1alpha1.CrossRef'
+        animeshon.crossrefs.v1alpha1.CrossRef:
+            required:
+                - name
+            type: object
+            properties:
+                name:
+                    type: string
+                    description: The resource name of the crossref.
+                root:
+                    type: string
+                    description: root entity which generated the crossreference.
+                etag:
+                    type: string
+                    description: version control.
+                verified:
+                    readOnly: true
+                    type: boolean
+                    description: if verified, the crossreference has been generated by a trusty process or verified by an operator
+                operator:
+                    readOnly: true
+                    type: string
+                    description: last operator which edited the crossreference
+                createTime:
+                    readOnly: true
+                    type: string
+                    description: creation time
+                    format: date-time
+                updateTime:
+                    readOnly: true
+                    type: string
+                    description: update time
+                    format: date-time
+                edges:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/animeshon.crossrefs.v1alpha1.CrossRefEdge'
+                    description: all edges of the crossreference
+        animeshon.crossrefs.v1alpha1.CrossRefEdge:
+            type: object
+            properties:
+                name:
+                    type: string
+                state:
+                    type: integer
+                    format: int32
+        animeshon.crossrefs.v1alpha1.ExpandUniverseRequest:
+            type: object
+            properties:
+                name:
+                    type: string
+                    description: The universe to expand.
+                depthLimit:
+                    type: integer
+                    description: The maximum depth to expand.
+                    format: int32
+                filter:
+                    type: string
+                    description: The filter to use. Accepted values are CONTENT and CHARACTER.
+        animeshon.crossrefs.v1alpha1.ExpandUniverseResponse:
+            type: object
+            properties:
+                name:
+                    type: string
+                    description: The resource name of the requested universe.
+                payload:
+                    type: string
+                    description: 'TODO(christian-roggia): resources should be available through protobuf messages.'
+                    format: bytes
+        animeshon.crossrefs.v1alpha1.ExportCrossRefRequest:
+            type: object
+            properties:
+                target:
+                    enum:
+                        - FULL
+                        - STORAGE
+                        - MIGRATOR
+                    type: string
+                    format: enum
+                prefix:
+                    type: string
+                    description: Prefix to restrict the crossrefs to export to a specific subset
+        animeshon.crossrefs.v1alpha1.ImportCrossRefRequest:
+            type: object
+            properties:
+                opts:
+                    type: object
+                    additionalProperties:
+                        type: boolean
+                    description: Map of all options for the import
+        animeshon.crossrefs.v1alpha1.ListCrossRefsResponse:
+            type: object
+            properties:
+                crossrefs:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/animeshon.crossrefs.v1alpha1.CrossRef'
+                    description: The list of crossrefs.
+                nextPageToken:
+                    type: string
+                    description: A token to retrieve next page of results.
+        animeshon.crossrefs.v1alpha1.ListWormholeCrossRefsResponse:
+            type: object
+            properties:
+                crossrefs:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/animeshon.crossrefs.v1alpha1.CrossRef'
+                    description: The list of crossrefs.
+        animeshon.crossrefs.v1alpha1.Universe:
+            type: object
+            properties:
+                name:
+                    type: string
+                    description: The resource name of the universe.
+                payload:
+                    type: string
+                    description: 'TODO(christian-roggia): resources should be available through protobuf messages.'
+                    format: bytes
+            description: 'TODO(christian-roggia): move the universe together with all other resources.'
+        animeshon.crossrefs.v1alpha1.UpdateCrossRefRequest:
+            type: object
+            properties:
+                crossref:
+                    $ref: '#/components/schemas/animeshon.crossrefs.v1alpha1.CrossRef'
+                updateMask:
+                    type: string
+                    description: The field mask to determine which fields are to be updated. If empty, the server will assume all fields are to be updated.
+                    format: field-mask
+        animeshon.crossrefs.v1alpha1.UpdateCrossRefResponse:
+            type: object
+            properties:
+                crossrefs:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/animeshon.crossrefs.v1alpha1.CrossRef'
+                    description: All CrossRef involved in the update
+        animeshon.crossrefs.v1alpha1.UpdateUniverseRequest:
+            type: object
+            properties:
+                universe:
+                    $ref: '#/components/schemas/animeshon.crossrefs.v1alpha1.Universe'
+                updateMask:
+                    type: string
+                    description: The field mask to determine which fields are to be updated. If empty, the server will assume all fields are to be updated.
+                    format: field-mask
+        animeshon.crossrefs.v1alpha1.Wormhole:
+            type: object
+            properties:
+                name:
+                    type: string
+                names:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/animeshon.crossrefs.v1alpha1.Wormhole_Text'
+                    description: The names of te content
+                aliases:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/animeshon.crossrefs.v1alpha1.Wormhole_Text'
+                    description: The aliases of te content
+                image:
+                    type: string
+                    description: raw bytes of image
+                    format: bytes
+                imageUrl:
+                    type: string
+                    description: url of the image
+                type:
+                    type: string
+                    description: type of the content
+                subtype:
+                    type: string
+                    description: subtype of the content
+                externalUrl:
+                    type: string
+                    description: external url of the content
+                publishingType:
+                    type: string
+                    description: type of publication
+                isParody:
+                    type: boolean
+                    description: the content is parody of another content
+                identifier:
+                    type: string
+                    description: identifier
+                date:
+                    type: string
+                    description: most significant date
+                    format: date-time
+                parentName:
+                    type: string
+                    description: parent's resource name useful for chapters and episodes to know which content it refers
+                parentExternalUrl:
+                    type: string
+                    description: prant external url
+        animeshon.crossrefs.v1alpha1.Wormhole_Text:
+            type: object
+            properties:
+                text:
+                    type: string
+                localization:
+                    type: string
+        google.longrunning.Operation:
+            type: object
+            properties:
+                name:
+                    type: string
+                    description: The server-assigned name, which is only unique within the same service that originally returns it. If you use the default HTTP mapping, the `name` should be a resource name ending with `operations/{unique_id}`.
+                metadata:
+                    $ref: '#/components/schemas/google.protobuf.Any'
+                done:
+                    type: boolean
+                    description: If the value is `false`, it means the operation is still in progress. If `true`, the operation is completed, and either `error` or `response` is available.
+                error:
+                    $ref: '#/components/schemas/google.rpc.Status'
+                response:
+                    $ref: '#/components/schemas/google.protobuf.Any'
+            description: This resource represents a long-running operation that is the result of a network API call.
+        google.protobuf.Any:
+            type: object
+            properties:
+                '@type':
+                    type: string
+                    description: The type of the serialized message.
+            additionalProperties: true
+            description: Contains an arbitrary serialized message along with a @type that describes the type of the serialized message.
+        google.rpc.Status:
+            type: object
+            properties:
+                code:
+                    type: integer
+                    description: The status code, which should be an enum value of [google.rpc.Code][google.rpc.Code].
+                    format: int32
+                message:
+                    type: string
+                    description: A developer-facing error message, which should be in English. Any user-facing error message should be localized and sent in the [google.rpc.Status.details][google.rpc.Status.details] field, or localized by the client.
+                details:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/google.protobuf.Any'
+                    description: A list of messages that carry the error details.  There is a common set of message types for APIs to use.
+            description: 'The `Status` type defines a logical error model that is suitable for different programming environments, including REST APIs and RPC APIs. It is used by [gRPC](https://github.com/grpc). Each `Status` message contains three pieces of data: error code, error message, and error details. You can find out more about this error model and how to work with it in the [API Design Guide](https://cloud.google.com/apis/design/errors).'
+tags:
+    - name: Referrer

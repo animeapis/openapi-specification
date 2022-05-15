@@ -1,0 +1,478 @@
+# Generated with protoc-gen-openapi
+# https://github.com/google/gnostic/tree/master/cmd/protoc-gen-openapi
+
+openapi: 3.0.3
+info:
+    title: Library API
+    version: v1alpha1
+servers:
+    - url: https://library.animeapis.com
+paths:
+    /v1alpha1/users/{user}/playlists:
+        get:
+            tags:
+                - Library
+            operationId: Library_ListPlaylists
+            parameters:
+                - name: user
+                  in: path
+                  description: The user id.
+                  required: true
+                  schema:
+                    type: string
+                - name: pageSize
+                  in: query
+                  description: If unspecified, server will pick an appropriate default.
+                  schema:
+                    type: integer
+                    format: int32
+                - name: pageToken
+                  in: query
+                  description: The value returned from the previous call.
+                  schema:
+                    type: string
+                - name: filter
+                  in: query
+                  description: A filter to be applied to results.
+                  schema:
+                    type: string
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/animeshon.library.v1alpha1.ListPlaylistsResponse'
+                default:
+                    description: Default error response
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/google.rpc.Status'
+        post:
+            tags:
+                - Library
+            operationId: Library_CreatePlaylist
+            parameters:
+                - name: user
+                  in: path
+                  description: The user id.
+                  required: true
+                  schema:
+                    type: string
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/animeshon.library.v1alpha1.CreatePlaylistRequest'
+                required: true
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/animeshon.library.v1alpha1.Playlist'
+                default:
+                    description: Default error response
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/google.rpc.Status'
+    /v1alpha1/users/{user}/playlists/{playlist}:
+        get:
+            tags:
+                - Library
+            operationId: Library_GetPlaylist
+            parameters:
+                - name: user
+                  in: path
+                  description: The user id.
+                  required: true
+                  schema:
+                    type: string
+                - name: playlist
+                  in: path
+                  description: The playlist id.
+                  required: true
+                  schema:
+                    type: string
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/animeshon.library.v1alpha1.Playlist'
+                default:
+                    description: Default error response
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/google.rpc.Status'
+        delete:
+            tags:
+                - Library
+            operationId: Library_DeletePlaylist
+            parameters:
+                - name: user
+                  in: path
+                  description: The user id.
+                  required: true
+                  schema:
+                    type: string
+                - name: playlist
+                  in: path
+                  description: The playlist id.
+                  required: true
+                  schema:
+                    type: string
+            responses:
+                "200":
+                    description: OK
+                    content: {}
+                default:
+                    description: Default error response
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/google.rpc.Status'
+        patch:
+            tags:
+                - Library
+            operationId: Library_UpdatePlaylist
+            parameters:
+                - name: user
+                  in: path
+                  description: The user id.
+                  required: true
+                  schema:
+                    type: string
+                - name: playlist
+                  in: path
+                  description: The playlist id.
+                  required: true
+                  schema:
+                    type: string
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/animeshon.library.v1alpha1.UpdatePlaylistRequest'
+                required: true
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/animeshon.library.v1alpha1.Playlist'
+                default:
+                    description: Default error response
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/google.rpc.Status'
+    /v1alpha1/users/{user}/playlists/{playlist}/items:
+        get:
+            tags:
+                - Library
+            operationId: Library_ListPlaylistItems
+            parameters:
+                - name: user
+                  in: path
+                  description: The user id.
+                  required: true
+                  schema:
+                    type: string
+                - name: playlist
+                  in: path
+                  description: The playlist id.
+                  required: true
+                  schema:
+                    type: string
+                - name: pageSize
+                  in: query
+                  description: If unspecified, server will pick an appropriate default.
+                  schema:
+                    type: integer
+                    format: int32
+                - name: pageToken
+                  in: query
+                  description: The value returned from the previous call.
+                  schema:
+                    type: string
+                - name: filter
+                  in: query
+                  description: A filter to be applied to results.
+                  schema:
+                    type: string
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/animeshon.library.v1alpha1.ListPlaylistItemsResponse'
+                default:
+                    description: Default error response
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/google.rpc.Status'
+        post:
+            tags:
+                - Library
+            operationId: Library_CreatePlaylistItem
+            parameters:
+                - name: user
+                  in: path
+                  description: The user id.
+                  required: true
+                  schema:
+                    type: string
+                - name: playlist
+                  in: path
+                  description: The playlist id.
+                  required: true
+                  schema:
+                    type: string
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/animeshon.library.v1alpha1.CreatePlaylistItemRequest'
+                required: true
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/animeshon.library.v1alpha1.PlaylistItem'
+                default:
+                    description: Default error response
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/google.rpc.Status'
+    /v1alpha1/users/{user}/playlists/{playlist}/items/{item}:
+        delete:
+            tags:
+                - Library
+            operationId: Library_DeletePlaylistItem
+            parameters:
+                - name: user
+                  in: path
+                  description: The user id.
+                  required: true
+                  schema:
+                    type: string
+                - name: playlist
+                  in: path
+                  description: The playlist id.
+                  required: true
+                  schema:
+                    type: string
+                - name: item
+                  in: path
+                  description: The item id.
+                  required: true
+                  schema:
+                    type: string
+            responses:
+                "200":
+                    description: OK
+                    content: {}
+                default:
+                    description: Default error response
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/google.rpc.Status'
+    /v1alpha1/users/{user}/playlists/{playlist}/items:batchCreate:
+        post:
+            tags:
+                - Library
+            operationId: Library_BatchCreatePlaylistItems
+            parameters:
+                - name: user
+                  in: path
+                  description: The user id.
+                  required: true
+                  schema:
+                    type: string
+                - name: playlist
+                  in: path
+                  description: The playlist id.
+                  required: true
+                  schema:
+                    type: string
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/animeshon.library.v1alpha1.BatchCreatePlaylistItemsRequest'
+                required: true
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/animeshon.library.v1alpha1.BatchCreatePlaylistItemsResponse'
+                default:
+                    description: Default error response
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/google.rpc.Status'
+components:
+    schemas:
+        animeshon.library.v1alpha1.BatchCreatePlaylistItemsRequest:
+            required:
+                - parent
+                - item
+            type: object
+            properties:
+                parent:
+                    type: string
+                    description: The parent this playlist item belongs to.
+                item:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/animeshon.library.v1alpha1.PlaylistItem'
+                    description: The playlist items to create.
+        animeshon.library.v1alpha1.BatchCreatePlaylistItemsResponse:
+            required:
+                - items
+            type: object
+            properties:
+                items:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/animeshon.library.v1alpha1.PlaylistItem'
+                    description: The list of items added to the playlist
+        animeshon.library.v1alpha1.CreatePlaylistItemRequest:
+            required:
+                - parent
+                - item
+            type: object
+            properties:
+                parent:
+                    type: string
+                    description: The parent this playlist item belongs to.
+                item:
+                    $ref: '#/components/schemas/animeshon.library.v1alpha1.PlaylistItem'
+        animeshon.library.v1alpha1.CreatePlaylistRequest:
+            required:
+                - parent
+                - playlist
+            type: object
+            properties:
+                parent:
+                    type: string
+                    description: The parent this playlist belongs to.
+                playlist:
+                    $ref: '#/components/schemas/animeshon.library.v1alpha1.Playlist'
+        animeshon.library.v1alpha1.ListPlaylistItemsResponse:
+            type: object
+            properties:
+                items:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/animeshon.library.v1alpha1.PlaylistItem'
+                    description: The list of playlist items.
+                nextPageToken:
+                    type: string
+                    description: A token to retrieve next page of results.
+                totalSize:
+                    type: integer
+                    description: The total number of items available in this playlist.
+                    format: int32
+        animeshon.library.v1alpha1.ListPlaylistsResponse:
+            type: object
+            properties:
+                playlists:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/animeshon.library.v1alpha1.Playlist'
+                    description: The list of playlists.
+                nextPageToken:
+                    type: string
+                    description: A token to retrieve next page of results.
+        animeshon.library.v1alpha1.Playlist:
+            required:
+                - name
+                - type
+            type: object
+            properties:
+                name:
+                    type: string
+                    description: The id of the playlist.
+                displayName:
+                    type: string
+                    description: The display name of the playlist.
+                type:
+                    enum:
+                        - TYPE_UNSPECIFIED
+                        - LATER
+                        - LIKED
+                        - CUSTOM
+                    type: string
+                    description: The type of the playlist.
+                    format: enum
+        animeshon.library.v1alpha1.PlaylistItem:
+            required:
+                - name
+                - resource
+            type: object
+            properties:
+                name:
+                    type: string
+                    description: The id of the playlist.
+                resource:
+                    type: string
+                    description: The full resource name that identifies the resource.
+                createTime:
+                    readOnly: true
+                    type: string
+                    description: The timestamp at which the playlist item was created.
+                    format: date-time
+        animeshon.library.v1alpha1.UpdatePlaylistRequest:
+            required:
+                - playlist
+            type: object
+            properties:
+                playlist:
+                    $ref: '#/components/schemas/animeshon.library.v1alpha1.Playlist'
+                updateMask:
+                    type: string
+                    description: The field mask to determine which fields are to be updated. If empty, the server will assume all fields are to be updated.
+                    format: field-mask
+        google.protobuf.Any:
+            type: object
+            properties:
+                '@type':
+                    type: string
+                    description: The type of the serialized message.
+            additionalProperties: true
+            description: Contains an arbitrary serialized message along with a @type that describes the type of the serialized message.
+        google.rpc.Status:
+            type: object
+            properties:
+                code:
+                    type: integer
+                    description: The status code, which should be an enum value of [google.rpc.Code][google.rpc.Code].
+                    format: int32
+                message:
+                    type: string
+                    description: A developer-facing error message, which should be in English. Any user-facing error message should be localized and sent in the [google.rpc.Status.details][google.rpc.Status.details] field, or localized by the client.
+                details:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/google.protobuf.Any'
+                    description: A list of messages that carry the error details.  There is a common set of message types for APIs to use.
+            description: 'The `Status` type defines a logical error model that is suitable for different programming environments, including REST APIs and RPC APIs. It is used by [gRPC](https://github.com/grpc). Each `Status` message contains three pieces of data: error code, error message, and error details. You can find out more about this error model and how to work with it in the [API Design Guide](https://cloud.google.com/apis/design/errors).'
+tags:
+    - name: Library

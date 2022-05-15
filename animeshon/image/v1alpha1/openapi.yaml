@@ -1,0 +1,573 @@
+# Generated with protoc-gen-openapi
+# https://github.com/google/gnostic/tree/master/cmd/protoc-gen-openapi
+
+openapi: 3.0.3
+info:
+    title: Image API
+    version: v1alpha1
+servers:
+    - url: https://image.animeapis.com
+paths:
+    /v1alpha1/**:
+        get:
+            tags:
+                - ImageRouter
+            description: Routes a raw request received by a CDN host to its target image.
+            operationId: ImageRouter_RouteImage
+            parameters:
+                - name: host
+                  in: query
+                  description: The host that received the request.
+                  schema:
+                    type: string
+                - name: path
+                  in: query
+                  description: The requested path representing an opaque route.
+                  schema:
+                    type: string
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        '*/*': {}
+                default:
+                    description: Default error response
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/google.rpc.Status'
+    /v1alpha1/users/{user}/albums:
+        get:
+            tags:
+                - Image
+            description: Lists image albums with pagination.
+            operationId: Image_ListAlbums
+            parameters:
+                - name: user
+                  in: path
+                  description: The user id.
+                  required: true
+                  schema:
+                    type: string
+                - name: pageSize
+                  in: query
+                  description: If unspecified, server will pick an appropriate default.
+                  schema:
+                    type: integer
+                    format: int32
+                - name: pageToken
+                  in: query
+                  description: The value returned from the previous call.
+                  schema:
+                    type: string
+                - name: filter
+                  in: query
+                  description: A filter to be applied to results.
+                  schema:
+                    type: string
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/animeshon.image.v1alpha1.ListAlbumsResponse'
+                default:
+                    description: Default error response
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/google.rpc.Status'
+        post:
+            tags:
+                - Image
+            description: Creates a new image album.
+            operationId: Image_CreateAlbum
+            parameters:
+                - name: user
+                  in: path
+                  description: The user id.
+                  required: true
+                  schema:
+                    type: string
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/animeshon.image.v1alpha1.CreateAlbumRequest'
+                required: true
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/animeshon.image.v1alpha1.Album'
+                default:
+                    description: Default error response
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/google.rpc.Status'
+    /v1alpha1/users/{user}/albums/{album}:
+        get:
+            tags:
+                - Image
+            description: Gets an image album.
+            operationId: Image_GetAlbum
+            parameters:
+                - name: user
+                  in: path
+                  description: The user id.
+                  required: true
+                  schema:
+                    type: string
+                - name: album
+                  in: path
+                  description: The album id.
+                  required: true
+                  schema:
+                    type: string
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/animeshon.image.v1alpha1.Album'
+                default:
+                    description: Default error response
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/google.rpc.Status'
+        delete:
+            tags:
+                - Image
+            description: Deletes an existing image album.
+            operationId: Image_DeleteAlbum
+            parameters:
+                - name: user
+                  in: path
+                  description: The user id.
+                  required: true
+                  schema:
+                    type: string
+                - name: album
+                  in: path
+                  description: The album id.
+                  required: true
+                  schema:
+                    type: string
+            responses:
+                "200":
+                    description: OK
+                    content: {}
+                default:
+                    description: Default error response
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/google.rpc.Status'
+    /v1alpha1/users/{user}/albums/{album}/images/{image}:
+        get:
+            tags:
+                - Image
+            description: Gets an image in binary representation with the format and size requested.
+            operationId: Image_GetImage
+            parameters:
+                - name: user
+                  in: path
+                  description: The user id.
+                  required: true
+                  schema:
+                    type: string
+                - name: album
+                  in: path
+                  description: The album id.
+                  required: true
+                  schema:
+                    type: string
+                - name: image
+                  in: path
+                  description: The image id.
+                  required: true
+                  schema:
+                    type: string
+                - name: contentType
+                  in: query
+                  description: 'If content type is set and differs from the original content type the image will be converted to match the specified content type. Note: only "image/png", "image/webp", "image/jpeg" are supported values.'
+                  schema:
+                    type: string
+                - name: resize.width
+                  in: query
+                  description: The image width.
+                  schema:
+                    type: integer
+                    format: int32
+                - name: resize.height
+                  in: query
+                  description: The image height.
+                  schema:
+                    type: integer
+                    format: int32
+                - name: blur
+                  in: query
+                  description: Whether the image returned should be blurred. This is typically used while routing images that have been detected to contain highly sensitive or controversial content that must be censored in some or all regions.
+                  schema:
+                    type: boolean
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        '*/*': {}
+                default:
+                    description: Default error response
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/google.rpc.Status'
+    /v1alpha1/users/{user}/albums/{album}/images/{image}:route:
+        get:
+            tags:
+                - ImageRouter
+            description: Gets the image public link address that is used to fetch images via CDN.
+            operationId: ImageRouter_GetImageRoute
+            parameters:
+                - name: user
+                  in: path
+                  description: The user id.
+                  required: true
+                  schema:
+                    type: string
+                - name: album
+                  in: path
+                  description: The album id.
+                  required: true
+                  schema:
+                    type: string
+                - name: image
+                  in: path
+                  description: The image id.
+                  required: true
+                  schema:
+                    type: string
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/animeshon.image.v1alpha1.GetImageRouteResponse'
+                default:
+                    description: Default error response
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/google.rpc.Status'
+    /v1alpha1/users/{user}/albums/{album}/images:import:
+        post:
+            tags:
+                - Image
+            description: Imports an image from a remote web address.
+            operationId: Image_ImportImage
+            parameters:
+                - name: user
+                  in: path
+                  description: The user id.
+                  required: true
+                  schema:
+                    type: string
+                - name: album
+                  in: path
+                  description: The album id.
+                  required: true
+                  schema:
+                    type: string
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/animeshon.image.v1alpha1.ImportImageRequest'
+                required: true
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/animeshon.image.v1alpha1.ImportImageResponse'
+                default:
+                    description: Default error response
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/google.rpc.Status'
+    /v1alpha1/users/{user}/albums/{album}/images:upload:
+        post:
+            tags:
+                - Image
+            description: Uploads an image through the request HttpBody.
+            operationId: Image_UploadImage
+            parameters:
+                - name: user
+                  in: path
+                  description: The user id.
+                  required: true
+                  schema:
+                    type: string
+                - name: album
+                  in: path
+                  description: The album id.
+                  required: true
+                  schema:
+                    type: string
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            type: string
+                required: true
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/animeshon.image.v1alpha1.UploadImageResponse'
+                default:
+                    description: Default error response
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/google.rpc.Status'
+    /v1alpha1/users/{user}/albums/{album}:settings:
+        get:
+            tags:
+                - Image
+            description: Gets the settings of an image album.
+            operationId: Image_GetAlbumSettings
+            parameters:
+                - name: user
+                  in: path
+                  description: The user id.
+                  required: true
+                  schema:
+                    type: string
+                - name: album
+                  in: path
+                  description: The album id.
+                  required: true
+                  schema:
+                    type: string
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/animeshon.image.v1alpha1.AlbumSettings'
+                default:
+                    description: Default error response
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/google.rpc.Status'
+        post:
+            tags:
+                - Image
+            description: Updates the settings of an image album.
+            operationId: Image_UpdateAlbumSettings
+            parameters:
+                - name: user
+                  in: path
+                  description: The user id.
+                  required: true
+                  schema:
+                    type: string
+                - name: album
+                  in: path
+                  description: The album id.
+                  required: true
+                  schema:
+                    type: string
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/animeshon.image.v1alpha1.UpdateAlbumSettingsRequest'
+                required: true
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/animeshon.image.v1alpha1.AlbumSettings'
+                default:
+                    description: Default error response
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/google.rpc.Status'
+components:
+    schemas:
+        animeshon.image.v1alpha1.Album:
+            type: object
+            properties:
+                name:
+                    type: string
+                    description: The album resource name.
+                displayName:
+                    type: string
+                    description: The album display name.
+        animeshon.image.v1alpha1.AlbumSettings:
+            type: object
+            properties:
+                name:
+                    type: string
+                    description: The album resource name.
+                bucket:
+                    type: string
+                    description: The bucket where to store resources.
+                systemManaged:
+                    type: boolean
+                    description: Whether the album is system managed.
+                enableSearch:
+                    type: boolean
+                    description: Whether images in this album show up in the search engine results.
+                enableAnnotation:
+                    type: boolean
+                    description: Whether images in this album can be annotated.
+                enableEncryption:
+                    type: boolean
+                    description: Whether images in this album must be client-side encrypted.
+                highVisibility:
+                    type: boolean
+                    description: Whether the content of this album is highly visible by the public such as profile pictures and banners. Highly visible albums *cannot* contain sensitive or adult images.
+        animeshon.image.v1alpha1.CreateAlbumRequest:
+            required:
+                - parent
+                - album
+            type: object
+            properties:
+                parent:
+                    type: string
+                    description: The parent this album belongs to.
+                album:
+                    $ref: '#/components/schemas/animeshon.image.v1alpha1.Album'
+        animeshon.image.v1alpha1.GetImageRouteResponse:
+            type: object
+            properties:
+                url:
+                    type: string
+                    description: A routable url that points to a link address backed by the CDN.
+        animeshon.image.v1alpha1.ImportImageRequest:
+            required:
+                - parent
+                - uri
+            type: object
+            properties:
+                parent:
+                    type: string
+                    description: The image parent of the image. This value defaults to the user performing the import operation if no parent is set.
+                uri:
+                    type: string
+                    description: A publicly-accessible image HTTP/HTTPS URL. When fetching images from HTTP/HTTPS URLs, Animeshon cannot guarantee that the request will be completed. Your request may fail if the specified host denies the request (e.g. due to request throttling or DoS prevention), or if Animeshon throttles requests to the site for abuse prevention. You should not depend on externally-hosted images for production applications.
+                cacheOptions:
+                    $ref: '#/components/schemas/animeshon.image.v1alpha1.ImportImageRequest_WebCacheOptions'
+        animeshon.image.v1alpha1.ImportImageRequest_WebCacheOptions:
+            type: object
+            properties:
+                refresh:
+                    type: boolean
+                    description: If refresh is set to true the image is imported from the remote address regardless of an existing local cache, if the fetched image does not match the existing cache the new image is stored and a new resource is created, otherwise the existing (cached) resource is returned.
+                ignore:
+                    type: boolean
+                    description: If ignore is set to true no cache lookup is performed and the image is imported into a new resource. If both "ignore" and "refresh" are set to true then "refresh" has no effect.
+            description: The WebCache options to be used when importing an image from a public website address.
+        animeshon.image.v1alpha1.ImportImageResponse:
+            type: object
+            properties:
+                result:
+                    $ref: '#/components/schemas/animeshon.image.v1alpha1.ImportImageResponse_ImportImageResult'
+                error:
+                    $ref: '#/components/schemas/animeshon.image.v1alpha1.ImportImageResponse_ImportImageRemoteError'
+                cacheHit:
+                    type: boolean
+                    description: Whether this image was found in the cache.
+        animeshon.image.v1alpha1.ImportImageResponse_ImportImageRemoteError:
+            type: object
+            properties:
+                statusCode:
+                    type: integer
+                    description: The status code returned from the remote server.
+                    format: int32
+                details:
+                    type: string
+                    description: The details related to the import failure.
+        animeshon.image.v1alpha1.ImportImageResponse_ImportImageResult:
+            type: object
+            properties:
+                name:
+                    type: string
+                    description: The image resource name.
+        animeshon.image.v1alpha1.ListAlbumsResponse:
+            type: object
+            properties:
+                albums:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/animeshon.image.v1alpha1.Album'
+                    description: The list of albums.
+                nextPageToken:
+                    type: string
+                    description: A token to retrieve next page of results.
+        animeshon.image.v1alpha1.UpdateAlbumSettingsRequest:
+            required:
+                - settings
+            type: object
+            properties:
+                settings:
+                    $ref: '#/components/schemas/animeshon.image.v1alpha1.AlbumSettings'
+                updateMask:
+                    type: string
+                    description: The field mask to determine which fields are to be updated. If empty, the server will assume all fields are to be updated.
+                    format: field-mask
+        animeshon.image.v1alpha1.UploadImageResponse:
+            type: object
+            properties:
+                name:
+                    type: string
+                    description: The image resource name.
+        google.protobuf.Any:
+            type: object
+            properties:
+                '@type':
+                    type: string
+                    description: The type of the serialized message.
+            additionalProperties: true
+            description: Contains an arbitrary serialized message along with a @type that describes the type of the serialized message.
+        google.rpc.Status:
+            type: object
+            properties:
+                code:
+                    type: integer
+                    description: The status code, which should be an enum value of [google.rpc.Code][google.rpc.Code].
+                    format: int32
+                message:
+                    type: string
+                    description: A developer-facing error message, which should be in English. Any user-facing error message should be localized and sent in the [google.rpc.Status.details][google.rpc.Status.details] field, or localized by the client.
+                details:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/google.protobuf.Any'
+                    description: A list of messages that carry the error details.  There is a common set of message types for APIs to use.
+            description: 'The `Status` type defines a logical error model that is suitable for different programming environments, including REST APIs and RPC APIs. It is used by [gRPC](https://github.com/grpc). Each `Status` message contains three pieces of data: error code, error message, and error details. You can find out more about this error model and how to work with it in the [API Design Guide](https://cloud.google.com/apis/design/errors).'
+tags:
+    - name: Image
+    - name: ImageRouter
+      description: |-
+        The image router is used to generate public links that can be routed through
+         the Animeshon CDN (Content Delivery Network) to guarantee high performance
+         and availability worldwide.

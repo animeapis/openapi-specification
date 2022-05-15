@@ -1,0 +1,1567 @@
+# Generated with protoc-gen-openapi
+# https://github.com/google/gnostic/tree/master/cmd/protoc-gen-openapi
+
+openapi: 3.0.3
+info:
+    title: Knowledge API
+    version: v1alpha1
+servers:
+    - url: https://knowledge.animeapis.com
+paths:
+    /v1alpha1/contributions:allocateResourceName:
+        get:
+            tags:
+                - Knowledge
+            description: |-
+                AllocateResourceName reserves a new resource name for entities which are not already part of
+                 Animeshon's Encyclopedia
+            operationId: Knowledge_AllocateResourceName
+            parameters:
+                - name: kind
+                  in: query
+                  description: The resource kind of the resource to migrate.
+                  schema:
+                    type: string
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/animeshon.knowledge.v1alpha1.AllocateResourceNameResponse'
+                default:
+                    description: Default error response
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/google.rpc.Status'
+    /v1alpha1/users/{user}/contributions:
+        get:
+            tags:
+                - Knowledge
+            operationId: Knowledge_ListContributions
+            parameters:
+                - name: user
+                  in: path
+                  description: The user id.
+                  required: true
+                  schema:
+                    type: string
+                - name: pageSize
+                  in: query
+                  description: The maximum number of users to return. Server may return fewer usersthan requested. If unspecified, server will pick an appropriate default.
+                  schema:
+                    type: integer
+                    format: int32
+                - name: pageToken
+                  in: query
+                  description: The value returned from the previous call.
+                  schema:
+                    type: string
+                - name: filter
+                  in: query
+                  description: A filter to be applied to results.
+                  schema:
+                    type: string
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/animeshon.knowledge.v1alpha1.ListContributionsResponse'
+                default:
+                    description: Default error response
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/google.rpc.Status'
+        post:
+            tags:
+                - Knowledge
+            operationId: Knowledge_CreateContribution
+            parameters:
+                - name: user
+                  in: path
+                  description: The user id.
+                  required: true
+                  schema:
+                    type: string
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/animeshon.knowledge.v1alpha1.CreateContributionRequest'
+                required: true
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/animeshon.knowledge.v1alpha1.Contribution'
+                default:
+                    description: Default error response
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/google.rpc.Status'
+    /v1alpha1/users/{user}/contributions/{contribution}:
+        get:
+            tags:
+                - Knowledge
+            operationId: Knowledge_GetContribution
+            parameters:
+                - name: user
+                  in: path
+                  description: The user id.
+                  required: true
+                  schema:
+                    type: string
+                - name: contribution
+                  in: path
+                  description: The contribution id.
+                  required: true
+                  schema:
+                    type: string
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/animeshon.knowledge.v1alpha1.Contribution'
+                default:
+                    description: Default error response
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/google.rpc.Status'
+    /v1alpha1/users/{user}/contributions/{contribution}:approve:
+        post:
+            tags:
+                - Knowledge
+            description: ApproveContribution approves the contribution and applies the changes
+            operationId: Knowledge_ApproveContribution
+            parameters:
+                - name: user
+                  in: path
+                  description: The user id.
+                  required: true
+                  schema:
+                    type: string
+                - name: contribution
+                  in: path
+                  description: The contribution id.
+                  required: true
+                  schema:
+                    type: string
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/animeshon.knowledge.v1alpha1.ApproveContributionRequest'
+                required: true
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/animeshon.knowledge.v1alpha1.Contribution'
+                default:
+                    description: Default error response
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/google.rpc.Status'
+    /v1alpha1/users/{user}/contributions/{contribution}:changes:
+        get:
+            tags:
+                - Knowledge
+            operationId: Knowledge_GetContributionChanges
+            parameters:
+                - name: user
+                  in: path
+                  description: The user id.
+                  required: true
+                  schema:
+                    type: string
+                - name: contribution
+                  in: path
+                  description: The contribution id.
+                  required: true
+                  schema:
+                    type: string
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/animeshon.knowledge.v1alpha1.ContributionChanges'
+                default:
+                    description: Default error response
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/google.rpc.Status'
+    /v1alpha1/users/{user}/contributions/{contribution}:reject:
+        post:
+            tags:
+                - Knowledge
+            description: RejectContribution rejects the contribution and DESTROYS all the changes
+            operationId: Knowledge_RejectContribution
+            parameters:
+                - name: user
+                  in: path
+                  description: The user id.
+                  required: true
+                  schema:
+                    type: string
+                - name: contribution
+                  in: path
+                  description: The contribution id.
+                  required: true
+                  schema:
+                    type: string
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/animeshon.knowledge.v1alpha1.RejectContributionRequest'
+                required: true
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/animeshon.knowledge.v1alpha1.Contribution'
+                default:
+                    description: Default error response
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/google.rpc.Status'
+    /v1alpha1/users/{user}/contributions/{contribution}:review:
+        post:
+            tags:
+                - Knowledge
+            description: |-
+                ReviewContribution allows moderators or the owner to modify and correct the contribution
+                 while in the PENDING or DRAFT state
+            operationId: Knowledge_ReviewContribution
+            parameters:
+                - name: user
+                  in: path
+                  description: The user id.
+                  required: true
+                  schema:
+                    type: string
+                - name: contribution
+                  in: path
+                  description: The contribution id.
+                  required: true
+                  schema:
+                    type: string
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/animeshon.knowledge.v1alpha1.ReviewContributionRequest'
+                required: true
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/animeshon.knowledge.v1alpha1.Contribution'
+                default:
+                    description: Default error response
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/google.rpc.Status'
+components:
+    schemas:
+        animeshon.knowledge.v1alpha1.AllocateResourceNameResponse:
+            type: object
+            properties:
+                name:
+                    readOnly: true
+                    type: string
+                    description: The resource name of the resource to migrate.
+        animeshon.knowledge.v1alpha1.Anime:
+            required:
+                - name
+            type: object
+            properties:
+                name:
+                    type: string
+                    description: Required resource name
+                type:
+                    type: string
+                    description: Type of the animeValid anime types:Unknown typeUNKNOWNTv seriesTVMovieMOVIEOriginal video animationOVAOriginal Net AnimeONASpecialSPECIALWeb animeWEBMusic videoMUSIC_VIDEOOtherOTHER
+                episodes:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/animeshon.knowledge.v1alpha1.Edge'
+                    description: List of episode part of the anime
+                episodeCount:
+                    type: integer
+                    description: Number of scheduled episodes This field is useful for season anime which already announced how many episodes will be aired
+                    format: int32
+                names:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/google.type.LocalizedText'
+                    description: List of localized names of the entity
+                aliases:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/google.type.LocalizedText'
+                    description: List of localized aliases of the entity
+                descriptions:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/google.type.LocalizedText'
+                    description: List of localized descriptions of the entity
+                synopsys:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/google.type.LocalizedText'
+                    description: List of localized synopsys of the entity
+                coverImageId:
+                    type: string
+                    description: Cover Image id of the entity
+                bannerImageId:
+                    type: string
+                    description: Banner Image id of the entity
+                websites:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/animeshon.knowledge.v1alpha1.Website'
+                    description: List of websiste related to the entity. Websites might be official websites, Social, Wiki Entries
+                marketplaces:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/animeshon.knowledge.v1alpha1.Marketplace'
+                    description: List of marketplaces related to the entry. Maketplaces tells where to buy / consume / read the entity
+                status:
+                    type: string
+                    description: Status of the contentValid content statuses:Unknown statusUNKNOWNPublishing or airing is still ongoing.ONGOINGPublishing or airing has been completed.COMPLETEDPublishing or airing has been scheduled.SCHEDULEDPublishing or airing started but never finished.INTERRUPTEDPublishing or airing was scheduled but later canceled.CANCELEDPublishing or airing has been suspended / has been put on hold.SUSPENDEDThe content is in work in progressWORK_IN_PROGRESS
+                contentRelations:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/animeshon.knowledge.v1alpha1.ContentRelation'
+                    description: List of relations with other content
+                publishingType:
+                    type: string
+                    description: Publishin Type specifies wether the content has been produced by a self published creator or if it's backed by a corporationValid Publishing types:Unknown statusUNKNOWNSelf publishingSELFPublished by a corporationCORPORATE
+                original:
+                    type: string
+                    description: Original specifies if the idea behind the content is original or if it's base on an existing opera.Parodies of other content are normally not original, because charactes/settings/storyline are not owned by the creator.Valid values:TRUEFALSEUNKNOWN
+                runnings:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/animeshon.knowledge.v1alpha1.Running'
+                    description: List of localized airing/publishing periods of the content
+                releaseDate:
+                    type: string
+                    description: The release date in homeland of the content
+                    format: date
+                starring:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/animeshon.knowledge.v1alpha1.Cast'
+                    description: List of characters starred in the content
+                staff:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/animeshon.knowledge.v1alpha1.Collaboration'
+                    description: List of people/organizations which contributed to the production/distribution of the content
+                soundtracks:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/animeshon.knowledge.v1alpha1.Soundtrack'
+                    description: List of soundtracks in the content
+                voiceactings:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/animeshon.knowledge.v1alpha1.VoiceActing'
+                    description: List of voice actors giving voice to the characters in the content
+                maturityRatings:
+                    type: array
+                    items:
+                        type: string
+                    description: Maturity ratings describes what it the minum age to legally consume a content  Valid maturity Ratings:Over 18 in USAMTR_RTN_USA_NC17Over 18 in USAMTR_RTN_USA_ROver 13 in USAMTR_RTN_USA_PG13Over 3 in USAMTR_RTN_USA_PGSafe in USAMTR_RTN_USA_G
+                regionRestrictions:
+                    type: array
+                    items:
+                        type: string
+                    description: Region restrictions mark the content as illegal in some region given the local regulationsValid Region Restrictions:No Region RestrictionNONEThe Entity is illegal following the U.N. guidelinesILLEGAL
+        animeshon.knowledge.v1alpha1.ApproveContributionRequest:
+            required:
+                - name
+            type: object
+            properties:
+                name:
+                    type: string
+                    description: Required resource name
+        animeshon.knowledge.v1alpha1.Canonical:
+            required:
+                - name
+            type: object
+            properties:
+                name:
+                    type: string
+                    description: Required resource name
+                names:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/google.type.LocalizedText'
+                    description: List of localized names of the entity
+                aliases:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/google.type.LocalizedText'
+                    description: List of localized aliases of the entity
+                descriptions:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/google.type.LocalizedText'
+                    description: List of localized descriptions of the entity
+                synopsys:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/google.type.LocalizedText'
+                    description: List of localized synopsys of the entity
+                coverImageId:
+                    type: string
+                    description: Cover Image id of the entity
+                bannerImageId:
+                    type: string
+                    description: Banner Image id of the entity
+                websites:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/animeshon.knowledge.v1alpha1.Website'
+                    description: List of websiste related to the entity. Websites might be official websites, Social, Wiki Entries
+                marketplaces:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/animeshon.knowledge.v1alpha1.Marketplace'
+                    description: List of marketplaces related to the entry. Maketplaces tells where to buy / consume / read the entity
+                contents:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/animeshon.knowledge.v1alpha1.Edge'
+                    description: List of contents part of the canonical Canonicals can include Anime, GraphicNovels, LightNovels and VisualNovels
+        animeshon.knowledge.v1alpha1.Cast:
+            required:
+                - character
+                - relation
+            type: object
+            properties:
+                character:
+                    $ref: '#/components/schemas/animeshon.knowledge.v1alpha1.Edge'
+                relation:
+                    type: string
+                    description: Relation within the contentValid relations:MAINSUPPORTAPPEARS
+            description: Cast represnt the relation between a character and a content.The cast is always field of the content and the Edge points to the character.
+        animeshon.knowledge.v1alpha1.Chapter:
+            required:
+                - name
+            type: object
+            properties:
+                name:
+                    type: string
+                    description: Required resource name
+                type:
+                    type: string
+                    description: Type of the chapterValid Chapter typesUnknown typeUNKNOWNRegular chapterREGULARExtra chapterEXTRA
+                index:
+                    type: integer
+                    description: Incremental index of the chapter. Describes the release order
+                    format: int32
+                pageCount:
+                    type: integer
+                    description: Number of page of the chapter without extra pages
+                    format: int32
+                releaseDate:
+                    type: string
+                    description: The release date in homeland of the content
+                    format: date
+                names:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/google.type.LocalizedText'
+                    description: List of localized names of the entity
+                aliases:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/google.type.LocalizedText'
+                    description: List of localized aliases of the entity
+                descriptions:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/google.type.LocalizedText'
+                    description: List of localized descriptions of the entity
+                synopsys:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/google.type.LocalizedText'
+                    description: List of localized synopsys of the entity
+                coverImageId:
+                    type: string
+                    description: Cover Image id of the entity
+                bannerImageId:
+                    type: string
+                    description: Banner Image id of the entity
+                websites:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/animeshon.knowledge.v1alpha1.Website'
+                    description: List of websiste related to the entity. Websites might be official websites, Social, Wiki Entries
+                marketplaces:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/animeshon.knowledge.v1alpha1.Marketplace'
+                    description: List of marketplaces related to the entry. Maketplaces tells where to buy / consume / read the entity
+                staff:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/animeshon.knowledge.v1alpha1.Collaboration'
+                    description: List of people/organizations which contributed to the production/distribution of the content
+        animeshon.knowledge.v1alpha1.Character:
+            required:
+                - name
+            type: object
+            properties:
+                name:
+                    type: string
+                    description: Required resource name
+                birthday:
+                    type: string
+                    description: The birthday of the character
+                    format: date
+                gender:
+                    type: string
+                    description: Gender Valid Gender values:Unknown genderUNKNOWNMaleMALEFemaleFEMALEMale which seems a femaleMALE_TRAPFemale which seems a maleFEMALE_TRAPBoth male and femaleHERMAPHRODITICNone of the default gender appliesOTHERThe gender is undefinedUNDEFINEDThe gender something between male and femaleINTERSEXUAL
+                bloodType:
+                    type: string
+                    description: Blod TypeValid blood types:Unknown blood typeUNKNOWNA (no Rh info)AB (no Rh info)BAB (no Rh info)ABO (no Rh info)OA+A_PLUSB+B_PLUSAB+AB_PLUSO+O_PLUSA-A_MINUSB-B_MINUSAB-AB_MINUSO-O_MINUS
+                names:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/google.type.LocalizedText'
+                    description: List of localized names of the entity
+                aliases:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/google.type.LocalizedText'
+                    description: List of localized aliases of the entity
+                descriptions:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/google.type.LocalizedText'
+                    description: List of localized descriptions of the entity
+                coverImageId:
+                    type: string
+                    description: Cover Image id of the entity
+                bannerImageId:
+                    type: string
+                    description: Banner Image id of the entity
+                websites:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/animeshon.knowledge.v1alpha1.Website'
+                    description: List of websiste related to the entity. Websites might be official websites, Social, Wiki Entries
+                marketplaces:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/animeshon.knowledge.v1alpha1.Marketplace'
+                    description: List of marketplaces related to the entry. Maketplaces tells where to buy / consume / read the entity
+        animeshon.knowledge.v1alpha1.Collaboration:
+            required:
+                - collaborator
+                - localization
+                - role
+            type: object
+            properties:
+                collaborator:
+                    $ref: '#/components/schemas/animeshon.knowledge.v1alpha1.Edge'
+                localization:
+                    type: string
+                    description: Valid ISO3 localization in which the collaborator took part in
+                role:
+                    type: string
+                    description: What role the collaborator had
+            description: Collaboration represent the relation between a content and a person or organization.The collaboration must be localizaed and it must carry the information about the role of the collaborator.The Collaboration is always field of the content and the Edge points to the collaborator.The localization must be a valid ISO3 localization which identifies the language/full localization of the content's version for which the collaborator collaborated
+        animeshon.knowledge.v1alpha1.ContentRelation:
+            required:
+                - related
+                - relation
+            type: object
+            properties:
+                related:
+                    $ref: '#/components/schemas/animeshon.knowledge.v1alpha1.Edge'
+                relation:
+                    type: string
+                    description: RelationValid relations:ADAPTATION implies that the subject is the base from which the object has been adaptedADAPTATIONBASE AdaptationBASESAMESETTING Same universe/world/reality/timeline with completely different characters.SAME_SETTINGALTSETTING Same universe/world/reality/timeline same characters with different universe/world/reality/timeline.ALTERNATIVE_SETTINGALTVERSION alternative version Same setting, same characters, story is told differently.ALTERNATIVE_VERSIONCHARACTER When characters appear in both series, but is not a spin-offCHARACTERFULLSTORY the object is full story of the subjectthis implies that the subject is a summary of the objectFULL_STORYSUMMARY summarySUMMARYPARENTSTORY the object is the parent story of the subjectthis implies that the subject is a spin-off of the objectPARENT_STORYSpinOff spin offSPIN_OFFPREQUEL prequelPREQUELSEQUEL sequelSEQUELMAINSTORY the object is the main story from which the subject has been createdthis implies that the subject is a side story of the objectMAIN_STORYSIDESTORY side storySIDE_STORYORIGINAL the object is the original of the subjectthis implies that the subject is the parody or fan made objectORIGINALPARODY is parodyPARODY
+            description: 'ContentRelation represent the relation between 2 different content.The ContentReleation field is common to both the content, therefore the server do not needto have both relations (from content A to B, and from B to A) because it will generate automaticallythe reverse relation.> Sending A sequel of B, the server will generate B prequel AThe relation has to be read asentity -> has <relation> -> which is <related>EG: Naruto -> Sequel -> Naruto Shippuden = <Naruto> has <sequel>, which is <Naruto Shippuden>'
+        animeshon.knowledge.v1alpha1.Contribution:
+            required:
+                - name
+            type: object
+            properties:
+                name:
+                    type: string
+                    description: The resource name of the contribution. Required resource name
+                reviewer:
+                    readOnly: true
+                    type: string
+                    description: Who reviewed (accepting or rejecting) the contribution. Null if the contribution is still in reviewing phase
+                state:
+                    readOnly: true
+                    enum:
+                        - PENDING
+                        - APPROVED
+                        - REJECTED
+                        - DRAFT
+                    type: string
+                    description: The state of the contribution
+                    format: enum
+                displayName:
+                    type: string
+                    description: Arbitrary human readible contribution
+                generation:
+                    readOnly: true
+                    type: integer
+                    description: Incremental value which specifies how many times the contribution has been reviewed.
+                    format: int32
+                createTime:
+                    readOnly: true
+                    type: string
+                    description: When the album was created.
+                    format: date-time
+                updateTime:
+                    readOnly: true
+                    type: string
+                    description: When the album was updated.
+                    format: date-time
+                reviewTime:
+                    readOnly: true
+                    type: string
+                    description: When the album was reviewed.
+                    format: date-time
+            description: Contribution is the overall reppresentation of the contribution
+        animeshon.knowledge.v1alpha1.ContributionChanges:
+            type: object
+            properties:
+                additions:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/animeshon.knowledge.v1alpha1.EntryEntity'
+                    description: List of additions of the contribution
+                deletions:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/animeshon.knowledge.v1alpha1.EntryEntity'
+                    description: List of deletions of the cotributions Deleletion on primary entities (Anime/GraphicNovel/...) replace the old values while deletion on relations preserve the relation itself but mark it as deleted
+            description: ContributionChanges decribes all the operations the contribution performs on an arbitrary number of entities
+        animeshon.knowledge.v1alpha1.CreateContributionRequest:
+            required:
+                - parent
+            type: object
+            properties:
+                parent:
+                    type: string
+                    description: The parent resource where this contribution will be created.
+                contribution:
+                    $ref: '#/components/schemas/animeshon.knowledge.v1alpha1.Contribution'
+                changes:
+                    $ref: '#/components/schemas/animeshon.knowledge.v1alpha1.ContributionChanges'
+        animeshon.knowledge.v1alpha1.Edge:
+            required:
+                - name
+            type: object
+            properties:
+                name:
+                    type: string
+                    description: Entity resource name
+            description: Relation with another entity
+        animeshon.knowledge.v1alpha1.EntryEntity:
+            type: object
+            properties:
+                anime:
+                    $ref: '#/components/schemas/animeshon.knowledge.v1alpha1.Anime'
+                canonical:
+                    $ref: '#/components/schemas/animeshon.knowledge.v1alpha1.Canonical'
+                chapter:
+                    $ref: '#/components/schemas/animeshon.knowledge.v1alpha1.Chapter'
+                character:
+                    $ref: '#/components/schemas/animeshon.knowledge.v1alpha1.Character'
+                episode:
+                    $ref: '#/components/schemas/animeshon.knowledge.v1alpha1.Episode'
+                gameRelease:
+                    $ref: '#/components/schemas/animeshon.knowledge.v1alpha1.GameRelease'
+                graphicNovel:
+                    $ref: '#/components/schemas/animeshon.knowledge.v1alpha1.GraphicNovel'
+                lightNovel:
+                    $ref: '#/components/schemas/animeshon.knowledge.v1alpha1.LightNovel'
+                organization:
+                    $ref: '#/components/schemas/animeshon.knowledge.v1alpha1.Organization'
+                person:
+                    $ref: '#/components/schemas/animeshon.knowledge.v1alpha1.Person'
+                track:
+                    $ref: '#/components/schemas/animeshon.knowledge.v1alpha1.Track'
+                universe:
+                    $ref: '#/components/schemas/animeshon.knowledge.v1alpha1.Universe'
+                visualNovel:
+                    $ref: '#/components/schemas/animeshon.knowledge.v1alpha1.VisualNovel'
+        animeshon.knowledge.v1alpha1.Episode:
+            required:
+                - name
+            type: object
+            properties:
+                name:
+                    type: string
+                    description: Required resource name
+                type:
+                    type: string
+                    description: Type of the episodeValid Episode types:Unknown episode typeUNKNOWNRegular episodeREGULARRecapitolation episodeRECAPParody Fan madePARODYPromo episodePROMOSpecial episodeSPECIALOpening / ending episodeOPENING_ENDINGOtherOTHER
+                index:
+                    type: integer
+                    description: Incremental index of the episode. Describes the release order
+                    format: int32
+                releaseDate:
+                    type: string
+                    description: The release date in homeland of the content
+                    format: date
+                names:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/google.type.LocalizedText'
+                    description: List of localized names of the entity
+                aliases:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/google.type.LocalizedText'
+                    description: List of localized aliases of the entity
+                descriptions:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/google.type.LocalizedText'
+                    description: List of localized descriptions of the entity
+                synopsys:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/google.type.LocalizedText'
+                    description: List of localized synopsys of the entity
+                coverImageId:
+                    type: string
+                    description: Cover Image id of the entity
+                bannerImageId:
+                    type: string
+                    description: Banner Image id of the entity
+                websites:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/animeshon.knowledge.v1alpha1.Website'
+                    description: List of websiste related to the entity. Websites might be official websites, Social, Wiki Entries
+                marketplaces:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/animeshon.knowledge.v1alpha1.Marketplace'
+                    description: List of marketplaces related to the entry. Maketplaces tells where to buy / consume / read the entity
+                staff:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/animeshon.knowledge.v1alpha1.Collaboration'
+                    description: List of people/organizations which contributed to the production/distribution of the content
+                soundtracks:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/animeshon.knowledge.v1alpha1.Soundtrack'
+                    description: List of soundtracks in the content
+                voiceactings:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/animeshon.knowledge.v1alpha1.VoiceActing'
+                    description: List of voice actors giving voice to the characters in the content
+                lengthSeconds:
+                    type: integer
+                    description: Length of the episode in seconds.
+                    format: int32
+        animeshon.knowledge.v1alpha1.GameRelease:
+            required:
+                - name
+            type: object
+            properties:
+                name:
+                    type: string
+                    description: Required resource name
+                languages:
+                    type: array
+                    items:
+                        type: string
+                    description: List of languages the release is localized in
+                releaseDate:
+                    type: string
+                    description: The release date in homeland of the content
+                    format: date
+                censorship:
+                    type: string
+                    description: Valid CensorshipsUnknown censorshipUNKNOWNNo censorshipNONECensorship appliedCENSORED
+                publishingType:
+                    type: string
+                    description: Publishin Type specifies wether the content has been produced by a self published creator or if it's backed by a corporationValid Publishing types:Unknown statusUNKNOWNSelf publishingSELFPublished by a corporationCORPORATE
+                asin:
+                    type: string
+                    description: Amazon identifier of the good
+                gtin:
+                    type: string
+                    description: Global Trade identifier of the good
+                type:
+                    type: string
+                    description: valid game release types:Unknown game release typeUNKNOWNThe release is completeCOMPLETEThe release is only a part of the contentPARTIALThe release is just trialTRIALThe release is a dlcDLC
+                IsPatch:
+                    type: string
+                    description: If patch the release is not sold alone and it's ment to be applied to an existing gameValid values:TRUEFALSEUNKNOWN
+                dubDegree:
+                    type: string
+                    description: dub_degree describes how much of the game is dubbedValid game dub degreeUnknown DUB degreeUNKNOWNNot dubbedNONEOnly erotic scenes are dubbedERO_ONLYPartially dubbedPARTIALFull dubbedFULL
+                storyAnimationDegree:
+                    type: string
+                    description: story_animation_degree specifies how well the story scenes are animatedValid game animation degrees:Unknown animation degreeUNKNOWNNo animationNONESimple animationsSIMPLEPartial animation -  Some fully animated scenesPARTIALFully animatedFULL
+                eroAnimationDegree:
+                    type: string
+                    description: ero_animation_degree specifies how well the erotic scenes are animatedValid game animation degrees:Unknown animation degreeUNKNOWNNo animationNONESimple animationsSIMPLEPartial animation -  Some fully animated scenesPARTIALFully animatedFULL
+                engine:
+                    type: string
+                platforms:
+                    type: array
+                    items:
+                        type: string
+                    description: Valid Platforms:Unknown platformUNKNOWN WindowsWINDOWS DOSDOS LINUXLINUX MacMAC IOs devicesIOS AndroidANDROID DVD playerDVD_PLAYER Blu-ray PlayerBLU_RAY_PLAYER FM Towns https://en.wikipedia.org/wiki/FM_TownsFM_TOWNS FM-7 Towns https://en.wikipedia.org/wiki/FM-7FM7_TOWNS FM-8 Towns https://en.wikipedia.org/wiki/FM-8FM8_TOWNS Gameboy advanceGAMEBOY_ADVANCE Gameboy colorGAMEBOY_COLOR MSX Computer https://en.wikipedia.org/wiki/MSXMSX Nintendo DSNINTENDO_DS NES platformNES C88 https://en.wikipedia.org/wiki/PC-8800_seriesP88 PC98 https://en.wikipedia.org/wiki/PC-9800_seriesP98 PC EnginePC_ENGINE Pc-FX https://en.wikipedia.org/wiki/PC-FXPC_FX Playstation portablePSP Playstation 1PS1 Playstation 2PS2 Playstation 3PS3 Playstation 4PS4 Playstation 5PS5 Playstation vitaPS_VITA Dgramcast https://en.wikipedia.org/wiki/DreamcastDGRAMCAST Sega StaurnSEGA_SATURN Sega Mega-CDSEGA_MEGACD Super NintendoSUPER_NINTENDO Nintendo SwitchNINTENDO_SWITCH Ninentdo WIININTENDO_WII Nintendo WININTENDO_WII_U Nintendo 3DsNINTENDO_3DS X68000 https://en.wikipedia.org/wiki/X68000X68000 Xbox OneXBOX_ONE Xbox 360XBOX_360 XboxXBOX Xbox Series XXBOX_X WebsiteWEBSITE Visual Novel DS https://github.com/BASLQC/vnds/wikiVN_DS Sharp X1 https://en.wikipedia.org/wiki/Sharp_X1SHARP_X1 3DO Interactive MultiplayerINTERACTIVE_3DO OtherOTHER Mobile OtherMOBILE_OTHER
+                names:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/google.type.LocalizedText'
+                    description: List of localized names of the entity
+                aliases:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/google.type.LocalizedText'
+                    description: List of localized aliases of the entity
+                descriptions:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/google.type.LocalizedText'
+                    description: List of localized descriptions of the entity
+                synopsys:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/google.type.LocalizedText'
+                    description: List of localized synopsys of the entity
+                coverImageId:
+                    type: string
+                    description: Cover Image id of the entity
+                bannerImageId:
+                    type: string
+                    description: Banner Image id of the entity
+                websites:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/animeshon.knowledge.v1alpha1.Website'
+                    description: List of websiste related to the entity. Websites might be official websites, Social, Wiki Entries
+                marketplaces:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/animeshon.knowledge.v1alpha1.Marketplace'
+                    description: List of marketplaces related to the entry. Maketplaces tells where to buy / consume / read the entity
+                starring:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/animeshon.knowledge.v1alpha1.Cast'
+                    description: List of characters starred in the content
+                staff:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/animeshon.knowledge.v1alpha1.Collaboration'
+                    description: List of people/organizations which contributed to the production/distribution of the content
+                soundtracks:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/animeshon.knowledge.v1alpha1.Soundtrack'
+                    description: List of soundtracks in the content
+                voiceactings:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/animeshon.knowledge.v1alpha1.VoiceActing'
+                    description: List of voice actors giving voice to the characters in the content
+                maturityRatings:
+                    type: array
+                    items:
+                        type: string
+                    description: Maturity ratings describes what it the minum age to legally consume a content  Valid maturity Ratings:Over 18 in USAMTR_RTN_USA_NC17Over 18 in USAMTR_RTN_USA_ROver 13 in USAMTR_RTN_USA_PG13Over 3 in USAMTR_RTN_USA_PGSafe in USAMTR_RTN_USA_G
+                regionRestrictions:
+                    type: array
+                    items:
+                        type: string
+                    description: Region restrictions mark the content as illegal in some region given the local regulationsValid Region Restrictions:No Region RestrictionNONEThe Entity is illegal following the U.N. guidelinesILLEGAL
+                original:
+                    type: string
+                    description: Original specifies if the idea behind the content is original or if it's base on an existing opera.Parodies of other content are normally not original, because charactes/settings/storyline are not owned by the creator.Valid values:TRUEFALSEUNKNOWN
+        animeshon.knowledge.v1alpha1.GraphicNovel:
+            required:
+                - name
+            type: object
+            properties:
+                name:
+                    type: string
+                    description: Required resource name
+                type:
+                    type: string
+                    description: Type of the graphic novelValid Graphic Novel types:Unknown graphic novel typeUNKNOWNJapanese GraphicNovelMANGAOne shot (only one volume)ONE_SHOTCinese GraphicNovelMANHUAKorean GraphicNovelMANHWAOriginal English LanguageOELWeb native comic (webtoon)WEB_COMICGraphicNovel consisting of 4 pannelsYON_KOMAOtherOTHER
+                chapters:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/animeshon.knowledge.v1alpha1.Edge'
+                    description: List of chaters part of the graphic novel
+                chapterCount:
+                    type: integer
+                    description: Number of scheduled chapters This field is useful for graphic novels which already announced how many chapter will be published
+                    format: int32
+                names:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/google.type.LocalizedText'
+                    description: List of localized names of the entity
+                aliases:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/google.type.LocalizedText'
+                    description: List of localized aliases of the entity
+                descriptions:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/google.type.LocalizedText'
+                    description: List of localized descriptions of the entity
+                synopsys:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/google.type.LocalizedText'
+                    description: List of localized synopsys of the entity
+                coverImageId:
+                    type: string
+                    description: Cover Image id of the entity
+                bannerImageId:
+                    type: string
+                    description: Banner Image id of the entity
+                websites:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/animeshon.knowledge.v1alpha1.Website'
+                    description: List of websiste related to the entity. Websites might be official websites, Social, Wiki Entries
+                marketplaces:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/animeshon.knowledge.v1alpha1.Marketplace'
+                    description: List of marketplaces related to the entry. Maketplaces tells where to buy / consume / read the entity
+                status:
+                    type: string
+                    description: Status of the contentValid content statuses:Unknown statusUNKNOWNPublishing or airing is still ongoing.ONGOINGPublishing or airing has been completed.COMPLETEDPublishing or airing has been scheduled.SCHEDULEDPublishing or airing started but never finished.INTERRUPTEDPublishing or airing was scheduled but later canceled.CANCELEDPublishing or airing has been suspended / has been put on hold.SUSPENDEDThe content is in work in progressWORK_IN_PROGRESS
+                contentRelations:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/animeshon.knowledge.v1alpha1.ContentRelation'
+                    description: List of relations with other content
+                publishingType:
+                    type: string
+                    description: Publishin Type specifies wether the content has been produced by a self published creator or if it's backed by a corporationValid Publishing types:Unknown statusUNKNOWNSelf publishingSELFPublished by a corporationCORPORATE
+                original:
+                    type: string
+                    description: Original specifies if the idea behind the content is original or if it's base on an existing opera.Parodies of other content are normally not original, because charactes/settings/storyline are not owned by the creator.Valid values:TRUEFALSEUNKNOWN
+                runnings:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/animeshon.knowledge.v1alpha1.Running'
+                    description: List of localized airing/publishing periods of the content
+                releaseDate:
+                    type: string
+                    description: The release date in homeland of the content
+                    format: date
+                starring:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/animeshon.knowledge.v1alpha1.Cast'
+                    description: List of characters starred in the content
+                staff:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/animeshon.knowledge.v1alpha1.Collaboration'
+                    description: List of people/organizations which contributed to the production/distribution of the content
+                maturityRatings:
+                    type: array
+                    items:
+                        type: string
+                    description: Maturity ratings describes what it the minum age to legally consume a content  Valid maturity Ratings:Over 18 in USAMTR_RTN_USA_NC17Over 18 in USAMTR_RTN_USA_ROver 13 in USAMTR_RTN_USA_PG13Over 3 in USAMTR_RTN_USA_PGSafe in USAMTR_RTN_USA_G
+                regionRestrictions:
+                    type: array
+                    items:
+                        type: string
+                    description: Region restrictions mark the content as illegal in some region given the local regulationsValid Region Restrictions:No Region RestrictionNONEThe Entity is illegal following the U.N. guidelinesILLEGAL
+        animeshon.knowledge.v1alpha1.LightNovel:
+            required:
+                - name
+            type: object
+            properties:
+                name:
+                    type: string
+                    description: Required resource name
+                chapters:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/animeshon.knowledge.v1alpha1.Edge'
+                    description: List of chaters part of the light novel
+                chapterCount:
+                    type: integer
+                    description: Number of scheduled chapters This field is useful for light novels which already announced how many chapter will be published
+                    format: int32
+                names:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/google.type.LocalizedText'
+                    description: List of localized names of the entity
+                aliases:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/google.type.LocalizedText'
+                    description: List of localized aliases of the entity
+                descriptions:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/google.type.LocalizedText'
+                    description: List of localized descriptions of the entity
+                synopsys:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/google.type.LocalizedText'
+                    description: List of localized synopsys of the entity
+                coverImageId:
+                    type: string
+                    description: Cover Image id of the entity
+                bannerImageId:
+                    type: string
+                    description: Banner Image id of the entity
+                websites:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/animeshon.knowledge.v1alpha1.Website'
+                    description: List of websiste related to the entity. Websites might be official websites, Social, Wiki Entries
+                marketplaces:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/animeshon.knowledge.v1alpha1.Marketplace'
+                    description: List of marketplaces related to the entry. Maketplaces tells where to buy / consume / read the entity
+                status:
+                    type: string
+                    description: Status of the contentValid content statuses:Unknown statusUNKNOWNPublishing or airing is still ongoing.ONGOINGPublishing or airing has been completed.COMPLETEDPublishing or airing has been scheduled.SCHEDULEDPublishing or airing started but never finished.INTERRUPTEDPublishing or airing was scheduled but later canceled.CANCELEDPublishing or airing has been suspended / has been put on hold.SUSPENDEDThe content is in work in progressWORK_IN_PROGRESS
+                contentRelations:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/animeshon.knowledge.v1alpha1.ContentRelation'
+                    description: List of relations with other content
+                publishingType:
+                    type: string
+                    description: Publishin Type specifies wether the content has been produced by a self published creator or if it's backed by a corporationValid Publishing types:Unknown statusUNKNOWNSelf publishingSELFPublished by a corporationCORPORATE
+                original:
+                    type: string
+                    description: Original specifies if the idea behind the content is original or if it's base on an existing opera.Parodies of other content are normally not original, because charactes/settings/storyline are not owned by the creator.Valid values:TRUEFALSEUNKNOWN
+                runnings:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/animeshon.knowledge.v1alpha1.Running'
+                    description: List of localized airing/publishing periods of the content
+                releaseDate:
+                    type: string
+                    description: The release date in homeland of the content
+                    format: date
+                starring:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/animeshon.knowledge.v1alpha1.Cast'
+                    description: List of characters starred in the content
+                staff:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/animeshon.knowledge.v1alpha1.Collaboration'
+                    description: List of people/organizations which contributed to the production/distribution of the content
+                maturityRatings:
+                    type: array
+                    items:
+                        type: string
+                    description: Maturity ratings describes what it the minum age to legally consume a content  Valid maturity Ratings:Over 18 in USAMTR_RTN_USA_NC17Over 18 in USAMTR_RTN_USA_ROver 13 in USAMTR_RTN_USA_PG13Over 3 in USAMTR_RTN_USA_PGSafe in USAMTR_RTN_USA_G
+                regionRestrictions:
+                    type: array
+                    items:
+                        type: string
+                    description: Region restrictions mark the content as illegal in some region given the local regulationsValid Region Restrictions:No Region RestrictionNONEThe Entity is illegal following the U.N. guidelinesILLEGAL
+        animeshon.knowledge.v1alpha1.ListContributionsResponse:
+            type: object
+            properties:
+                contributions:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/animeshon.knowledge.v1alpha1.Contribution'
+                    description: The list of contributions.
+                nextPageToken:
+                    type: string
+                    description: A token to retrieve next page of results.
+        animeshon.knowledge.v1alpha1.Marketplace:
+            required:
+                - name
+                - url
+            type: object
+            properties:
+                name:
+                    type: string
+                    description: Required resource name
+                url:
+                    type: string
+                    description: Marketplace url
+                region:
+                    type: string
+                    description: region in which the marketplace distributes
+            description: Marketplace is where to consume the content.The name field must point to a valid valid marketplace id in order to load icon and name of the marketplace.If the marketplace is limited to some specific country, add them to the field region following the IOS3 standard
+        animeshon.knowledge.v1alpha1.Organization:
+            required:
+                - name
+            type: object
+            properties:
+                name:
+                    type: string
+                    description: Required resource name
+                type:
+                    type: string
+                    description: Type of the organizationValid Organization types:Uunknown organization typeUNKNOWNCoorporation / companyCORPORATECircle of peopleCIRCLE
+                foundationDate:
+                    type: string
+                    description: Foundation date of the organization
+                    format: date
+                names:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/google.type.LocalizedText'
+                    description: List of localized names of the entity
+                aliases:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/google.type.LocalizedText'
+                    description: List of localized aliases of the entity
+                descriptions:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/google.type.LocalizedText'
+                    description: List of localized descriptions of the entity
+                synopsys:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/google.type.LocalizedText'
+                    description: List of localized synopsys of the entity
+                coverImageId:
+                    type: string
+                    description: Cover Image id of the entity
+                bannerImageId:
+                    type: string
+                    description: Banner Image id of the entity
+                websites:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/animeshon.knowledge.v1alpha1.Website'
+                    description: List of websiste related to the entity. Websites might be official websites, Social, Wiki Entries
+        animeshon.knowledge.v1alpha1.Person:
+            required:
+                - name
+            type: object
+            properties:
+                name:
+                    type: string
+                    description: Required resource name
+                birthday:
+                    type: string
+                    description: Birthday of the person
+                    format: date
+                gender:
+                    type: string
+                    description: Gender Valid Gender values:Unknown genderUNKNOWN MaleMALE FemaleFEMALE
+                bloodType:
+                    type: string
+                    description: Blod TypeValid blood types:Unknown blood typeUNKNOWNA (no Rh info)AB (no Rh info)BAB (no Rh info)ABO (no Rh info)OA+A_PLUSB+B_PLUSAB+AB_PLUSO+O_PLUSA-A_MINUSB-B_MINUSAB-AB_MINUSO-O_MINUS
+                names:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/google.type.LocalizedText'
+                    description: List of localized names of the entity
+                aliases:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/google.type.LocalizedText'
+                    description: List of localized aliases of the entity
+                descriptions:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/google.type.LocalizedText'
+                    description: List of localized descriptions of the entity
+                synopsys:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/google.type.LocalizedText'
+                    description: List of localized synopsys of the entity
+                coverImageId:
+                    type: string
+                    description: Cover Image id of the entity
+                bannerImageId:
+                    type: string
+                    description: Banner Image id of the entity
+                websites:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/animeshon.knowledge.v1alpha1.Website'
+                    description: List of websiste related to the entity. Websites might be official websites, Social, Wiki Entries
+        animeshon.knowledge.v1alpha1.RejectContributionRequest:
+            required:
+                - name
+            type: object
+            properties:
+                name:
+                    type: string
+                    description: Required resource name
+        animeshon.knowledge.v1alpha1.ReviewContributionRequest:
+            type: object
+            properties:
+                name:
+                    type: string
+                    description: Name of the contribution
+                comment:
+                    type: string
+                    description: Optional comment on the review
+                changes:
+                    $ref: '#/components/schemas/animeshon.knowledge.v1alpha1.ContributionChanges'
+                discards:
+                    $ref: '#/components/schemas/animeshon.knowledge.v1alpha1.ContributionChanges'
+            description: ReviewContributionRequest specifies the edit to apply to an existing contribution
+        animeshon.knowledge.v1alpha1.Running:
+            required:
+                - startTime
+                - localization
+            type: object
+            properties:
+                startTime:
+                    type: string
+                    description: Start of the publishing/airing/release
+                    format: date
+                endTime:
+                    type: string
+                    description: End of the publishing/airing/release   Omitted if the content is still ONGOING
+                    format: date
+                localization:
+                    type: string
+                    description: Valid ISO3 localization
+            description: Period in which the content has been aired/released/published for a particular localization
+        animeshon.knowledge.v1alpha1.Soundtrack:
+            required:
+                - track
+                - type
+                - localization
+            type: object
+            properties:
+                track:
+                    $ref: '#/components/schemas/animeshon.knowledge.v1alpha1.Edge'
+                type:
+                    type: string
+                    description: Type describes for what purpose the track was usedValid Soundtrack types:Unknown typeUNKNOWNThe track is used as endingENDINGThe track is used as openingOPENINGThe track is used as insert songINSERTThe track is used as background songBACKGROUNDThe track is used as image songIMAGEThe track is used as theme songTHEME
+                localization:
+                    type: string
+                    description: Valid ISO3 localization in which the track was used
+            description: Soundtrack exposes the information about which Track has been used in which Content in which localization and for what.The localization must be a valid ISO3 localization which identifies the language/full localization of the content's version for which the Track is used
+        animeshon.knowledge.v1alpha1.Track:
+            required:
+                - name
+            type: object
+            properties:
+                name:
+                    type: string
+                    description: Required resource name
+                releaseDate:
+                    type: string
+                    description: The release date in homeland of the content
+                    format: date
+                names:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/google.type.LocalizedText'
+                    description: List of localized names of the entity
+                aliases:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/google.type.LocalizedText'
+                    description: List of localized aliases of the entity
+                descriptions:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/google.type.LocalizedText'
+                    description: List of localized descriptions of the entity
+                synopsys:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/google.type.LocalizedText'
+                    description: List of localized synopsys of the entity
+                coverImageId:
+                    type: string
+                    description: Cover Image id of the entity
+                bannerImageId:
+                    type: string
+                    description: Banner Image id of the entity
+                websites:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/animeshon.knowledge.v1alpha1.Website'
+                    description: List of websiste related to the entity. Websites might be official websites, Social, Wiki Entries
+                marketplaces:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/animeshon.knowledge.v1alpha1.Marketplace'
+                    description: List of marketplaces related to the entry. Maketplaces tells where to buy / consume / read the entity
+                staff:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/animeshon.knowledge.v1alpha1.Collaboration'
+                    description: List of people/organizations which contributed to the production/distribution of the content
+        animeshon.knowledge.v1alpha1.Universe:
+            required:
+                - name
+            type: object
+            properties:
+                name:
+                    type: string
+                    description: Required resource name
+                names:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/google.type.LocalizedText'
+                    description: List of localized names of the entity
+                aliases:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/google.type.LocalizedText'
+                    description: List of localized aliases of the entity
+                descriptions:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/google.type.LocalizedText'
+                    description: List of localized descriptions of the entity
+                synopsys:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/google.type.LocalizedText'
+                    description: List of localized synopsys of the entity
+                coverImageId:
+                    type: string
+                    description: Cover Image id of the entity
+                bannerImageId:
+                    type: string
+                    description: Banner Image id of the entity
+                websites:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/animeshon.knowledge.v1alpha1.Website'
+                    description: List of websiste related to the entity. Websites might be official websites, Social, Wiki Entries
+                marketplaces:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/animeshon.knowledge.v1alpha1.Marketplace'
+                    description: List of marketplaces related to the entry. Maketplaces tells where to buy / consume / read the entity
+                contents:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/animeshon.knowledge.v1alpha1.Edge'
+                    description: List of contents part of the universe Universes can include Anime, GraphicNovels, LightNovels and VisualNovels
+                canonicals:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/animeshon.knowledge.v1alpha1.Edge'
+                    description: List of canonicals part of the universe
+        animeshon.knowledge.v1alpha1.VisualNovel:
+            required:
+                - name
+            type: object
+            properties:
+                name:
+                    type: string
+                    description: Required resource name
+                length:
+                    type: string
+                    description: Valid Visual Novel lengths:Unknown lengthUNKNOWN< 2 hoursVERY_SHORT20 - 10 hoursSHORT10 - 30 hoursMEDIUM30 - 50 hoursLONG> 50 hoursVERY_LONG
+                names:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/google.type.LocalizedText'
+                    description: List of localized names of the entity
+                aliases:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/google.type.LocalizedText'
+                    description: List of localized aliases of the entity
+                descriptions:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/google.type.LocalizedText'
+                    description: List of localized descriptions of the entity
+                synopsys:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/google.type.LocalizedText'
+                    description: List of localized synopsys of the entity
+                coverImageId:
+                    type: string
+                    description: Cover Image id of the entity
+                bannerImageId:
+                    type: string
+                    description: Banner Image id of the entity
+                websites:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/animeshon.knowledge.v1alpha1.Website'
+                    description: List of websiste related to the entity. Websites might be official websites, Social, Wiki Entries
+                marketplaces:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/animeshon.knowledge.v1alpha1.Marketplace'
+                    description: List of marketplaces related to the entry. Maketplaces tells where to buy / consume / read the entity
+                status:
+                    type: string
+                    description: Status of the contentValid content statuses:Unknown statusUNKNOWNPublishing or airing is still ongoing.ONGOINGPublishing or airing has been completed.COMPLETEDPublishing or airing has been scheduled.SCHEDULEDPublishing or airing started but never finished.INTERRUPTEDPublishing or airing was scheduled but later canceled.CANCELEDPublishing or airing has been suspended / has been put on hold.SUSPENDEDThe content is in work in progressWORK_IN_PROGRESS
+                contentRelations:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/animeshon.knowledge.v1alpha1.ContentRelation'
+                    description: List of relations with other content
+                publishingType:
+                    type: string
+                    description: Publishin Type specifies wether the content has been produced by a self published creator or if it's backed by a corporationValid Publishing types:Unknown statusUNKNOWNSelf publishingSELFPublished by a corporationCORPORATE
+                original:
+                    type: string
+                    description: Original specifies if the idea behind the content is original or if it's base on an existing opera.Parodies of other content are normally not original, because charactes/settings/storyline are not owned by the creator.Valid values:TRUEFALSEUNKNOWN
+                runnings:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/animeshon.knowledge.v1alpha1.Running'
+                    description: List of localized airing/publishing periods of the content
+                releaseDate:
+                    type: string
+                    description: The release date in homeland of the content
+                    format: date
+                starring:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/animeshon.knowledge.v1alpha1.Cast'
+                    description: List of characters starred in the content
+                staff:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/animeshon.knowledge.v1alpha1.Collaboration'
+                    description: List of people/organizations which contributed to the production/distribution of the content
+                soundtracks:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/animeshon.knowledge.v1alpha1.Soundtrack'
+                    description: List of soundtracks in the content
+                voiceactings:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/animeshon.knowledge.v1alpha1.VoiceActing'
+                    description: List of voice actors giving voice to the characters in the content
+                maturityRatings:
+                    type: array
+                    items:
+                        type: string
+                    description: Maturity ratings describes what it the minum age to legally consume a content  Valid maturity Ratings:Over 18 in USAMTR_RTN_USA_NC17Over 18 in USAMTR_RTN_USA_ROver 13 in USAMTR_RTN_USA_PG13Over 3 in USAMTR_RTN_USA_PGSafe in USAMTR_RTN_USA_G
+                regionRestrictions:
+                    type: array
+                    items:
+                        type: string
+                    description: Region restrictions mark the content as illegal in some region given the local regulationsValid Region Restrictions:No Region RestrictionNONEThe Entity is illegal following the U.N. guidelinesILLEGAL
+                releases:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/animeshon.knowledge.v1alpha1.Edge'
+                    description: 'Releases are all those entities which practically make the content consumable Some examples are: Volumes for GraphicNovels/LightNovels/Chapters, BlueRays for Anime, Collector Editions...'
+        animeshon.knowledge.v1alpha1.VoiceActing:
+            required:
+                - voiced
+                - actor
+                - localization
+                - primary
+            type: object
+            properties:
+                voiced:
+                    $ref: '#/components/schemas/animeshon.knowledge.v1alpha1.Edge'
+                actor:
+                    $ref: '#/components/schemas/animeshon.knowledge.v1alpha1.Edge'
+                localization:
+                    type: string
+                    description: Valid ISO3 localization for which the voice was given
+                primary:
+                    type: string
+                    description: Voices can be primary or not.Primary voices are those lasting for the majority of the conteWhile Secondary voices are normally used in flashbacks or side eventsValid values:TRUEFALSEUNKNOWN
+            description: Voice Acting represent voice given by a person to a voiced entity in a specific contentThe Voice Acting is always field of the content and it must be localized.The localization must be a valid ISO3 localization which identifies the language/full localization of the content's version for which the actor gave the voice to the entity
+        animeshon.knowledge.v1alpha1.Website:
+            required:
+                - url
+            type: object
+            properties:
+                url:
+                    type: string
+                    description: Website url
+            description: Any kind of website related to the entity.Could be official website, twitter, or external resources such as wikipedia
+        google.protobuf.Any:
+            type: object
+            properties:
+                '@type':
+                    type: string
+                    description: The type of the serialized message.
+            additionalProperties: true
+            description: Contains an arbitrary serialized message along with a @type that describes the type of the serialized message.
+        google.rpc.Status:
+            type: object
+            properties:
+                code:
+                    type: integer
+                    description: The status code, which should be an enum value of [google.rpc.Code][google.rpc.Code].
+                    format: int32
+                message:
+                    type: string
+                    description: A developer-facing error message, which should be in English. Any user-facing error message should be localized and sent in the [google.rpc.Status.details][google.rpc.Status.details] field, or localized by the client.
+                details:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/google.protobuf.Any'
+                    description: A list of messages that carry the error details.  There is a common set of message types for APIs to use.
+            description: 'The `Status` type defines a logical error model that is suitable for different programming environments, including REST APIs and RPC APIs. It is used by [gRPC](https://github.com/grpc). Each `Status` message contains three pieces of data: error code, error message, and error details. You can find out more about this error model and how to work with it in the [API Design Guide](https://cloud.google.com/apis/design/errors).'
+        google.type.LocalizedText:
+            type: object
+            properties:
+                text:
+                    type: string
+                    description: Localized string in the language corresponding to `language_code' below.
+                languageCode:
+                    type: string
+                    description: The text's BCP-47 language code, such as "en-US" or "sr-Latn". For more information, see http://www.unicode.org/reports/tr35/#Unicode_locale_identifier.
+            description: Localized variant of a text in a particular language.
+tags:
+    - name: Knowledge

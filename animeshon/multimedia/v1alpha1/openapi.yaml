@@ -1,0 +1,1570 @@
+# Generated with protoc-gen-openapi
+# https://github.com/google/gnostic/tree/master/cmd/protoc-gen-openapi
+
+openapi: 3.0.3
+info:
+    title: Multimedia API
+    version: v1alpha1
+servers:
+    - url: https://multimedia.animeapis.com
+paths:
+    /v1alpha1/animes:
+        get:
+            tags:
+                - AnimeService
+            operationId: AnimeService_ListAnimes
+            parameters:
+                - name: pageSize
+                  in: query
+                  description: If unspecified, server will pick an appropriate default.
+                  schema:
+                    type: integer
+                    format: int32
+                - name: pageToken
+                  in: query
+                  description: The value returned from the previous call.
+                  schema:
+                    type: string
+                - name: filter
+                  in: query
+                  description: A filter to be applied to results.
+                  schema:
+                    type: string
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/animeshon.multimedia.v1alpha1.ListAnimesResponse'
+                default:
+                    description: Default error response
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/google.rpc.Status'
+        post:
+            tags:
+                - AnimeService
+            operationId: AnimeService_CreateAnime
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/animeshon.multimedia.v1alpha1.CreateAnimeRequest'
+                required: true
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/animeshon.multimedia.v1alpha1.Anime'
+                default:
+                    description: Default error response
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/google.rpc.Status'
+    /v1alpha1/animes/{anime}:
+        get:
+            tags:
+                - AnimeService
+            operationId: AnimeService_GetAnime
+            parameters:
+                - name: anime
+                  in: path
+                  description: The anime id.
+                  required: true
+                  schema:
+                    type: string
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/animeshon.multimedia.v1alpha1.Anime'
+                default:
+                    description: Default error response
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/google.rpc.Status'
+        delete:
+            tags:
+                - AnimeService
+            operationId: AnimeService_DeleteAnime
+            parameters:
+                - name: anime
+                  in: path
+                  description: The anime id.
+                  required: true
+                  schema:
+                    type: string
+            responses:
+                "200":
+                    description: OK
+                    content: {}
+                default:
+                    description: Default error response
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/google.rpc.Status'
+        patch:
+            tags:
+                - AnimeService
+            operationId: AnimeService_UpdateAnime
+            parameters:
+                - name: anime
+                  in: path
+                  description: The anime id.
+                  required: true
+                  schema:
+                    type: string
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/animeshon.multimedia.v1alpha1.UpdateAnimeRequest'
+                required: true
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/animeshon.multimedia.v1alpha1.Anime'
+                default:
+                    description: Default error response
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/google.rpc.Status'
+    /v1alpha1/animes/{anime}/episodes:
+        get:
+            tags:
+                - EpisodeService
+            operationId: EpisodeService_ListEpisodes
+            parameters:
+                - name: anime
+                  in: path
+                  description: The anime id.
+                  required: true
+                  schema:
+                    type: string
+                - name: pageSize
+                  in: query
+                  description: If unspecified, server will pick an appropriate default.
+                  schema:
+                    type: integer
+                    format: int32
+                - name: pageToken
+                  in: query
+                  description: The value returned from the previous call.
+                  schema:
+                    type: string
+                - name: filter
+                  in: query
+                  description: A filter to be applied to results.
+                  schema:
+                    type: string
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/animeshon.multimedia.v1alpha1.ListEpisodesResponse'
+                default:
+                    description: Default error response
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/google.rpc.Status'
+        post:
+            tags:
+                - EpisodeService
+            operationId: EpisodeService_CreateEpisode
+            parameters:
+                - name: anime
+                  in: path
+                  description: The anime id.
+                  required: true
+                  schema:
+                    type: string
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/animeshon.multimedia.v1alpha1.CreateEpisodeRequest'
+                required: true
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/animeshon.multimedia.v1alpha1.Episode'
+                default:
+                    description: Default error response
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/google.rpc.Status'
+    /v1alpha1/animes/{anime}/episodes/{episode}:
+        get:
+            tags:
+                - EpisodeService
+            operationId: EpisodeService_GetEpisode
+            parameters:
+                - name: anime
+                  in: path
+                  description: The anime id.
+                  required: true
+                  schema:
+                    type: string
+                - name: episode
+                  in: path
+                  description: The episode id.
+                  required: true
+                  schema:
+                    type: string
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/animeshon.multimedia.v1alpha1.Episode'
+                default:
+                    description: Default error response
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/google.rpc.Status'
+        delete:
+            tags:
+                - EpisodeService
+            operationId: EpisodeService_DeleteEpisode
+            parameters:
+                - name: anime
+                  in: path
+                  description: The anime id.
+                  required: true
+                  schema:
+                    type: string
+                - name: episode
+                  in: path
+                  description: The episode id.
+                  required: true
+                  schema:
+                    type: string
+            responses:
+                "200":
+                    description: OK
+                    content: {}
+                default:
+                    description: Default error response
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/google.rpc.Status'
+        patch:
+            tags:
+                - EpisodeService
+            operationId: EpisodeService_UpdateEpisode
+            parameters:
+                - name: anime
+                  in: path
+                  description: The anime id.
+                  required: true
+                  schema:
+                    type: string
+                - name: episode
+                  in: path
+                  description: The episode id.
+                  required: true
+                  schema:
+                    type: string
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/animeshon.multimedia.v1alpha1.UpdateEpisodeRequest'
+                required: true
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/animeshon.multimedia.v1alpha1.Episode'
+                default:
+                    description: Default error response
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/google.rpc.Status'
+    /v1alpha1/animes/{anime}/episodes:batchCreate:
+        post:
+            tags:
+                - EpisodeService
+            operationId: EpisodeService_BatchCreateEpisodes
+            parameters:
+                - name: anime
+                  in: path
+                  description: The anime id.
+                  required: true
+                  schema:
+                    type: string
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/google.longrunning.Operation'
+                default:
+                    description: Default error response
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/google.rpc.Status'
+    /v1alpha1/animes/{anime}/episodes:reconcile:
+        post:
+            tags:
+                - EpisodeService
+            description: Reconcile episodes with the search and knowledge base.
+            operationId: EpisodeService_ReconcileEpisodes
+            parameters:
+                - name: anime
+                  in: path
+                  description: The anime id.
+                  required: true
+                  schema:
+                    type: string
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/animeshon.multimedia.v1alpha1.ReconcileEpisodesRequest'
+                required: true
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/google.longrunning.Operation'
+                default:
+                    description: Default error response
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/google.rpc.Status'
+    /v1alpha1/animes/{anime}:reconcile:
+        post:
+            tags:
+                - AnimeService
+            description: Reconcile animes with the search and knowledge base.
+            operationId: AnimeService_ReconcileAnimes
+            parameters:
+                - name: anime
+                  in: path
+                  description: The anime id.
+                  required: true
+                  schema:
+                    type: string
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/animeshon.multimedia.v1alpha1.ReconcileAnimesRequest'
+                required: true
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/google.longrunning.Operation'
+                default:
+                    description: Default error response
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/google.rpc.Status'
+    /v1alpha1/graphicNovels:
+        get:
+            tags:
+                - GraphicNovelService
+            operationId: GraphicNovelService_ListGraphicNovels
+            parameters:
+                - name: pageSize
+                  in: query
+                  description: If unspecified, server will pick an appropriate default.
+                  schema:
+                    type: integer
+                    format: int32
+                - name: pageToken
+                  in: query
+                  description: The value returned from the previous call.
+                  schema:
+                    type: string
+                - name: filter
+                  in: query
+                  description: A filter to be applied to results.
+                  schema:
+                    type: string
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/animeshon.multimedia.v1alpha1.ListGraphicNovelsResponse'
+                default:
+                    description: Default error response
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/google.rpc.Status'
+        post:
+            tags:
+                - GraphicNovelService
+            operationId: GraphicNovelService_CreateGraphicNovel
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/animeshon.multimedia.v1alpha1.CreateGraphicNovelRequest'
+                required: true
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/animeshon.multimedia.v1alpha1.GraphicNovel'
+                default:
+                    description: Default error response
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/google.rpc.Status'
+    /v1alpha1/graphicNovels/{graphicNovel}:
+        get:
+            tags:
+                - GraphicNovelService
+            operationId: GraphicNovelService_GetGraphicNovel
+            parameters:
+                - name: graphicNovel
+                  in: path
+                  description: The graphicNovel id.
+                  required: true
+                  schema:
+                    type: string
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/animeshon.multimedia.v1alpha1.GraphicNovel'
+                default:
+                    description: Default error response
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/google.rpc.Status'
+        delete:
+            tags:
+                - GraphicNovelService
+            operationId: GraphicNovelService_DeleteGraphicNovel
+            parameters:
+                - name: graphicNovel
+                  in: path
+                  description: The graphicNovel id.
+                  required: true
+                  schema:
+                    type: string
+            responses:
+                "200":
+                    description: OK
+                    content: {}
+                default:
+                    description: Default error response
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/google.rpc.Status'
+        patch:
+            tags:
+                - GraphicNovelService
+            operationId: GraphicNovelService_UpdateGraphicNovel
+            parameters:
+                - name: graphicNovel
+                  in: path
+                  description: The graphicNovel id.
+                  required: true
+                  schema:
+                    type: string
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/animeshon.multimedia.v1alpha1.UpdateGraphicNovelRequest'
+                required: true
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/animeshon.multimedia.v1alpha1.GraphicNovel'
+                default:
+                    description: Default error response
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/google.rpc.Status'
+    /v1alpha1/graphicNovels/{graphicNovel}/chapters:
+        get:
+            tags:
+                - ChapterService
+            operationId: ChapterService_ListChapters
+            parameters:
+                - name: graphicNovel
+                  in: path
+                  description: The graphicNovel id.
+                  required: true
+                  schema:
+                    type: string
+                - name: pageSize
+                  in: query
+                  description: If unspecified, server will pick an appropriate default.
+                  schema:
+                    type: integer
+                    format: int32
+                - name: pageToken
+                  in: query
+                  description: The value returned from the previous call.
+                  schema:
+                    type: string
+                - name: filter
+                  in: query
+                  description: A filter to be applied to results.
+                  schema:
+                    type: string
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/animeshon.multimedia.v1alpha1.ListChaptersResponse'
+                default:
+                    description: Default error response
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/google.rpc.Status'
+        post:
+            tags:
+                - ChapterService
+            operationId: ChapterService_CreateChapter
+            parameters:
+                - name: graphicNovel
+                  in: path
+                  description: The graphicNovel id.
+                  required: true
+                  schema:
+                    type: string
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/animeshon.multimedia.v1alpha1.CreateChapterRequest'
+                required: true
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/animeshon.multimedia.v1alpha1.Chapter'
+                default:
+                    description: Default error response
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/google.rpc.Status'
+    /v1alpha1/graphicNovels/{graphicNovel}/chapters/{chapter}:
+        get:
+            tags:
+                - ChapterService
+            operationId: ChapterService_GetChapter
+            parameters:
+                - name: graphicNovel
+                  in: path
+                  description: The graphicNovel id.
+                  required: true
+                  schema:
+                    type: string
+                - name: chapter
+                  in: path
+                  description: The chapter id.
+                  required: true
+                  schema:
+                    type: string
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/animeshon.multimedia.v1alpha1.Chapter'
+                default:
+                    description: Default error response
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/google.rpc.Status'
+        delete:
+            tags:
+                - ChapterService
+            operationId: ChapterService_DeleteChapter
+            parameters:
+                - name: graphicNovel
+                  in: path
+                  description: The graphicNovel id.
+                  required: true
+                  schema:
+                    type: string
+                - name: chapter
+                  in: path
+                  description: The chapter id.
+                  required: true
+                  schema:
+                    type: string
+            responses:
+                "200":
+                    description: OK
+                    content: {}
+                default:
+                    description: Default error response
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/google.rpc.Status'
+        patch:
+            tags:
+                - ChapterService
+            operationId: ChapterService_UpdateChapter
+            parameters:
+                - name: graphicNovel
+                  in: path
+                  description: The graphicNovel id.
+                  required: true
+                  schema:
+                    type: string
+                - name: chapter
+                  in: path
+                  description: The chapter id.
+                  required: true
+                  schema:
+                    type: string
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/animeshon.multimedia.v1alpha1.UpdateChapterRequest'
+                required: true
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/animeshon.multimedia.v1alpha1.Chapter'
+                default:
+                    description: Default error response
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/google.rpc.Status'
+    /v1alpha1/graphicNovels/{graphicNovel}/chapters:batchCreate:
+        post:
+            tags:
+                - ChapterService
+            operationId: ChapterService_BatchCreateChapters
+            parameters:
+                - name: graphicNovel
+                  in: path
+                  description: The graphicNovel id.
+                  required: true
+                  schema:
+                    type: string
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/animeshon.multimedia.v1alpha1.BatchCreateChaptersRequest'
+                required: true
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/google.longrunning.Operation'
+                default:
+                    description: Default error response
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/google.rpc.Status'
+    /v1alpha1/graphicNovels/{graphicNovel}/chapters:reconcile:
+        post:
+            tags:
+                - ChapterService
+            description: Reconcile chapters with the search and knowledge base.
+            operationId: ChapterService_ReconcileChapters
+            parameters:
+                - name: graphicNovel
+                  in: path
+                  description: The graphicNovel id.
+                  required: true
+                  schema:
+                    type: string
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/animeshon.multimedia.v1alpha1.ReconcileChaptersRequest'
+                required: true
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/google.longrunning.Operation'
+                default:
+                    description: Default error response
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/google.rpc.Status'
+    /v1alpha1/graphicNovels/{graphicNovel}:reconcile:
+        post:
+            tags:
+                - GraphicNovelService
+            description: Reconcile graphic novels with the search and knowledge base.
+            operationId: GraphicNovelService_ReconcileGraphicNovels
+            parameters:
+                - name: graphicNovel
+                  in: path
+                  description: The graphicNovel id.
+                  required: true
+                  schema:
+                    type: string
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/animeshon.multimedia.v1alpha1.ReconcileGraphicNovelsRequest'
+                required: true
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/google.longrunning.Operation'
+                default:
+                    description: Default error response
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/google.rpc.Status'
+    /v1alpha1/lightNovels:
+        get:
+            tags:
+                - LightNovelService
+            operationId: LightNovelService_ListLightNovels
+            parameters:
+                - name: pageSize
+                  in: query
+                  description: If unspecified, server will pick an appropriate default.
+                  schema:
+                    type: integer
+                    format: int32
+                - name: pageToken
+                  in: query
+                  description: The value returned from the previous call.
+                  schema:
+                    type: string
+                - name: filter
+                  in: query
+                  description: A filter to be applied to results.
+                  schema:
+                    type: string
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/animeshon.multimedia.v1alpha1.ListLightNovelsResponse'
+                default:
+                    description: Default error response
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/google.rpc.Status'
+        post:
+            tags:
+                - LightNovelService
+            operationId: LightNovelService_CreateLightNovel
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/animeshon.multimedia.v1alpha1.CreateLightNovelRequest'
+                required: true
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/animeshon.multimedia.v1alpha1.LightNovel'
+                default:
+                    description: Default error response
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/google.rpc.Status'
+    /v1alpha1/lightNovels/{lightNovel}:
+        get:
+            tags:
+                - LightNovelService
+            operationId: LightNovelService_GetLightNovel
+            parameters:
+                - name: lightNovel
+                  in: path
+                  description: The lightNovel id.
+                  required: true
+                  schema:
+                    type: string
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/animeshon.multimedia.v1alpha1.LightNovel'
+                default:
+                    description: Default error response
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/google.rpc.Status'
+        delete:
+            tags:
+                - LightNovelService
+            operationId: LightNovelService_DeleteLightNovel
+            parameters:
+                - name: lightNovel
+                  in: path
+                  description: The lightNovel id.
+                  required: true
+                  schema:
+                    type: string
+            responses:
+                "200":
+                    description: OK
+                    content: {}
+                default:
+                    description: Default error response
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/google.rpc.Status'
+        patch:
+            tags:
+                - LightNovelService
+            operationId: LightNovelService_UpdateLightNovel
+            parameters:
+                - name: lightNovel
+                  in: path
+                  description: The lightNovel id.
+                  required: true
+                  schema:
+                    type: string
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/animeshon.multimedia.v1alpha1.UpdateLightNovelRequest'
+                required: true
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/animeshon.multimedia.v1alpha1.LightNovel'
+                default:
+                    description: Default error response
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/google.rpc.Status'
+    /v1alpha1/lightNovels/{lightNovel}:reconcile:
+        post:
+            tags:
+                - LightNovelService
+            description: Reconcile light novels with the search and knowledge base.
+            operationId: LightNovelService_ReconcileLightNovels
+            parameters:
+                - name: lightNovel
+                  in: path
+                  description: The lightNovel id.
+                  required: true
+                  schema:
+                    type: string
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/animeshon.multimedia.v1alpha1.ReconcileLightNovelsRequest'
+                required: true
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/google.longrunning.Operation'
+                default:
+                    description: Default error response
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/google.rpc.Status'
+components:
+    schemas:
+        animeshon.multimedia.v1alpha1.Anime:
+            required:
+                - name
+            type: object
+            properties:
+                name:
+                    type: string
+                    description: The id of the anime.
+                coverImage:
+                    type: string
+                    description: The cover image of the anime.
+                bannerImage:
+                    type: string
+                    description: The banner image of the anime.
+                title:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/google.type.LocalizedText'
+                    description: The title of the anime localized in multiple languages.
+                synopsis:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/google.type.LocalizedText'
+                    description: The synopsis of the anime localized in multiple languages.
+                description:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/google.type.LocalizedText'
+                    description: The description of the anime localized in multiple languages.
+                type:
+                    enum:
+                        - TYPE_UNSPECIFIED
+                        - TV
+                        - MOVIE
+                        - OVA
+                        - ONA
+                        - SPECIAL
+                        - WEB
+                        - MUSIC_VIDEO
+                        - OTHER
+                    type: string
+                    description: The type of anime.
+                    format: enum
+                releaseDate:
+                    type: string
+                    description: The original release date of anime.
+                    format: date
+                publishingType:
+                    enum:
+                        - PUBLISHING_TYPE_UNSPECIFIED
+                        - SELF
+                        - CORPORATE
+                    type: string
+                    description: 'The original publishing type of this content. TODO: migrate this field to a more structured licensing history.'
+                    format: enum
+                state:
+                    enum:
+                        - STATE_UNSPECIFIED
+                        - ONGOING
+                        - COMPLETED
+                        - SCHEDULED
+                        - INTERRUPTED
+                        - CANCELED
+                        - SUSPENDED
+                        - WORK_IN_PROGRESS
+                    type: string
+                    description: The current state of the anime.
+                    format: enum
+                original:
+                    type: boolean
+                    description: Whether this content is an original work or a derivative work (parody).
+        animeshon.multimedia.v1alpha1.BatchCreateChaptersRequest:
+            required:
+                - requests
+                - parent
+            type: object
+            properties:
+                requests:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/animeshon.multimedia.v1alpha1.BatchCreateChaptersRequest_Request'
+                    description: Individual create chapter requests for this batch.
+                parent:
+                    type: string
+                    description: The parent this batch belongs to.
+        animeshon.multimedia.v1alpha1.BatchCreateChaptersRequest_Request:
+            required:
+                - chapter
+            type: object
+            properties:
+                chapter:
+                    $ref: '#/components/schemas/animeshon.multimedia.v1alpha1.Chapter'
+                idempotentResourceId:
+                    type: integer
+                    description: An idempotent identifier to be used as static resource id.
+                    format: int64
+        animeshon.multimedia.v1alpha1.Chapter:
+            required:
+                - name
+            type: object
+            properties:
+                name:
+                    type: string
+                    description: The id of the chapter.
+                coverImage:
+                    type: string
+                    description: The cover image of the chapter.
+                bannerImage:
+                    type: string
+                    description: The banner image of the chapter.
+                title:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/google.type.LocalizedText'
+                    description: The title of the chapter localized in multiple languages.
+                synopsis:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/google.type.LocalizedText'
+                    description: The synopsis of the chapter localized in multiple languages.
+                description:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/google.type.LocalizedText'
+                    description: The description of the chapter localized in multiple languages.
+                type:
+                    enum:
+                        - TYPE_UNSPECIFIED
+                        - REGULAR
+                        - EXTRA
+                    type: string
+                    description: The type of chapter.
+                    format: enum
+                index:
+                    type: integer
+                    description: The index of chapter.
+                    format: int32
+                releaseDate:
+                    type: string
+                    description: The original release date of chapter.
+                    format: date
+                pageCount:
+                    type: integer
+                    description: The original page count of the chapter.
+                    format: int32
+        animeshon.multimedia.v1alpha1.CreateAnimeRequest:
+            required:
+                - anime
+            type: object
+            properties:
+                anime:
+                    $ref: '#/components/schemas/animeshon.multimedia.v1alpha1.Anime'
+                idempotentResourceId:
+                    type: integer
+                    description: An idempotent identifier to be used as static resource id.
+                    format: int64
+        animeshon.multimedia.v1alpha1.CreateChapterRequest:
+            required:
+                - parent
+                - chapter
+            type: object
+            properties:
+                parent:
+                    type: string
+                    description: The parent this chapter belongs to.
+                chapter:
+                    $ref: '#/components/schemas/animeshon.multimedia.v1alpha1.Chapter'
+                idempotentResourceId:
+                    type: integer
+                    description: An idempotent identifier to be used as static resource id.
+                    format: int64
+        animeshon.multimedia.v1alpha1.CreateEpisodeRequest:
+            required:
+                - parent
+                - episode
+            type: object
+            properties:
+                parent:
+                    type: string
+                    description: The parent this episode belongs to.
+                episode:
+                    $ref: '#/components/schemas/animeshon.multimedia.v1alpha1.Episode'
+                idempotentResourceId:
+                    type: integer
+                    description: An idempotent identifier to be used as static resource id.
+                    format: int64
+        animeshon.multimedia.v1alpha1.CreateGraphicNovelRequest:
+            required:
+                - graphicNovel
+            type: object
+            properties:
+                graphicNovel:
+                    $ref: '#/components/schemas/animeshon.multimedia.v1alpha1.GraphicNovel'
+                idempotentResourceId:
+                    type: integer
+                    description: An idempotent identifier to be used as static resource id.
+                    format: int64
+        animeshon.multimedia.v1alpha1.CreateLightNovelRequest:
+            required:
+                - lightNovel
+            type: object
+            properties:
+                lightNovel:
+                    $ref: '#/components/schemas/animeshon.multimedia.v1alpha1.LightNovel'
+                idempotentResourceId:
+                    type: integer
+                    description: An idempotent identifier to be used as static resource id.
+                    format: int64
+        animeshon.multimedia.v1alpha1.Episode:
+            required:
+                - name
+            type: object
+            properties:
+                name:
+                    type: string
+                    description: The id of the episode.
+                coverImage:
+                    type: string
+                    description: The cover image of the episode.
+                bannerImage:
+                    type: string
+                    description: The banner image of the episode.
+                title:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/google.type.LocalizedText'
+                    description: The title of the episode localized in multiple languages.
+                synopsis:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/google.type.LocalizedText'
+                    description: The synopsis of the episode localized in multiple languages.
+                description:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/google.type.LocalizedText'
+                    description: The description of the episode localized in multiple languages.
+                type:
+                    enum:
+                        - TYPE_UNSPECIFIED
+                        - REGULAR
+                        - RECAP
+                        - PARODY
+                        - PROMO
+                        - SPECIAL
+                        - OPENING_ENDING
+                        - OTHER
+                    type: string
+                    description: The type of episode.
+                    format: enum
+                index:
+                    type: integer
+                    description: The index of episode.
+                    format: int32
+                releaseDate:
+                    type: string
+                    description: The original release date of episode.
+                    format: date
+                duration:
+                    $ref: '#/components/schemas/google.protobuf.Duration'
+        animeshon.multimedia.v1alpha1.GraphicNovel:
+            required:
+                - name
+            type: object
+            properties:
+                name:
+                    type: string
+                    description: The id of the graphic novel.
+                coverImage:
+                    type: string
+                    description: The cover image of the graphic novel.
+                bannerImage:
+                    type: string
+                    description: The banner image of the graphic novel.
+                title:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/google.type.LocalizedText'
+                    description: The title of the graphic novel localized in multiple languages.
+                synopsis:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/google.type.LocalizedText'
+                    description: The synopsis of the graphic novel localized in multiple languages.
+                description:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/google.type.LocalizedText'
+                    description: The description of the graphic novel localized in multiple languages.
+                type:
+                    enum:
+                        - TYPE_UNSPECIFIED
+                        - MANGA
+                        - ONE_SHOT
+                        - MANHUA
+                        - MANHWA
+                        - OEL
+                        - WEB_COMIC
+                        - YON_KOMA
+                        - OTHER
+                    type: string
+                    description: The type of graphic novel.
+                    format: enum
+                releaseDate:
+                    type: string
+                    description: The original release date of graphic novel.
+                    format: date
+                publishingType:
+                    enum:
+                        - PUBLISHING_TYPE_UNSPECIFIED
+                        - SELF
+                        - CORPORATE
+                    type: string
+                    description: 'The original publishing type of this content. TODO: migrate this field to a more structured licensing history.'
+                    format: enum
+                state:
+                    enum:
+                        - STATE_UNSPECIFIED
+                        - ONGOING
+                        - COMPLETED
+                        - SCHEDULED
+                        - INTERRUPTED
+                        - CANCELED
+                        - SUSPENDED
+                        - WORK_IN_PROGRESS
+                    type: string
+                    description: The current state of the graphic novel.
+                    format: enum
+                original:
+                    type: boolean
+                    description: Whether this content is an original work or a derivative work (parody).
+        animeshon.multimedia.v1alpha1.LightNovel:
+            required:
+                - name
+            type: object
+            properties:
+                name:
+                    type: string
+                    description: The id of the light novel.
+                coverImage:
+                    type: string
+                    description: The cover image of the light novel.
+                bannerImage:
+                    type: string
+                    description: The banner image of the light novel.
+                title:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/google.type.LocalizedText'
+                    description: The title of the light novel localized in multiple languages.
+                synopsis:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/google.type.LocalizedText'
+                    description: The synopsis of the light novel localized in multiple languages.
+                description:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/google.type.LocalizedText'
+                    description: The description of the light novel localized in multiple languages.
+                type:
+                    enum:
+                        - TYPE_UNSPECIFIED
+                    type: string
+                    description: The type of light novel.
+                    format: enum
+                releaseDate:
+                    type: string
+                    description: The original release date of light novel.
+                    format: date
+                publishingType:
+                    enum:
+                        - PUBLISHING_TYPE_UNSPECIFIED
+                        - SELF
+                        - CORPORATE
+                    type: string
+                    description: 'The original publishing type of this content. TODO: migrate this field to a more structured licensing history.'
+                    format: enum
+                state:
+                    enum:
+                        - STATE_UNSPECIFIED
+                        - ONGOING
+                        - COMPLETED
+                        - SCHEDULED
+                        - INTERRUPTED
+                        - CANCELED
+                        - SUSPENDED
+                        - WORK_IN_PROGRESS
+                    type: string
+                    description: The current state of the light novel.
+                    format: enum
+                original:
+                    type: boolean
+                    description: Whether this content is an original work or a derivative work (parody).
+        animeshon.multimedia.v1alpha1.ListAnimesResponse:
+            type: object
+            properties:
+                animes:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/animeshon.multimedia.v1alpha1.Anime'
+                    description: The list of animes.
+                nextPageToken:
+                    type: string
+                    description: A token to retrieve next page of results.
+        animeshon.multimedia.v1alpha1.ListChaptersResponse:
+            type: object
+            properties:
+                chapters:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/animeshon.multimedia.v1alpha1.Chapter'
+                    description: The list of chapters.
+                nextPageToken:
+                    type: string
+                    description: A token to retrieve next page of results.
+        animeshon.multimedia.v1alpha1.ListEpisodesResponse:
+            type: object
+            properties:
+                episodes:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/animeshon.multimedia.v1alpha1.Episode'
+                    description: The list of episodes.
+                nextPageToken:
+                    type: string
+                    description: A token to retrieve next page of results.
+        animeshon.multimedia.v1alpha1.ListGraphicNovelsResponse:
+            type: object
+            properties:
+                graphicNovels:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/animeshon.multimedia.v1alpha1.GraphicNovel'
+                    description: The list of graphic novels.
+                nextPageToken:
+                    type: string
+                    description: A token to retrieve next page of results.
+        animeshon.multimedia.v1alpha1.ListLightNovelsResponse:
+            type: object
+            properties:
+                lightNovels:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/animeshon.multimedia.v1alpha1.LightNovel'
+                    description: The list of light novels.
+                nextPageToken:
+                    type: string
+                    description: A token to retrieve next page of results.
+        animeshon.multimedia.v1alpha1.ReconcileAnimesRequest:
+            required:
+                - name
+            type: object
+            properties:
+                name:
+                    type: string
+                    description: The name of the anime to reconcile. Use the wildcard `animes/-` to reconcile all animes.
+        animeshon.multimedia.v1alpha1.ReconcileChaptersRequest:
+            required:
+                - parent
+            type: object
+            properties:
+                parent:
+                    type: string
+        animeshon.multimedia.v1alpha1.ReconcileEpisodesRequest:
+            required:
+                - parent
+            type: object
+            properties:
+                parent:
+                    type: string
+        animeshon.multimedia.v1alpha1.ReconcileGraphicNovelsRequest:
+            required:
+                - name
+            type: object
+            properties:
+                name:
+                    type: string
+                    description: The name of the graphic novel to reconcile. Use the wildcard `graphicNovels/-` to reconcile all graphic novels.
+        animeshon.multimedia.v1alpha1.ReconcileLightNovelsRequest:
+            required:
+                - name
+            type: object
+            properties:
+                name:
+                    type: string
+                    description: The name of the light novel to reconcile. Use the wildcard `lightNovels/-` to reconcile all light novels.
+        animeshon.multimedia.v1alpha1.UpdateAnimeRequest:
+            required:
+                - anime
+            type: object
+            properties:
+                anime:
+                    $ref: '#/components/schemas/animeshon.multimedia.v1alpha1.Anime'
+                updateMask:
+                    type: string
+                    description: The field mask to determine which fields are to be updated. If empty, the server will assume all fields are to be updated.
+                    format: field-mask
+        animeshon.multimedia.v1alpha1.UpdateChapterRequest:
+            required:
+                - chapter
+            type: object
+            properties:
+                chapter:
+                    $ref: '#/components/schemas/animeshon.multimedia.v1alpha1.Chapter'
+                updateMask:
+                    type: string
+                    description: The field mask to determine which fields are to be updated. If empty, the server will assume all fields are to be updated.
+                    format: field-mask
+        animeshon.multimedia.v1alpha1.UpdateEpisodeRequest:
+            required:
+                - episode
+            type: object
+            properties:
+                episode:
+                    $ref: '#/components/schemas/animeshon.multimedia.v1alpha1.Episode'
+                updateMask:
+                    type: string
+                    description: The field mask to determine which fields are to be updated. If empty, the server will assume all fields are to be updated.
+                    format: field-mask
+        animeshon.multimedia.v1alpha1.UpdateGraphicNovelRequest:
+            required:
+                - graphicNovel
+            type: object
+            properties:
+                graphicNovel:
+                    $ref: '#/components/schemas/animeshon.multimedia.v1alpha1.GraphicNovel'
+                updateMask:
+                    type: string
+                    description: The field mask to determine which fields are to be updated. If empty, the server will assume all fields are to be updated.
+                    format: field-mask
+        animeshon.multimedia.v1alpha1.UpdateLightNovelRequest:
+            required:
+                - lightNovel
+            type: object
+            properties:
+                lightNovel:
+                    $ref: '#/components/schemas/animeshon.multimedia.v1alpha1.LightNovel'
+                updateMask:
+                    type: string
+                    description: The field mask to determine which fields are to be updated. If empty, the server will assume all fields are to be updated.
+                    format: field-mask
+        google.longrunning.Operation:
+            type: object
+            properties:
+                name:
+                    type: string
+                    description: The server-assigned name, which is only unique within the same service that originally returns it. If you use the default HTTP mapping, the `name` should be a resource name ending with `operations/{unique_id}`.
+                metadata:
+                    $ref: '#/components/schemas/google.protobuf.Any'
+                done:
+                    type: boolean
+                    description: If the value is `false`, it means the operation is still in progress. If `true`, the operation is completed, and either `error` or `response` is available.
+                error:
+                    $ref: '#/components/schemas/google.rpc.Status'
+                response:
+                    $ref: '#/components/schemas/google.protobuf.Any'
+            description: This resource represents a long-running operation that is the result of a network API call.
+        google.protobuf.Any:
+            type: object
+            properties:
+                '@type':
+                    type: string
+                    description: The type of the serialized message.
+            additionalProperties: true
+            description: Contains an arbitrary serialized message along with a @type that describes the type of the serialized message.
+        google.protobuf.Duration:
+            type: object
+            properties:
+                seconds:
+                    type: integer
+                    description: 'Signed seconds of the span of time. Must be from -315,576,000,000 to +315,576,000,000 inclusive. Note: these bounds are computed from: 60 sec/min * 60 min/hr * 24 hr/day * 365.25 days/year * 10000 years'
+                    format: int64
+                nanos:
+                    type: integer
+                    description: Signed fractions of a second at nanosecond resolution of the span of time. Durations less than one second are represented with a 0 `seconds` field and a positive or negative `nanos` field. For durations of one second or more, a non-zero value for the `nanos` field must be of the same sign as the `seconds` field. Must be from -999,999,999 to +999,999,999 inclusive.
+                    format: int32
+            description: 'A Duration represents a signed, fixed-length span of time represented as a count of seconds and fractions of seconds at nanosecond resolution. It is independent of any calendar and concepts like "day" or "month". It is related to Timestamp in that the difference between two Timestamp values is a Duration and it can be added or subtracted from a Timestamp. Range is approximately +-10,000 years. # Examples Example 1: Compute Duration from two Timestamps in pseudo code.     Timestamp start = ...;     Timestamp end = ...;     Duration duration = ...;     duration.seconds = end.seconds - start.seconds;     duration.nanos = end.nanos - start.nanos;     if (duration.seconds < 0 && duration.nanos > 0) {       duration.seconds += 1;       duration.nanos -= 1000000000;     } else if (duration.seconds > 0 && duration.nanos < 0) {       duration.seconds -= 1;       duration.nanos += 1000000000;     } Example 2: Compute Timestamp from Timestamp + Duration in pseudo code.     Timestamp start = ...;     Duration duration = ...;     Timestamp end = ...;     end.seconds = start.seconds + duration.seconds;     end.nanos = start.nanos + duration.nanos;     if (end.nanos < 0) {       end.seconds -= 1;       end.nanos += 1000000000;     } else if (end.nanos >= 1000000000) {       end.seconds += 1;       end.nanos -= 1000000000;     } Example 3: Compute Duration from datetime.timedelta in Python.     td = datetime.timedelta(days=3, minutes=10)     duration = Duration()     duration.FromTimedelta(td) # JSON Mapping In JSON format, the Duration type is encoded as a string rather than an object, where the string ends in the suffix "s" (indicating seconds) and is preceded by the number of seconds, with nanoseconds expressed as fractional seconds. For example, 3 seconds with 0 nanoseconds should be encoded in JSON format as "3s", while 3 seconds and 1 nanosecond should be expressed in JSON format as "3.000000001s", and 3 seconds and 1 microsecond should be expressed in JSON format as "3.000001s".'
+        google.rpc.Status:
+            type: object
+            properties:
+                code:
+                    type: integer
+                    description: The status code, which should be an enum value of [google.rpc.Code][google.rpc.Code].
+                    format: int32
+                message:
+                    type: string
+                    description: A developer-facing error message, which should be in English. Any user-facing error message should be localized and sent in the [google.rpc.Status.details][google.rpc.Status.details] field, or localized by the client.
+                details:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/google.protobuf.Any'
+                    description: A list of messages that carry the error details.  There is a common set of message types for APIs to use.
+            description: 'The `Status` type defines a logical error model that is suitable for different programming environments, including REST APIs and RPC APIs. It is used by [gRPC](https://github.com/grpc). Each `Status` message contains three pieces of data: error code, error message, and error details. You can find out more about this error model and how to work with it in the [API Design Guide](https://cloud.google.com/apis/design/errors).'
+        google.type.LocalizedText:
+            type: object
+            properties:
+                text:
+                    type: string
+                    description: Localized string in the language corresponding to `language_code' below.
+                languageCode:
+                    type: string
+                    description: The text's BCP-47 language code, such as "en-US" or "sr-Latn". For more information, see http://www.unicode.org/reports/tr35/#Unicode_locale_identifier.
+            description: Localized variant of a text in a particular language.
+tags:
+    - name: AnimeService
+    - name: ChapterService
+    - name: EpisodeService
+    - name: GraphicNovelService
+    - name: LightNovelService

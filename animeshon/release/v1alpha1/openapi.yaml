@@ -1,0 +1,586 @@
+# Generated with protoc-gen-openapi
+# https://github.com/google/gnostic/tree/master/cmd/protoc-gen-openapi
+
+openapi: 3.0.3
+info:
+    title: Release API
+    version: v1alpha1
+servers:
+    - url: https://release.animeapis.com
+paths:
+    /v1alpha1/users/{user}/releases:
+        get:
+            tags:
+                - Publisher
+            operationId: Publisher_ListReleases
+            parameters:
+                - name: user
+                  in: path
+                  description: The user id.
+                  required: true
+                  schema:
+                    type: string
+                - name: pageSize
+                  in: query
+                  description: If unspecified, server will pick an appropriate default.
+                  schema:
+                    type: integer
+                    format: int32
+                - name: pageToken
+                  in: query
+                  description: The value returned from the previous call.
+                  schema:
+                    type: string
+                - name: filter
+                  in: query
+                  description: A filter to be applied to results.
+                  schema:
+                    type: string
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/animeshon.release.v1alpha1.ListReleasesResponse'
+                default:
+                    description: Default error response
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/google.rpc.Status'
+        post:
+            tags:
+                - Publisher
+            operationId: Publisher_CreateRelease
+            parameters:
+                - name: user
+                  in: path
+                  description: The user id.
+                  required: true
+                  schema:
+                    type: string
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/animeshon.release.v1alpha1.CreateReleaseRequest'
+                required: true
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/animeshon.release.v1alpha1.Release'
+                default:
+                    description: Default error response
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/google.rpc.Status'
+    /v1alpha1/users/{user}/releases/{release}:
+        get:
+            tags:
+                - Publisher
+            operationId: Publisher_GetRelease
+            parameters:
+                - name: user
+                  in: path
+                  description: The user id.
+                  required: true
+                  schema:
+                    type: string
+                - name: release
+                  in: path
+                  description: The release id.
+                  required: true
+                  schema:
+                    type: string
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/animeshon.release.v1alpha1.Release'
+                default:
+                    description: Default error response
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/google.rpc.Status'
+        delete:
+            tags:
+                - Publisher
+            description: |-
+                The release is soft-deleted and a grace period is granted before complete
+                 deletion. During this grace period the release can be recovered.
+            operationId: Publisher_DeleteRelease
+            parameters:
+                - name: user
+                  in: path
+                  description: The user id.
+                  required: true
+                  schema:
+                    type: string
+                - name: release
+                  in: path
+                  description: The release id.
+                  required: true
+                  schema:
+                    type: string
+            responses:
+                "200":
+                    description: OK
+                    content: {}
+                default:
+                    description: Default error response
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/google.rpc.Status'
+        patch:
+            tags:
+                - Publisher
+            operationId: Publisher_UpdateRelease
+            parameters:
+                - name: user
+                  in: path
+                  description: The user id.
+                  required: true
+                  schema:
+                    type: string
+                - name: release
+                  in: path
+                  description: The release id.
+                  required: true
+                  schema:
+                    type: string
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/animeshon.release.v1alpha1.UpdateReleaseRequest'
+                required: true
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/animeshon.release.v1alpha1.Release'
+                default:
+                    description: Default error response
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/google.rpc.Status'
+    /v1alpha1/users/{user}/releases/{release}:cancel:
+        post:
+            tags:
+                - Publisher
+            description: |-
+                This method can only be called on scheduled releases. The scheduling is
+                 cancelled and the release is marked as a draft.
+            operationId: Publisher_CancelRelease
+            parameters:
+                - name: user
+                  in: path
+                  description: The user id.
+                  required: true
+                  schema:
+                    type: string
+                - name: release
+                  in: path
+                  description: The release id.
+                  required: true
+                  schema:
+                    type: string
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/animeshon.release.v1alpha1.CancelReleaseRequest'
+                required: true
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/animeshon.release.v1alpha1.CancelReleaseResponse'
+                default:
+                    description: Default error response
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/google.rpc.Status'
+    /v1alpha1/users/{user}/releases/{release}:publish:
+        post:
+            tags:
+                - Publisher
+            description: The release is marked as immediately available to the public.
+            operationId: Publisher_PublishRelease
+            parameters:
+                - name: user
+                  in: path
+                  description: The user id.
+                  required: true
+                  schema:
+                    type: string
+                - name: release
+                  in: path
+                  description: The release id.
+                  required: true
+                  schema:
+                    type: string
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/animeshon.release.v1alpha1.PublishReleaseRequest'
+                required: true
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/animeshon.release.v1alpha1.PublishReleaseResponse'
+                default:
+                    description: Default error response
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/google.rpc.Status'
+    /v1alpha1/users/{user}/releases/{release}:schedule:
+        post:
+            tags:
+                - Publisher
+            description: The release is scheduled to be released at a specific future date and time.
+            operationId: Publisher_ScheduleRelease
+            parameters:
+                - name: user
+                  in: path
+                  description: The user id.
+                  required: true
+                  schema:
+                    type: string
+                - name: release
+                  in: path
+                  description: The release id.
+                  required: true
+                  schema:
+                    type: string
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/animeshon.release.v1alpha1.ScheduleReleaseRequest'
+                required: true
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/animeshon.release.v1alpha1.ScheduleReleaseResponse'
+                default:
+                    description: Default error response
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/google.rpc.Status'
+    /v1alpha1/users/{user}/releases/{release}:suspend:
+        post:
+            tags:
+                - Publisher
+            description: |-
+                This method can only be called on published releases marked as active. Any
+                 non-authoritative release associated to the specified release will also be
+                 automatically marked as suspended.
+            operationId: Publisher_SuspendRelease
+            parameters:
+                - name: user
+                  in: path
+                  description: The user id.
+                  required: true
+                  schema:
+                    type: string
+                - name: release
+                  in: path
+                  description: The release id.
+                  required: true
+                  schema:
+                    type: string
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/animeshon.release.v1alpha1.SuspendReleaseRequest'
+                required: true
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/animeshon.release.v1alpha1.SuspendReleaseResponse'
+                default:
+                    description: Default error response
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/google.rpc.Status'
+    /v1alpha1/users/{user}/releases/{release}:undelete:
+        delete:
+            tags:
+                - Publisher
+            description: This method allows to recover a release while still in the grace period.
+            operationId: Publisher_UndeleteRelease
+            parameters:
+                - name: user
+                  in: path
+                  description: The user id.
+                  required: true
+                  schema:
+                    type: string
+                - name: release
+                  in: path
+                  description: The release id.
+                  required: true
+                  schema:
+                    type: string
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/animeshon.release.v1alpha1.Release'
+                default:
+                    description: Default error response
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/google.rpc.Status'
+    /v1alpha1/users/{user}/releases/{release}:unpublish:
+        post:
+            tags:
+                - Publisher
+            description: |-
+                The release is unpublished and marked as a draft, associated
+                 non-authoritative will automatically be marked as suspended and hidden from
+                 the general public.
+            operationId: Publisher_UnpublishRelease
+            parameters:
+                - name: user
+                  in: path
+                  description: The user id.
+                  required: true
+                  schema:
+                    type: string
+                - name: release
+                  in: path
+                  description: The release id.
+                  required: true
+                  schema:
+                    type: string
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/animeshon.release.v1alpha1.UnpublishReleaseRequest'
+                required: true
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/animeshon.release.v1alpha1.UnpublishReleaseResponse'
+                default:
+                    description: Default error response
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/google.rpc.Status'
+components:
+    schemas:
+        animeshon.release.v1alpha1.CancelReleaseRequest:
+            type: object
+            properties:
+                name:
+                    type: string
+                    description: The name of the release to cancel.
+        animeshon.release.v1alpha1.CancelReleaseResponse:
+            type: object
+            properties: {}
+        animeshon.release.v1alpha1.CreateReleaseRequest:
+            required:
+                - parent
+            type: object
+            properties:
+                parent:
+                    type: string
+                    description: The parent this release belongs to.
+                release:
+                    $ref: '#/components/schemas/animeshon.release.v1alpha1.Release'
+                ttl:
+                    $ref: '#/components/schemas/google.protobuf.Duration'
+        animeshon.release.v1alpha1.ListReleasesResponse:
+            type: object
+            properties:
+                releases:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/animeshon.release.v1alpha1.Release'
+                    description: The list of releases.
+                nextPageToken:
+                    type: string
+                    description: A token to retrieve next page of results.
+        animeshon.release.v1alpha1.PublishReleaseRequest:
+            type: object
+            properties:
+                name:
+                    type: string
+                    description: The name of the release to publish.
+        animeshon.release.v1alpha1.PublishReleaseResponse:
+            type: object
+            properties: {}
+        animeshon.release.v1alpha1.Release:
+            type: object
+            properties:
+                name:
+                    type: string
+                    description: The release resource name.
+                authoritativeRelease:
+                    type: string
+                    description: The authoritative release is set only for sub-licensed releases that do not hold any publishing rights on the content being distributed. A common case where the release is to be considered non-authoritative is a translation released by third-parties. In such scenario the original author(s) is to be considered the only publishing authority over the content. If for any reason the authoritative release were to be unpublished or deleted from Animeshon all associated non-authoritative releases will be automatically hidden from public consumption and marked as suspended. Furthermore, there can only be one authoritative release per asset, which means that you can have unlimited non-authoritative releases for one asset but it must have at most one, and only one, authoritative release.
+                asset:
+                    type: string
+                    description: The product included in the release.
+                accessGroup:
+                    type: string
+                    description: The group of users authorized to access the asset.
+                visibility:
+                    enum:
+                        - VISIBILITY_UNSPECIFIED
+                        - PRIVATE
+                        - MEMBERSHIP
+                        - PUBLIC
+                    type: string
+                    description: The visibility of the resources included in the asset.
+                    format: enum
+                state:
+                    readOnly: true
+                    enum:
+                        - STATE_UNSPECIFIED
+                        - ACTIVE
+                        - SCHEDULED
+                        - DRAFT
+                        - SUSPENDED
+                        - DELETED
+                    type: string
+                    description: The current release state.
+                    format: enum
+                createTime:
+                    readOnly: true
+                    type: string
+                    description: The timestamp at which the release was created.
+                    format: date-time
+                updateTime:
+                    readOnly: true
+                    type: string
+                    description: The latest timestamp at which the release was updated.
+                    format: date-time
+                expireTime:
+                    readOnly: true
+                    type: string
+                    description: The timestamp at which the release will expire.
+                    format: date-time
+                deleteTime:
+                    readOnly: true
+                    type: string
+                    description: The timestamp at which the release was deleted.
+                    format: date-time
+        animeshon.release.v1alpha1.ScheduleReleaseRequest:
+            type: object
+            properties:
+                name:
+                    type: string
+                    description: The name of the release to schedule.
+        animeshon.release.v1alpha1.ScheduleReleaseResponse:
+            type: object
+            properties: {}
+        animeshon.release.v1alpha1.SuspendReleaseRequest:
+            type: object
+            properties:
+                name:
+                    type: string
+                    description: The name of the release to suspend.
+                reason:
+                    type: string
+                    description: The reason why the release has been suspended.
+        animeshon.release.v1alpha1.SuspendReleaseResponse:
+            type: object
+            properties: {}
+        animeshon.release.v1alpha1.UnpublishReleaseRequest:
+            type: object
+            properties:
+                name:
+                    type: string
+                    description: The name of the release to publish.
+        animeshon.release.v1alpha1.UnpublishReleaseResponse:
+            type: object
+            properties: {}
+        animeshon.release.v1alpha1.UpdateReleaseRequest:
+            required:
+                - release
+            type: object
+            properties:
+                release:
+                    $ref: '#/components/schemas/animeshon.release.v1alpha1.Release'
+                updateMask:
+                    type: string
+                    description: The field mask to determine which fields are to be updated. If empty, the server will assume all fields are to be updated.
+                    format: field-mask
+        google.protobuf.Any:
+            type: object
+            properties:
+                '@type':
+                    type: string
+                    description: The type of the serialized message.
+            additionalProperties: true
+            description: Contains an arbitrary serialized message along with a @type that describes the type of the serialized message.
+        google.protobuf.Duration:
+            type: object
+            properties:
+                seconds:
+                    type: integer
+                    description: 'Signed seconds of the span of time. Must be from -315,576,000,000 to +315,576,000,000 inclusive. Note: these bounds are computed from: 60 sec/min * 60 min/hr * 24 hr/day * 365.25 days/year * 10000 years'
+                    format: int64
+                nanos:
+                    type: integer
+                    description: Signed fractions of a second at nanosecond resolution of the span of time. Durations less than one second are represented with a 0 `seconds` field and a positive or negative `nanos` field. For durations of one second or more, a non-zero value for the `nanos` field must be of the same sign as the `seconds` field. Must be from -999,999,999 to +999,999,999 inclusive.
+                    format: int32
+            description: 'A Duration represents a signed, fixed-length span of time represented as a count of seconds and fractions of seconds at nanosecond resolution. It is independent of any calendar and concepts like "day" or "month". It is related to Timestamp in that the difference between two Timestamp values is a Duration and it can be added or subtracted from a Timestamp. Range is approximately +-10,000 years. # Examples Example 1: Compute Duration from two Timestamps in pseudo code.     Timestamp start = ...;     Timestamp end = ...;     Duration duration = ...;     duration.seconds = end.seconds - start.seconds;     duration.nanos = end.nanos - start.nanos;     if (duration.seconds < 0 && duration.nanos > 0) {       duration.seconds += 1;       duration.nanos -= 1000000000;     } else if (duration.seconds > 0 && duration.nanos < 0) {       duration.seconds -= 1;       duration.nanos += 1000000000;     } Example 2: Compute Timestamp from Timestamp + Duration in pseudo code.     Timestamp start = ...;     Duration duration = ...;     Timestamp end = ...;     end.seconds = start.seconds + duration.seconds;     end.nanos = start.nanos + duration.nanos;     if (end.nanos < 0) {       end.seconds -= 1;       end.nanos += 1000000000;     } else if (end.nanos >= 1000000000) {       end.seconds += 1;       end.nanos -= 1000000000;     } Example 3: Compute Duration from datetime.timedelta in Python.     td = datetime.timedelta(days=3, minutes=10)     duration = Duration()     duration.FromTimedelta(td) # JSON Mapping In JSON format, the Duration type is encoded as a string rather than an object, where the string ends in the suffix "s" (indicating seconds) and is preceded by the number of seconds, with nanoseconds expressed as fractional seconds. For example, 3 seconds with 0 nanoseconds should be encoded in JSON format as "3s", while 3 seconds and 1 nanosecond should be expressed in JSON format as "3.000000001s", and 3 seconds and 1 microsecond should be expressed in JSON format as "3.000001s".'
+        google.rpc.Status:
+            type: object
+            properties:
+                code:
+                    type: integer
+                    description: The status code, which should be an enum value of [google.rpc.Code][google.rpc.Code].
+                    format: int32
+                message:
+                    type: string
+                    description: A developer-facing error message, which should be in English. Any user-facing error message should be localized and sent in the [google.rpc.Status.details][google.rpc.Status.details] field, or localized by the client.
+                details:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/google.protobuf.Any'
+                    description: A list of messages that carry the error details.  There is a common set of message types for APIs to use.
+            description: 'The `Status` type defines a logical error model that is suitable for different programming environments, including REST APIs and RPC APIs. It is used by [gRPC](https://github.com/grpc). Each `Status` message contains three pieces of data: error code, error message, and error details. You can find out more about this error model and how to work with it in the [API Design Guide](https://cloud.google.com/apis/design/errors).'
+tags:
+    - name: Publisher

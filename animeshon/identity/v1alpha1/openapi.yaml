@@ -1,0 +1,697 @@
+# Generated with protoc-gen-openapi
+# https://github.com/google/gnostic/tree/master/cmd/protoc-gen-openapi
+
+openapi: 3.0.3
+info:
+    title: Identity API
+    version: v1alpha1
+servers:
+    - url: https://identity.animeapis.com
+paths:
+    /v1alpha1/groups:
+        get:
+            tags:
+                - Identity
+            operationId: Identity_ListGroups
+            parameters:
+                - name: pageSize
+                  in: query
+                  description: If unspecified, server will pick an appropriate default.
+                  schema:
+                    type: integer
+                    format: int32
+                - name: pageToken
+                  in: query
+                  description: The value returned from the previous call.
+                  schema:
+                    type: string
+                - name: filter
+                  in: query
+                  description: A filter to be applied to results.
+                  schema:
+                    type: string
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/animeshon.identity.v1alpha1.ListGroupsResponse'
+                default:
+                    description: Default error response
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/google.rpc.Status'
+        post:
+            tags:
+                - Identity
+            operationId: Identity_CreateGroup
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/animeshon.identity.v1alpha1.CreateGroupRequest'
+                required: true
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/animeshon.identity.v1alpha1.Group'
+                default:
+                    description: Default error response
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/google.rpc.Status'
+    /v1alpha1/groups/{group}:
+        get:
+            tags:
+                - Identity
+            operationId: Identity_GetGroup
+            parameters:
+                - name: group
+                  in: path
+                  description: The group id.
+                  required: true
+                  schema:
+                    type: string
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/animeshon.identity.v1alpha1.Group'
+                default:
+                    description: Default error response
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/google.rpc.Status'
+        delete:
+            tags:
+                - Identity
+            operationId: Identity_DeleteGroup
+            parameters:
+                - name: group
+                  in: path
+                  description: The group id.
+                  required: true
+                  schema:
+                    type: string
+            responses:
+                "200":
+                    description: OK
+                    content: {}
+                default:
+                    description: Default error response
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/google.rpc.Status'
+        patch:
+            tags:
+                - Identity
+            operationId: Identity_UpdateGroup
+            parameters:
+                - name: group
+                  in: path
+                  description: The group id.
+                  required: true
+                  schema:
+                    type: string
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/animeshon.identity.v1alpha1.UpdateGroupRequest'
+                required: true
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/animeshon.identity.v1alpha1.Group'
+                default:
+                    description: Default error response
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/google.rpc.Status'
+    /v1alpha1/users:
+        get:
+            tags:
+                - Identity
+            operationId: Identity_ListUsers
+            parameters:
+                - name: pageSize
+                  in: query
+                  description: If unspecified, server will pick an appropriate default.
+                  schema:
+                    type: integer
+                    format: int32
+                - name: pageToken
+                  in: query
+                  description: The value returned from the previous call.
+                  schema:
+                    type: string
+                - name: filter
+                  in: query
+                  description: A filter to be applied to results.
+                  schema:
+                    type: string
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/animeshon.identity.v1alpha1.ListUsersResponse'
+                default:
+                    description: Default error response
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/google.rpc.Status'
+        post:
+            tags:
+                - Identity
+            operationId: Identity_CreateUser
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/animeshon.identity.v1alpha1.CreateUserRequest'
+                required: true
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/animeshon.identity.v1alpha1.User'
+                default:
+                    description: Default error response
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/google.rpc.Status'
+    /v1alpha1/users/{user}:
+        get:
+            tags:
+                - Identity
+            operationId: Identity_GetUser
+            parameters:
+                - name: user
+                  in: path
+                  description: The user id.
+                  required: true
+                  schema:
+                    type: string
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/animeshon.identity.v1alpha1.User'
+                default:
+                    description: Default error response
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/google.rpc.Status'
+        delete:
+            tags:
+                - Identity
+            operationId: Identity_DeleteUser
+            parameters:
+                - name: user
+                  in: path
+                  description: The user id.
+                  required: true
+                  schema:
+                    type: string
+            responses:
+                "200":
+                    description: OK
+                    content: {}
+                default:
+                    description: Default error response
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/google.rpc.Status'
+        patch:
+            tags:
+                - Identity
+            operationId: Identity_UpdateUser
+            parameters:
+                - name: user
+                  in: path
+                  description: The user id.
+                  required: true
+                  schema:
+                    type: string
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/animeshon.identity.v1alpha1.UpdateUserRequest'
+                required: true
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/animeshon.identity.v1alpha1.User'
+                default:
+                    description: Default error response
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/google.rpc.Status'
+    /v1alpha1/users/{user}:defaults:
+        get:
+            tags:
+                - Identity
+            operationId: Identity_GetUserDefaults
+            parameters:
+                - name: user
+                  in: path
+                  description: The user id.
+                  required: true
+                  schema:
+                    type: string
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/animeshon.identity.v1alpha1.UserDefaults'
+                default:
+                    description: Default error response
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/google.rpc.Status'
+    /v1alpha1/users/{user}:notifications:
+        get:
+            tags:
+                - Identity
+            operationId: Identity_GetUserNotifications
+            parameters:
+                - name: user
+                  in: path
+                  description: The user id.
+                  required: true
+                  schema:
+                    type: string
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/animeshon.identity.v1alpha1.UserNotifications'
+                default:
+                    description: Default error response
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/google.rpc.Status'
+        patch:
+            tags:
+                - Identity
+            operationId: Identity_UpdateUserNotifications
+            parameters:
+                - name: user
+                  in: path
+                  description: The user id.
+                  required: true
+                  schema:
+                    type: string
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/animeshon.identity.v1alpha1.UpdateUserNotificationsRequest'
+                required: true
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/animeshon.identity.v1alpha1.UserNotifications'
+                default:
+                    description: Default error response
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/google.rpc.Status'
+    /v1alpha1/users/{user}:profile:
+        get:
+            tags:
+                - Identity
+            operationId: Identity_GetUserProfile
+            parameters:
+                - name: user
+                  in: path
+                  description: The user id.
+                  required: true
+                  schema:
+                    type: string
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/animeshon.identity.v1alpha1.UserProfile'
+                default:
+                    description: Default error response
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/google.rpc.Status'
+    /v1alpha1/users/{user}:settings:
+        get:
+            tags:
+                - Identity
+            operationId: Identity_GetUserSettings
+            parameters:
+                - name: user
+                  in: path
+                  description: The user id.
+                  required: true
+                  schema:
+                    type: string
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/animeshon.identity.v1alpha1.UserSettings'
+                default:
+                    description: Default error response
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/google.rpc.Status'
+        patch:
+            tags:
+                - Identity
+            operationId: Identity_UpdateUserSettings
+            parameters:
+                - name: user
+                  in: path
+                  description: The user id.
+                  required: true
+                  schema:
+                    type: string
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/animeshon.identity.v1alpha1.UpdateUserSettingsRequest'
+                required: true
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/animeshon.identity.v1alpha1.UserSettings'
+                default:
+                    description: Default error response
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/google.rpc.Status'
+components:
+    schemas:
+        animeshon.identity.v1alpha1.CreateGroupRequest:
+            type: object
+            properties:
+                group:
+                    $ref: '#/components/schemas/animeshon.identity.v1alpha1.Group'
+        animeshon.identity.v1alpha1.CreateUserRequest:
+            type: object
+            properties:
+                user:
+                    $ref: '#/components/schemas/animeshon.identity.v1alpha1.User'
+        animeshon.identity.v1alpha1.Group:
+            type: object
+            properties:
+                name:
+                    type: string
+                    description: The resource name of the group.
+                members:
+                    type: array
+                    items:
+                        type: string
+                    description: The list of members of the group. Groups might include other groups.
+                etag:
+                    type: string
+                    description: An etag for concurrency control, ignored during creation.
+                    format: bytes
+        animeshon.identity.v1alpha1.ListGroupsResponse:
+            type: object
+            properties:
+                groups:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/animeshon.identity.v1alpha1.Group'
+                    description: The list of groups.
+                nextPageToken:
+                    type: string
+                    description: A token to retrieve next page of results.
+        animeshon.identity.v1alpha1.ListUsersResponse:
+            type: object
+            properties:
+                users:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/animeshon.identity.v1alpha1.User'
+                    description: The list of users.
+                nextPageToken:
+                    type: string
+                    description: A token to retrieve next page of results.
+        animeshon.identity.v1alpha1.UpdateGroupRequest:
+            required:
+                - group
+            type: object
+            properties:
+                group:
+                    $ref: '#/components/schemas/animeshon.identity.v1alpha1.Group'
+                updateMask:
+                    type: string
+                    description: The field mask to determine which fields are to be updated. If empty, the server will assume all fields are to be updated.
+                    format: field-mask
+        animeshon.identity.v1alpha1.UpdateUserNotificationsRequest:
+            required:
+                - notifications
+            type: object
+            properties:
+                notifications:
+                    $ref: '#/components/schemas/animeshon.identity.v1alpha1.UserNotifications'
+                updateMask:
+                    type: string
+                    description: The field mask to determine which fields are to be updated. If empty, the server will assume all fields are to be updated.
+                    format: field-mask
+        animeshon.identity.v1alpha1.UpdateUserRequest:
+            required:
+                - user
+            type: object
+            properties:
+                user:
+                    $ref: '#/components/schemas/animeshon.identity.v1alpha1.User'
+                updateMask:
+                    type: string
+                    description: The field mask to determine which fields are to be updated. If empty, the server will assume all fields are to be updated.
+                    format: field-mask
+        animeshon.identity.v1alpha1.UpdateUserSettingsRequest:
+            required:
+                - settings
+            type: object
+            properties:
+                settings:
+                    $ref: '#/components/schemas/animeshon.identity.v1alpha1.UserSettings'
+                updateMask:
+                    type: string
+                    description: The field mask to determine which fields are to be updated. If empty, the server will assume all fields are to be updated.
+                    format: field-mask
+        animeshon.identity.v1alpha1.User:
+            type: object
+            properties:
+                name:
+                    type: string
+                    description: The resource name of the user.
+                uuid:
+                    type: string
+                    description: The uuid that identifies the user during the authentication flow.
+                username:
+                    type: string
+                    description: The public username of the user.
+                discriminator:
+                    readOnly: true
+                    type: string
+                    description: The public discriminator of the user.
+                primaryEmail:
+                    readOnly: true
+                    type: string
+                    description: The primary email address of the user.
+                primaryEmailVerified:
+                    readOnly: true
+                    type: boolean
+                    description: Whether the primary email address has been verified.
+                givenName:
+                    type: string
+                    description: The given name of the user.
+                familyName:
+                    type: string
+                    description: The family name of the user.
+                displayName:
+                    readOnly: true
+                    type: string
+                    description: The name of the user.
+                countryCode:
+                    type: string
+                    description: The country where the user is located at, must be a valid ISO-3166 code.
+                locale:
+                    type: string
+                    description: The locale preferred by the user, must be a valid BCP-47 code.
+                localeFallback:
+                    type: string
+                    description: The fallback locale preferred by the user, must be a valid BCP-47 code. The only allowed values are eng, jpn, and jpn-Latn (romaji).
+                birthday:
+                    type: string
+                    description: The birthday defined by the user, this value is used to determine whether the user should be allowed to access explicit and sensitive content.
+                    format: date
+                gender:
+                    enum:
+                        - GENDER_UNSPECIFIED
+                        - MALE
+                        - FEMALE
+                        - OTHER
+                    type: string
+                    description: The gender of the user.
+                    format: enum
+                profileImage:
+                    type: string
+                    description: The profile image of the user.
+                bannerImage:
+                    type: string
+                    description: The banner image of the user.
+        animeshon.identity.v1alpha1.UserDefaults:
+            required:
+                - albumProfile
+                - albumBanner
+                - playlistLiked
+                - playlistLater
+            type: object
+            properties:
+                albumProfile:
+                    type: string
+                    description: The system-managed album dedicated to user profile images.
+                albumBanner:
+                    type: string
+                    description: The system-managed album dedicated to user banner images.
+                playlistLiked:
+                    type: string
+                    description: The system-managed playlist dedicated to user liked content.
+                playlistLater:
+                    type: string
+                    description: The system-managed playlist dedicated to user saved for later content.
+        animeshon.identity.v1alpha1.UserNotifications:
+            type: object
+            properties:
+                name:
+                    type: string
+                    description: The resource name of the user.
+        animeshon.identity.v1alpha1.UserProfile:
+            type: object
+            properties:
+                name:
+                    type: string
+                    description: The resource name of the user.
+                profileImage:
+                    type: string
+                    description: The profile image of the user.
+                bannerImage:
+                    type: string
+                    description: The banner image of the user.
+                username:
+                    type: string
+                    description: The public username of the user.
+                discriminator:
+                    type: string
+                    description: The public discriminator of the user.
+                birthday:
+                    type: string
+                    description: The birthday of the user, this value is hidden for private profiles.
+                    format: date
+                gender:
+                    enum:
+                        - GENDER_UNSPECIFIED
+                        - MALE
+                        - FEMALE
+                        - OTHER
+                    type: string
+                    description: The gender of the user, this value is hidden for private profiles.
+                    format: enum
+            description: This message is returned only when a user wants to fetch information about another user and the amount of information returned is greatly reduced to ensure that personal and confidential information is never disclosed by accident to other users. The user profile is read-only.
+        animeshon.identity.v1alpha1.UserSettings:
+            type: object
+            properties:
+                name:
+                    type: string
+                    description: The resource name of the user.
+                profileVisibility:
+                    enum:
+                        - VISIBILITY_UNSPECIFIED
+                        - PUBLIC
+                        - PRIVATE
+                    type: string
+                    description: A private user will only have the username, discriminator, profile image and banner image public.
+                    format: enum
+                showExplicitContent:
+                    type: boolean
+                    description: Whether the user choose to see explicit content during navigation.
+                enableDeveloperMode:
+                    type: boolean
+                    description: Whether the user has enabled the developer mode.
+        google.protobuf.Any:
+            type: object
+            properties:
+                '@type':
+                    type: string
+                    description: The type of the serialized message.
+            additionalProperties: true
+            description: Contains an arbitrary serialized message along with a @type that describes the type of the serialized message.
+        google.rpc.Status:
+            type: object
+            properties:
+                code:
+                    type: integer
+                    description: The status code, which should be an enum value of [google.rpc.Code][google.rpc.Code].
+                    format: int32
+                message:
+                    type: string
+                    description: A developer-facing error message, which should be in English. Any user-facing error message should be localized and sent in the [google.rpc.Status.details][google.rpc.Status.details] field, or localized by the client.
+                details:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/google.protobuf.Any'
+                    description: A list of messages that carry the error details.  There is a common set of message types for APIs to use.
+            description: 'The `Status` type defines a logical error model that is suitable for different programming environments, including REST APIs and RPC APIs. It is used by [gRPC](https://github.com/grpc). Each `Status` message contains three pieces of data: error code, error message, and error details. You can find out more about this error model and how to work with it in the [API Design Guide](https://cloud.google.com/apis/design/errors).'
+tags:
+    - name: Identity

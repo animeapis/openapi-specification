@@ -1,0 +1,257 @@
+# Generated with protoc-gen-openapi
+# https://github.com/google/gnostic/tree/master/cmd/protoc-gen-openapi
+
+openapi: 3.0.3
+info:
+    title: Product API
+    version: v1alpha1
+servers:
+    - url: https://product.animeapis.com
+paths:
+    /v1alpha1/users/{user}/chapters:
+        get:
+            tags:
+                - ChapterService
+            operationId: ChapterService_ListChapters
+            parameters:
+                - name: user
+                  in: path
+                  description: The user id.
+                  required: true
+                  schema:
+                    type: string
+                - name: pageSize
+                  in: query
+                  description: If unspecified, server will pick an appropriate default.
+                  schema:
+                    type: integer
+                    format: int32
+                - name: pageToken
+                  in: query
+                  description: The value returned from the previous call.
+                  schema:
+                    type: string
+                - name: filter
+                  in: query
+                  description: A filter to be applied to results.
+                  schema:
+                    type: string
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/animeshon.product.v1alpha1.ListChaptersResponse'
+                default:
+                    description: Default error response
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/google.rpc.Status'
+        post:
+            tags:
+                - ChapterService
+            operationId: ChapterService_CreateChapter
+            parameters:
+                - name: user
+                  in: path
+                  description: The user id.
+                  required: true
+                  schema:
+                    type: string
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/animeshon.product.v1alpha1.CreateChapterRequest'
+                required: true
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/animeshon.product.v1alpha1.Chapter'
+                default:
+                    description: Default error response
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/google.rpc.Status'
+    /v1alpha1/users/{user}/chapters/{chapter}:
+        get:
+            tags:
+                - ChapterService
+            operationId: ChapterService_GetChapter
+            parameters:
+                - name: user
+                  in: path
+                  description: The user id.
+                  required: true
+                  schema:
+                    type: string
+                - name: chapter
+                  in: path
+                  description: The chapter id.
+                  required: true
+                  schema:
+                    type: string
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/animeshon.product.v1alpha1.Chapter'
+                default:
+                    description: Default error response
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/google.rpc.Status'
+        delete:
+            tags:
+                - ChapterService
+            operationId: ChapterService_DeleteChapter
+            parameters:
+                - name: user
+                  in: path
+                  description: The user id.
+                  required: true
+                  schema:
+                    type: string
+                - name: chapter
+                  in: path
+                  description: The chapter id.
+                  required: true
+                  schema:
+                    type: string
+            responses:
+                "200":
+                    description: OK
+                    content: {}
+                default:
+                    description: Default error response
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/google.rpc.Status'
+        patch:
+            tags:
+                - ChapterService
+            operationId: ChapterService_UpdateChapter
+            parameters:
+                - name: user
+                  in: path
+                  description: The user id.
+                  required: true
+                  schema:
+                    type: string
+                - name: chapter
+                  in: path
+                  description: The chapter id.
+                  required: true
+                  schema:
+                    type: string
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/animeshon.product.v1alpha1.UpdateChapterRequest'
+                required: true
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/animeshon.product.v1alpha1.Chapter'
+                default:
+                    description: Default error response
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/google.rpc.Status'
+components:
+    schemas:
+        animeshon.product.v1alpha1.Chapter:
+            required:
+                - name
+            type: object
+            properties:
+                name:
+                    type: string
+                    description: The name of the chapter.
+                languageCode:
+                    type: string
+                    description: The language code of the chapter pages.
+                album:
+                    readOnly: true
+                    type: string
+                    description: The album that contains all images associated to this chapter.
+                pages:
+                    type: array
+                    items:
+                        type: integer
+                        format: int64
+                    description: The ordered list of all pages represented as ids of images.
+        animeshon.product.v1alpha1.CreateChapterRequest:
+            required:
+                - parent
+                - chapter
+            type: object
+            properties:
+                parent:
+                    type: string
+                    description: The parent this chapter belongs to.
+                chapter:
+                    $ref: '#/components/schemas/animeshon.product.v1alpha1.Chapter'
+        animeshon.product.v1alpha1.ListChaptersResponse:
+            type: object
+            properties:
+                chapters:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/animeshon.product.v1alpha1.Chapter'
+                    description: The list of chapters.
+                nextPageToken:
+                    type: string
+                    description: A token to retrieve next page of results.
+        animeshon.product.v1alpha1.UpdateChapterRequest:
+            required:
+                - chapter
+            type: object
+            properties:
+                chapter:
+                    $ref: '#/components/schemas/animeshon.product.v1alpha1.Chapter'
+                updateMask:
+                    type: string
+                    description: The field mask to determine which fields are to be updated. If empty, the server will assume all fields are to be updated.
+                    format: field-mask
+        google.protobuf.Any:
+            type: object
+            properties:
+                '@type':
+                    type: string
+                    description: The type of the serialized message.
+            additionalProperties: true
+            description: Contains an arbitrary serialized message along with a @type that describes the type of the serialized message.
+        google.rpc.Status:
+            type: object
+            properties:
+                code:
+                    type: integer
+                    description: The status code, which should be an enum value of [google.rpc.Code][google.rpc.Code].
+                    format: int32
+                message:
+                    type: string
+                    description: A developer-facing error message, which should be in English. Any user-facing error message should be localized and sent in the [google.rpc.Status.details][google.rpc.Status.details] field, or localized by the client.
+                details:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/google.protobuf.Any'
+                    description: A list of messages that carry the error details.  There is a common set of message types for APIs to use.
+            description: 'The `Status` type defines a logical error model that is suitable for different programming environments, including REST APIs and RPC APIs. It is used by [gRPC](https://github.com/grpc). Each `Status` message contains three pieces of data: error code, error message, and error details. You can find out more about this error model and how to work with it in the [API Design Guide](https://cloud.google.com/apis/design/errors).'
+tags:
+    - name: ChapterService
