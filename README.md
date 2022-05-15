@@ -1,1 +1,1 @@
-OpenAPI specification for Animeshon APIs
+# OpenAPI specification for Animeshon APIs
