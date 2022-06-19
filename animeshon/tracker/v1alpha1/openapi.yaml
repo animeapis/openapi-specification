@@ -3,7 +3,7 @@
 
 openapi: 3.0.3
 info:
-    title: animeshon.tracker
+    title: Tracker API
     version: v1alpha1
 servers:
     - url: https://tracker.animeapis.com
@@ -513,5 +513,14 @@ components:
                         $ref: '#/components/schemas/google.protobuf.Any'
                     description: A list of messages that carry the error details.  There is a common set of message types for APIs to use.
             description: 'The `Status` type defines a logical error model that is suitable for different programming environments, including REST APIs and RPC APIs. It is used by [gRPC](https://github.com/grpc). Each `Status` message contains three pieces of data: error code, error message, and error details. You can find out more about this error model and how to work with it in the [API Design Guide](https://cloud.google.com/apis/design/errors).'
+    securitySchemes:
+        OAuth2:
+            type: oauth2
+            flows:
+                authorizationCode:
+                    authorizationUrl: https://accounts.animeshon.com/o/oauth2/authorize
+                    tokenUrl: https://accounts.animeshon.com/o/oauth2/token
+                    scopes:
+                        https://www.animeapis.com/auth/tracker: View and manage your trackers and activities.
 tags:
     - name: TrackerService
