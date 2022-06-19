@@ -3,7 +3,7 @@
 
 openapi: 3.0.3
 info:
-    title: Resource Manager API
+    title: animeshon.resourcemanager
     version: v1alpha1
 servers:
     - url: https://resourcemanager.animeapis.com

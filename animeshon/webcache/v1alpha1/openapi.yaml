@@ -3,7 +3,7 @@
 
 openapi: 3.0.3
 info:
-    title: WebCache API
+    title: animeshon.webcache
     version: v1alpha1
 servers:
     - url: https://webcache.animeapis.com

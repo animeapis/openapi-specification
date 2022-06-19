@@ -3,7 +3,7 @@
 
 openapi: 3.0.3
 info:
-    title: Identity and Access Management API
+    title: animeshon.iam.admin
     version: v1alpha1
 servers:
     - url: https://iam.animeapis.com

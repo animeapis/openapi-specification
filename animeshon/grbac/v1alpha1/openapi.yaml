@@ -1,0 +1,827 @@
+# Generated with protoc-gen-openapi
+# https://github.com/google/gnostic/tree/master/cmd/protoc-gen-openapi
+
+openapi: 3.0.3
+info:
+    title: animeshon.grbac
+    description: AccessControl is the internal service used by Animeshon to enforce RBAC rules.
+    version: v1alpha1
+paths:
+    /v1alpha1/groups/{group}:
+        get:
+            tags:
+                - AccessControl
+            description: GetGroup returns a group.
+            operationId: AccessControl_GetGroup
+            parameters:
+                - name: group
+                  in: path
+                  description: The group id.
+                  required: true
+                  schema:
+                    type: string
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/animeshon.grbac.v1alpha1.Group'
+                default:
+                    description: Default error response
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/google.rpc.Status'
+        post:
+            tags:
+                - AccessControl
+            description: CreateGroup creates a new group.
+            operationId: AccessControl_CreateGroup
+            parameters:
+                - name: group
+                  in: path
+                  description: The group id.
+                  required: true
+                  schema:
+                    type: string
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/animeshon.grbac.v1alpha1.CreateGroupRequest'
+                required: true
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/animeshon.grbac.v1alpha1.Group'
+                default:
+                    description: Default error response
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/google.rpc.Status'
+        delete:
+            tags:
+                - AccessControl
+            description: DeleteGroup deletes a group.
+            operationId: AccessControl_DeleteGroup
+            parameters:
+                - name: group
+                  in: path
+                  description: The group id.
+                  required: true
+                  schema:
+                    type: string
+            responses:
+                "200":
+                    description: OK
+                    content: {}
+                default:
+                    description: Default error response
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/google.rpc.Status'
+        patch:
+            tags:
+                - AccessControl
+            description: UpdateGroup updates a group with a field mask.
+            operationId: AccessControl_UpdateGroup
+            parameters:
+                - name: group
+                  in: path
+                  description: The group id.
+                  required: true
+                  schema:
+                    type: string
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/animeshon.grbac.v1alpha1.UpdateGroupRequest'
+                required: true
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/animeshon.grbac.v1alpha1.Group'
+                default:
+                    description: Default error response
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/google.rpc.Status'
+    /v1alpha1/groups/{group}:addMember:
+        patch:
+            tags:
+                - AccessControl
+            description: AddGroupMember adds a member to a group.
+            operationId: AccessControl_AddGroupMember
+            parameters:
+                - name: group
+                  in: path
+                  description: The group id.
+                  required: true
+                  schema:
+                    type: string
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/animeshon.grbac.v1alpha1.AddGroupMemberRequest'
+                required: true
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/animeshon.grbac.v1alpha1.Group'
+                default:
+                    description: Default error response
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/google.rpc.Status'
+    /v1alpha1/groups/{group}:removeMember:
+        patch:
+            tags:
+                - AccessControl
+            description: RemoveGroupMember removes a member from a group.
+            operationId: AccessControl_RemoveGroupMember
+            parameters:
+                - name: group
+                  in: path
+                  description: The group id.
+                  required: true
+                  schema:
+                    type: string
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/animeshon.grbac.v1alpha1.RemoveGroupMemberRequest'
+                required: true
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/animeshon.grbac.v1alpha1.Group'
+                default:
+                    description: Default error response
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/google.rpc.Status'
+    /v1alpha1/iam:getIamPolicy:
+        post:
+            tags:
+                - AccessControl
+            description: |-
+                Gets the IAM policy that is attached to a generic resource.
+                 Note: the full resource name that identifies the resource must be provided.
+            operationId: AccessControl_GetIamPolicy
+            parameters:
+                - name: resource
+                  in: query
+                  description: 'REQUIRED: The resource for which the policy is being requested. See the operation documentation for the appropriate value for this field.'
+                  schema:
+                    type: string
+                - name: options.requestedPolicyVersion
+                  in: query
+                  description: Optional. The policy format version to be returned. Valid values are 0, 1, and 3. Requests specifying an invalid value will be rejected. Requests for policies with any conditional bindings must specify version 3. Policies without any conditional bindings may specify any valid value or leave the field unset.
+                  schema:
+                    type: integer
+                    format: int32
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/google.iam.v1.Policy'
+                default:
+                    description: Default error response
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/google.rpc.Status'
+    /v1alpha1/iam:setIamPolicy:
+        post:
+            tags:
+                - AccessControl
+            description: |-
+                Sets the IAM policy that is attached to a generic resource.
+                 Note: the full resource name that identifies the resource must be provided.
+            operationId: AccessControl_SetIamPolicy
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/google.iam.v1.SetIamPolicyRequest'
+                required: true
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/google.iam.v1.Policy'
+                default:
+                    description: Default error response
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/google.rpc.Status'
+    /v1alpha1/iam:testIamPolicy:
+        post:
+            tags:
+                - AccessControl
+            description: |-
+                Checks whether a member has a specific permission for a specific resource.
+                 If not allowed an Unauthorized (403) error will be returned.
+            operationId: AccessControl_TestIamPolicy
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/animeshon.grbac.v1alpha1.TestIamPolicyRequest'
+                required: true
+            responses:
+                "200":
+                    description: OK
+                    content: {}
+                default:
+                    description: Default error response
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/google.rpc.Status'
+    /v1alpha1/permissions/{permission}:
+        post:
+            tags:
+                - AccessControl
+            description: CreatePermission creates a new permission.
+            operationId: AccessControl_CreatePermission
+            parameters:
+                - name: permission
+                  in: path
+                  description: The permission id.
+                  required: true
+                  schema:
+                    type: string
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/animeshon.grbac.v1alpha1.CreatePermissionRequest'
+                required: true
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/animeshon.grbac.v1alpha1.Permission'
+                default:
+                    description: Default error response
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/google.rpc.Status'
+        delete:
+            tags:
+                - AccessControl
+            description: DeletePermission deletes a permission.
+            operationId: AccessControl_DeletePermission
+            parameters:
+                - name: permission
+                  in: path
+                  description: The permission id.
+                  required: true
+                  schema:
+                    type: string
+            responses:
+                "200":
+                    description: OK
+                    content: {}
+                default:
+                    description: Default error response
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/google.rpc.Status'
+    /v1alpha1/resources/**:
+        get:
+            tags:
+                - AccessControl
+            description: GetResource returns a resource.
+            operationId: AccessControl_GetResource
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/animeshon.grbac.v1alpha1.Resource'
+                default:
+                    description: Default error response
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/google.rpc.Status'
+        post:
+            tags:
+                - AccessControl
+            description: CreateResource creates a new resource.
+            operationId: AccessControl_CreateResource
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/animeshon.grbac.v1alpha1.CreateResourceRequest'
+                required: true
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/animeshon.grbac.v1alpha1.Resource'
+                default:
+                    description: Default error response
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/google.rpc.Status'
+        delete:
+            tags:
+                - AccessControl
+            description: DeleteResource deletes a resource.
+            operationId: AccessControl_DeleteResource
+            responses:
+                "200":
+                    description: OK
+                    content: {}
+                default:
+                    description: Default error response
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/google.rpc.Status'
+    /v1alpha1/resources/**:transfer:
+        post:
+            tags:
+                - AccessControl
+            description: TransferResource transfers a resource to a new parent.
+            operationId: AccessControl_TransferResource
+            parameters:
+                - name: targetParent
+                  in: query
+                  description: The full resource name that identifies the new parent resource.
+                  schema:
+                    type: string
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/animeshon.grbac.v1alpha1.Resource'
+                default:
+                    description: Default error response
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/google.rpc.Status'
+    /v1alpha1/roles/{role}:
+        get:
+            tags:
+                - AccessControl
+            description: GetRole returns a role.
+            operationId: AccessControl_GetRole
+            parameters:
+                - name: role
+                  in: path
+                  description: The role id.
+                  required: true
+                  schema:
+                    type: string
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/animeshon.grbac.v1alpha1.Role'
+                default:
+                    description: Default error response
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/google.rpc.Status'
+        post:
+            tags:
+                - AccessControl
+            description: CreateRole creates a new role.
+            operationId: AccessControl_CreateRole
+            parameters:
+                - name: role
+                  in: path
+                  description: The role id.
+                  required: true
+                  schema:
+                    type: string
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/animeshon.grbac.v1alpha1.CreateRoleRequest'
+                required: true
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/animeshon.grbac.v1alpha1.Role'
+                default:
+                    description: Default error response
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/google.rpc.Status'
+        delete:
+            tags:
+                - AccessControl
+            description: DeleteRole deletes a role.
+            operationId: AccessControl_DeleteRole
+            parameters:
+                - name: role
+                  in: path
+                  description: The role id.
+                  required: true
+                  schema:
+                    type: string
+            responses:
+                "200":
+                    description: OK
+                    content: {}
+                default:
+                    description: Default error response
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/google.rpc.Status'
+        patch:
+            tags:
+                - AccessControl
+            description: UpdateRole updates a role with a field mask.
+            operationId: AccessControl_UpdateRole
+            parameters:
+                - name: role
+                  in: path
+                  description: The role id.
+                  required: true
+                  schema:
+                    type: string
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/animeshon.grbac.v1alpha1.UpdateRoleRequest'
+                required: true
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/animeshon.grbac.v1alpha1.Role'
+                default:
+                    description: Default error response
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/google.rpc.Status'
+    /v1alpha1/users/{user}:
+        post:
+            tags:
+                - AccessControl
+            description: CreateSubject creates a new subject.
+            operationId: AccessControl_CreateSubject
+            parameters:
+                - name: user
+                  in: path
+                  description: The user id.
+                  required: true
+                  schema:
+                    type: string
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/animeshon.grbac.v1alpha1.CreateSubjectRequest'
+                required: true
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/animeshon.grbac.v1alpha1.Subject'
+                default:
+                    description: Default error response
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/google.rpc.Status'
+        delete:
+            tags:
+                - AccessControl
+            description: DeleteSubject deletes a subject.
+            operationId: AccessControl_DeleteSubject
+            parameters:
+                - name: user
+                  in: path
+                  description: The user id.
+                  required: true
+                  schema:
+                    type: string
+            responses:
+                "200":
+                    description: OK
+                    content: {}
+                default:
+                    description: Default error response
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/google.rpc.Status'
+components:
+    schemas:
+        animeshon.grbac.v1alpha1.AccessTuple:
+            required:
+                - principal
+                - fullResourceName
+                - permission
+            type: object
+            properties:
+                principal:
+                    type: string
+                    description: The member, or principal, whose access you want to check.
+                fullResourceName:
+                    type: string
+                    description: The full resource name that identifies the resource.
+                permission:
+                    type: string
+                    description: The IAM permission to check for the specified member and resource.
+            description: Information about the member, resource, and permission to check.
+        animeshon.grbac.v1alpha1.AddGroupMemberRequest:
+            required:
+                - group
+                - member
+            type: object
+            properties:
+                group:
+                    type: string
+                    description: The name of the group to add a member to.
+                member:
+                    type: string
+                    description: The member to be added.
+        animeshon.grbac.v1alpha1.CreateGroupRequest:
+            required:
+                - group
+            type: object
+            properties:
+                group:
+                    $ref: '#/components/schemas/animeshon.grbac.v1alpha1.Group'
+        animeshon.grbac.v1alpha1.CreatePermissionRequest:
+            required:
+                - permission
+            type: object
+            properties:
+                permission:
+                    $ref: '#/components/schemas/animeshon.grbac.v1alpha1.Permission'
+        animeshon.grbac.v1alpha1.CreateResourceRequest:
+            required:
+                - resource
+            type: object
+            properties:
+                resource:
+                    $ref: '#/components/schemas/animeshon.grbac.v1alpha1.Resource'
+        animeshon.grbac.v1alpha1.CreateRoleRequest:
+            required:
+                - role
+            type: object
+            properties:
+                role:
+                    $ref: '#/components/schemas/animeshon.grbac.v1alpha1.Role'
+        animeshon.grbac.v1alpha1.CreateSubjectRequest:
+            required:
+                - subject
+            type: object
+            properties:
+                subject:
+                    $ref: '#/components/schemas/animeshon.grbac.v1alpha1.Subject'
+        animeshon.grbac.v1alpha1.Group:
+            required:
+                - name
+            type: object
+            properties:
+                name:
+                    type: string
+                    description: The resource name of the group.
+                members:
+                    type: array
+                    items:
+                        type: string
+                    description: The list of members of the group. Groups might include other groups.
+                etag:
+                    type: string
+                    description: An etag for concurrency control, ignored during creation.
+                    format: bytes
+        animeshon.grbac.v1alpha1.Permission:
+            required:
+                - name
+            type: object
+            properties:
+                name:
+                    type: string
+                    description: The resource name of the permission.
+        animeshon.grbac.v1alpha1.RemoveGroupMemberRequest:
+            required:
+                - group
+                - member
+            type: object
+            properties:
+                group:
+                    type: string
+                    description: The name of the group to remove an member from.
+                member:
+                    type: string
+                    description: The member to be removed.
+        animeshon.grbac.v1alpha1.Resource:
+            required:
+                - name
+                - parent
+            type: object
+            properties:
+                name:
+                    type: string
+                    description: The full resource name that identifies the resource.
+                parent:
+                    type: string
+                    description: The full resource name that identifies the parent resource.
+                etag:
+                    type: string
+                    description: An etag for concurrency control, ignored during creation.
+                    format: bytes
+        animeshon.grbac.v1alpha1.Role:
+            required:
+                - name
+                - permissions
+            type: object
+            properties:
+                name:
+                    type: string
+                    description: The resource name of the role.
+                permissions:
+                    type: array
+                    items:
+                        type: string
+                    description: The list of permissions granted by the role.
+                etag:
+                    type: string
+                    description: An etag for concurrency control, ignored during creation.
+                    format: bytes
+        animeshon.grbac.v1alpha1.Subject:
+            required:
+                - name
+            type: object
+            properties:
+                name:
+                    type: string
+                    description: The resource name of the subject.
+        animeshon.grbac.v1alpha1.TestIamPolicyRequest:
+            required:
+                - accessTuple
+            type: object
+            properties:
+                accessTuple:
+                    $ref: '#/components/schemas/animeshon.grbac.v1alpha1.AccessTuple'
+        animeshon.grbac.v1alpha1.UpdateGroupRequest:
+            required:
+                - group
+            type: object
+            properties:
+                group:
+                    $ref: '#/components/schemas/animeshon.grbac.v1alpha1.Group'
+                updateMask:
+                    type: string
+                    description: The field mask to determine which fields are to be updated. If empty, the server will assume all fields are to be updated.
+                    format: field-mask
+        animeshon.grbac.v1alpha1.UpdateRoleRequest:
+            required:
+                - role
+            type: object
+            properties:
+                role:
+                    $ref: '#/components/schemas/animeshon.grbac.v1alpha1.Role'
+                updateMask:
+                    type: string
+                    description: The field mask to determine which fields are to be updated. If empty, the server will assume all fields are to be updated.
+                    format: field-mask
+        google.iam.v1.Binding:
+            type: object
+            properties:
+                role:
+                    type: string
+                    description: Role that is assigned to `members`. For example, `roles/viewer`, `roles/editor`, or `roles/owner`.
+                members:
+                    type: array
+                    items:
+                        type: string
+                    description: 'Specifies the identities requesting access for a Cloud Platform resource. `members` can have the following values: * `allUsers`: A special identifier that represents anyone who is    on the internet; with or without a Google account. * `allAuthenticatedUsers`: A special identifier that represents anyone    who is authenticated with a Google account or a service account. * `user:{emailid}`: An email address that represents a specific Google    account. For example, `alice@example.com` . * `serviceAccount:{emailid}`: An email address that represents a service    account. For example, `my-other-app@appspot.gserviceaccount.com`. * `group:{emailid}`: An email address that represents a Google group.    For example, `admins@example.com`. * `domain:{domain}`: The G Suite domain (primary) that represents all the    users of that domain. For example, `google.com` or `example.com`.'
+                condition:
+                    $ref: '#/components/schemas/google.type.Expr'
+            description: Associates `members` with a `role`.
+        google.iam.v1.Policy:
+            type: object
+            properties:
+                version:
+                    type: integer
+                    description: Specifies the format of the policy. Valid values are 0, 1, and 3. Requests specifying an invalid value will be rejected. Operations affecting conditional bindings must specify version 3. This can be either setting a conditional policy, modifying a conditional binding, or removing a binding (conditional or unconditional) from the stored conditional policy. Operations on non-conditional policies may specify any valid value or leave the field unset. If no etag is provided in the call to `setIamPolicy`, version compliance checks against the stored policy is skipped.
+                    format: int32
+                bindings:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/google.iam.v1.Binding'
+                    description: Associates a list of `members` to a `role`. Optionally may specify a `condition` that determines when binding is in effect. `bindings` with no members will result in an error.
+                etag:
+                    type: string
+                    description: '`etag` is used for optimistic concurrency control as a way to help prevent simultaneous updates of a policy from overwriting each other. It is strongly suggested that systems make use of the `etag` in the read-modify-write cycle to perform policy updates in order to avoid race conditions: An `etag` is returned in the response to `getIamPolicy`, and systems are expected to put that etag in the request to `setIamPolicy` to ensure that their change will be applied to the same version of the policy. If no `etag` is provided in the call to `setIamPolicy`, then the existing policy is overwritten. Due to blind-set semantics of an etag-less policy, ''setIamPolicy'' will not fail even if the incoming policy version does not meet the requirements for modifying the stored policy.'
+                    format: bytes
+            description: 'Defines an Identity and Access Management (IAM) policy. It is used to specify access control policies for Cloud Platform resources. A `Policy` is a collection of `bindings`. A `binding` binds one or more `members` to a single `role`. Members can be user accounts, service accounts, Google groups, and domains (such as G Suite). A `role` is a named list of permissions (defined by IAM or configured by users). A `binding` can optionally specify a `condition`, which is a logic expression that further constrains the role binding based on attributes about the request and/or target resource. **JSON Example**     {       "bindings": [         {           "role": "roles/resourcemanager.organizationAdmin",           "members": [             "user:mike@example.com",             "group:admins@example.com",             "domain:google.com",             "serviceAccount:my-project-id@appspot.gserviceaccount.com"           ]         },         {           "role": "roles/resourcemanager.organizationViewer",           "members": ["user:eve@example.com"],           "condition": {             "title": "expirable access",             "description": "Does not grant access after Sep 2020",             "expression": "request.time <             timestamp(''2020-10-01T00:00:00.000Z'')",           }         }       ]     } **YAML Example**     bindings:     - members:       - user:mike@example.com       - group:admins@example.com       - domain:google.com       - serviceAccount:my-project-id@appspot.gserviceaccount.com       role: roles/resourcemanager.organizationAdmin     - members:       - user:eve@example.com       role: roles/resourcemanager.organizationViewer       condition:         title: expirable access         description: Does not grant access after Sep 2020         expression: request.time < timestamp(''2020-10-01T00:00:00.000Z'') For a description of IAM and its features, see the [IAM developer''s guide](https://cloud.google.com/iam/docs).'
+        google.iam.v1.SetIamPolicyRequest:
+            required:
+                - resource
+                - policy
+            type: object
+            properties:
+                resource:
+                    type: string
+                    description: 'REQUIRED: The resource for which the policy is being specified. See the operation documentation for the appropriate value for this field.'
+                policy:
+                    $ref: '#/components/schemas/google.iam.v1.Policy'
+            description: Request message for `SetIamPolicy` method.
+        google.protobuf.Any:
+            type: object
+            properties:
+                '@type':
+                    type: string
+                    description: The type of the serialized message.
+            additionalProperties: true
+            description: Contains an arbitrary serialized message along with a @type that describes the type of the serialized message.
+        google.rpc.Status:
+            type: object
+            properties:
+                code:
+                    type: integer
+                    description: The status code, which should be an enum value of [google.rpc.Code][google.rpc.Code].
+                    format: int32
+                message:
+                    type: string
+                    description: A developer-facing error message, which should be in English. Any user-facing error message should be localized and sent in the [google.rpc.Status.details][google.rpc.Status.details] field, or localized by the client.
+                details:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/google.protobuf.Any'
+                    description: A list of messages that carry the error details.  There is a common set of message types for APIs to use.
+            description: 'The `Status` type defines a logical error model that is suitable for different programming environments, including REST APIs and RPC APIs. It is used by [gRPC](https://github.com/grpc). Each `Status` message contains three pieces of data: error code, error message, and error details. You can find out more about this error model and how to work with it in the [API Design Guide](https://cloud.google.com/apis/design/errors).'
+        google.type.Expr:
+            type: object
+            properties:
+                expression:
+                    type: string
+                    description: Textual representation of an expression in Common Expression Language syntax.
+                title:
+                    type: string
+                    description: Optional. Title for the expression, i.e. a short string describing its purpose. This can be used e.g. in UIs which allow to enter the expression.
+                description:
+                    type: string
+                    description: Optional. Description of the expression. This is a longer text which describes the expression, e.g. when hovered over it in a UI.
+                location:
+                    type: string
+                    description: Optional. String indicating the location of the expression for error reporting, e.g. a file name and a position in the file.
+            description: 'Represents a textual expression in the Common Expression Language (CEL) syntax. CEL is a C-like expression language. The syntax and semantics of CEL are documented at https://github.com/google/cel-spec. Example (Comparison):     title: "Summary size limit"     description: "Determines if a summary is less than 100 chars"     expression: "document.summary.size() < 100" Example (Equality):     title: "Requestor is owner"     description: "Determines if requestor is the document owner"     expression: "document.owner == request.auth.claims.email" Example (Logic):     title: "Public documents"     description: "Determine whether the document should be publicly visible"     expression: "document.type != ''private'' && document.type != ''internal''" Example (Data Manipulation):     title: "Notification string"     description: "Create a notification string with a timestamp."     expression: "''New message received at '' + string(document.create_time)" The exact variables and functions that may be referenced within an expression are determined by the service that evaluates it. See the service documentation for additional information.'
+tags:
+    - name: AccessControl

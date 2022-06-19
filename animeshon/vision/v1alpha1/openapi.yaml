@@ -3,7 +3,7 @@
 
 openapi: 3.0.3
 info:
-    title: Vision API
+    title: animeshon.vision
     version: v1alpha1
 servers:
     - url: https://vision.animeapis.com

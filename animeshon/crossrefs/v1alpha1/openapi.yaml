@@ -3,7 +3,7 @@
 
 openapi: 3.0.3
 info:
-    title: CrossRefs API
+    title: animeshon.crossrefs
     version: v1alpha1
 servers:
     - url: https://crossrefs.animeapis.com

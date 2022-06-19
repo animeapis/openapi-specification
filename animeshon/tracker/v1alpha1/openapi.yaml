@@ -3,7 +3,7 @@
 
 openapi: 3.0.3
 info:
-    title: Tracker API
+    title: animeshon.tracker
     version: v1alpha1
 servers:
     - url: https://tracker.animeapis.com

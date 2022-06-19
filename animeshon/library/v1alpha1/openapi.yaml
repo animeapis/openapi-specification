@@ -3,7 +3,7 @@
 
 openapi: 3.0.3
 info:
-    title: Library API
+    title: animeshon.library
     version: v1alpha1
 servers:
     - url: https://library.animeapis.com

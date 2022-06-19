@@ -3,7 +3,7 @@
 
 openapi: 3.0.3
 info:
-    title: Hub API
+    title: animeshon.hub
     version: v1alpha1
 servers:
     - url: https://hub.animeapis.com

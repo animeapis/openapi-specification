@@ -3,7 +3,7 @@
 
 openapi: 3.0.3
 info:
-    title: Knowledge API
+    title: animeshon.knowledge
     version: v1alpha1
 servers:
     - url: https://knowledge.animeapis.com

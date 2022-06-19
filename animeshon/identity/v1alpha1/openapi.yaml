@@ -3,7 +3,7 @@
 
 openapi: 3.0.3
 info:
-    title: Identity API
+    title: animeshon.identity
     version: v1alpha1
 servers:
     - url: https://identity.animeapis.com

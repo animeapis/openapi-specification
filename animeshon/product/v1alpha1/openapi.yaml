@@ -3,7 +3,7 @@
 
 openapi: 3.0.3
 info:
-    title: Product API
+    title: animeshon.product
     version: v1alpha1
 servers:
     - url: https://product.animeapis.com
