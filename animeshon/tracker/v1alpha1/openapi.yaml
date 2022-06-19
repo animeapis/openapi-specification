@@ -517,8 +517,11 @@ components:
         OAuth2:
             type: oauth2
             flows:
+                clientCredentials:
+                    tokenUrl: https://accounts.animeshon.com/o/oauth2/token
+                    scopes: {}
                 authorizationCode:
-                    authorizationUrl: https://accounts.animeshon.com/o/oauth2/authorize
+                    authorizationUrl: https://accounts.animeshon.com/o/oauth2/auth
                     tokenUrl: https://accounts.animeshon.com/o/oauth2/token
                     scopes:
                         https://www.animeapis.com/auth/tracker: View and manage your trackers and activities.
