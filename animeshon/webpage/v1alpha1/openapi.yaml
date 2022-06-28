@@ -1,0 +1,298 @@
+# Generated with protoc-gen-openapi
+# https://github.com/google/gnostic/tree/master/cmd/protoc-gen-openapi
+
+openapi: 3.0.3
+info:
+    title: WebPage API
+    version: v1alpha1
+servers:
+    - url: https://webpage.animeapis.com
+paths:
+    /v1alpha1/sites/{site}/pages:
+        get:
+            tags:
+                - Archive
+            operationId: Archive_ListPages
+            parameters:
+                - name: site
+                  in: path
+                  description: The site id.
+                  required: true
+                  schema:
+                    type: string
+                - name: pageSize
+                  in: query
+                  description: If unspecified, server will pick an appropriate default.
+                  schema:
+                    type: integer
+                    format: int32
+                - name: pageToken
+                  in: query
+                  description: The value returned from the previous call.
+                  schema:
+                    type: string
+                - name: filter
+                  in: query
+                  description: A filter to be applied to results.
+                  schema:
+                    type: string
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/animeshon.webpage.v1alpha1.ListPagesResponse'
+                default:
+                    description: Default error response
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/google.rpc.Status'
+        post:
+            tags:
+                - Archive
+            operationId: Archive_CreatePage
+            parameters:
+                - name: site
+                  in: path
+                  description: The site id.
+                  required: true
+                  schema:
+                    type: string
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/animeshon.webpage.v1alpha1.CreatePageRequest'
+                required: true
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/animeshon.webpage.v1alpha1.Page'
+                default:
+                    description: Default error response
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/google.rpc.Status'
+    /v1alpha1/sites/{site}/pages/{page}:
+        get:
+            tags:
+                - Archive
+            operationId: Archive_GetPage
+            parameters:
+                - name: site
+                  in: path
+                  description: The site id.
+                  required: true
+                  schema:
+                    type: string
+                - name: page
+                  in: path
+                  description: The page id.
+                  required: true
+                  schema:
+                    type: string
+                - name: selector
+                  in: query
+                  description: The html selector to use to return the page content.
+                  schema:
+                    type: string
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/animeshon.webpage.v1alpha1.Page'
+                default:
+                    description: Default error response
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/google.rpc.Status'
+        post:
+            tags:
+                - Archive
+            operationId: Archive_ImportPage
+            parameters:
+                - name: site
+                  in: path
+                  description: The site id.
+                  required: true
+                  schema:
+                    type: string
+                - name: page
+                  in: path
+                  description: The page id.
+                  required: true
+                  schema:
+                    type: string
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/animeshon.webpage.v1alpha1.ImportPageRequest'
+                required: true
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/animeshon.webpage.v1alpha1.ImportPageResponse'
+                default:
+                    description: Default error response
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/google.rpc.Status'
+        delete:
+            tags:
+                - Archive
+            operationId: Archive_DeletePage
+            parameters:
+                - name: site
+                  in: path
+                  description: The site id.
+                  required: true
+                  schema:
+                    type: string
+                - name: page
+                  in: path
+                  description: The page id.
+                  required: true
+                  schema:
+                    type: string
+            responses:
+                "200":
+                    description: OK
+                    content: {}
+                default:
+                    description: Default error response
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/google.rpc.Status'
+components:
+    schemas:
+        animeshon.webpage.v1alpha1.CreatePageRequest:
+            required:
+                - parent
+                - page
+            type: object
+            properties:
+                parent:
+                    type: string
+                    description: The parent this page belongs to.
+                page:
+                    $ref: '#/components/schemas/animeshon.webpage.v1alpha1.Page'
+        animeshon.webpage.v1alpha1.ImportPageRequest:
+            required:
+                - name
+            type: object
+            properties:
+                name:
+                    type: string
+                    description: The name of the page to retrieve.
+                cacheOptions:
+                    $ref: '#/components/schemas/animeshon.webpage.v1alpha1.ImportPageRequest_WebCacheOptions'
+        animeshon.webpage.v1alpha1.ImportPageRequest_WebCacheOptions:
+            type: object
+            properties:
+                refresh:
+                    type: boolean
+                    description: If refresh is set to true the page is imported from the remote address regardless of an existing local cache, if the fetched page does not match the existing cache the new page is stored and a new resource is created, otherwise the existing (cached) resource is returned.
+                ignore:
+                    type: boolean
+                    description: If ignore is set to true no cache lookup is performed and the page is imported into a new resource. If both "ignore" and "refresh" are set to true then "refresh" has no effect.
+            description: The WebCache options to be used when importing a page from a public site.
+        animeshon.webpage.v1alpha1.ImportPageResponse:
+            type: object
+            properties:
+                result:
+                    $ref: '#/components/schemas/animeshon.webpage.v1alpha1.ImportPageResponse_ImportPageResult'
+                error:
+                    $ref: '#/components/schemas/animeshon.webpage.v1alpha1.ImportPageResponse_ImportPageRemoteError'
+                cacheHit:
+                    type: boolean
+                    description: Whether this page was found in the cache.
+        animeshon.webpage.v1alpha1.ImportPageResponse_ImportPageRemoteError:
+            type: object
+            properties:
+                statusCode:
+                    type: integer
+                    description: The status code returned from the remote server.
+                    format: int32
+                details:
+                    type: string
+                    description: The details related to the import failure.
+        animeshon.webpage.v1alpha1.ImportPageResponse_ImportPageResult:
+            type: object
+            properties:
+                page:
+                    $ref: '#/components/schemas/animeshon.webpage.v1alpha1.Page'
+        animeshon.webpage.v1alpha1.ListPagesResponse:
+            type: object
+            properties:
+                pages:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/animeshon.webpage.v1alpha1.Page'
+                    description: The list of pages.
+                nextPageToken:
+                    type: string
+                    description: A token to retrieve next page of results.
+        animeshon.webpage.v1alpha1.Page:
+            required:
+                - name
+            type: object
+            properties:
+                name:
+                    type: string
+                    description: The name of the page.
+                content:
+                    type: string
+                    description: The page content according to the html selector.
+        google.protobuf.Any:
+            type: object
+            properties:
+                '@type':
+                    type: string
+                    description: The type of the serialized message.
+            additionalProperties: true
+            description: Contains an arbitrary serialized message along with a @type that describes the type of the serialized message.
+        google.rpc.Status:
+            type: object
+            properties:
+                code:
+                    type: integer
+                    description: The status code, which should be an enum value of [google.rpc.Code][google.rpc.Code].
+                    format: int32
+                message:
+                    type: string
+                    description: A developer-facing error message, which should be in English. Any user-facing error message should be localized and sent in the [google.rpc.Status.details][google.rpc.Status.details] field, or localized by the client.
+                details:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/google.protobuf.Any'
+                    description: A list of messages that carry the error details.  There is a common set of message types for APIs to use.
+            description: 'The `Status` type defines a logical error model that is suitable for different programming environments, including REST APIs and RPC APIs. It is used by [gRPC](https://github.com/grpc). Each `Status` message contains three pieces of data: error code, error message, and error details. You can find out more about this error model and how to work with it in the [API Design Guide](https://cloud.google.com/apis/design/errors).'
+    securitySchemes:
+        OAuth2:
+            type: oauth2
+            flows:
+                clientCredentials:
+                    tokenUrl: https://accounts.animeshon.com/o/oauth2/token
+                    scopes: {}
+                authorizationCode:
+                    authorizationUrl: https://accounts.animeshon.com/o/oauth2/auth
+                    tokenUrl: https://accounts.animeshon.com/o/oauth2/token
+                    scopes:
+                        https://www.animeapis.com/auth/webpage: View and manage indexed sites and pages.
+tags:
+    - name: Archive
