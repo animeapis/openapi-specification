@@ -233,8 +233,9 @@ components:
         animeshon.webpage.v1alpha1.ImportPageResponse_ImportPageResult:
             type: object
             properties:
-                page:
-                    $ref: '#/components/schemas/animeshon.webpage.v1alpha1.Page'
+                name:
+                    type: string
+                    description: The page resource name.
         animeshon.webpage.v1alpha1.ListPagesResponse:
             type: object
             properties:
