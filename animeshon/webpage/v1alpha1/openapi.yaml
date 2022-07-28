@@ -8,37 +8,6 @@ info:
 servers:
     - url: https://webpage.animeapis.com
 paths:
-    /v1alpha1/sites/{site}:
-        post:
-            tags:
-                - Archive
-            operationId: Archive_ImportPage
-            parameters:
-                - name: site
-                  in: path
-                  description: The site id.
-                  required: true
-                  schema:
-                    type: string
-            requestBody:
-                content:
-                    application/json:
-                        schema:
-                            $ref: '#/components/schemas/animeshon.webpage.v1alpha1.ImportPageRequest'
-                required: true
-            responses:
-                "200":
-                    description: OK
-                    content:
-                        application/json:
-                            schema:
-                                $ref: '#/components/schemas/animeshon.webpage.v1alpha1.ImportPageResponse'
-                default:
-                    description: Default error response
-                    content:
-                        application/json:
-                            schema:
-                                $ref: '#/components/schemas/google.rpc.Status'
     /v1alpha1/sites/{site}/pages:
         get:
             tags:
@@ -167,6 +136,37 @@ paths:
                 "200":
                     description: OK
                     content: {}
+                default:
+                    description: Default error response
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/google.rpc.Status'
+    /v1alpha1/sites/{site}:import:
+        post:
+            tags:
+                - Archive
+            operationId: Archive_ImportPage
+            parameters:
+                - name: site
+                  in: path
+                  description: The site id.
+                  required: true
+                  schema:
+                    type: string
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/animeshon.webpage.v1alpha1.ImportPageRequest'
+                required: true
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/animeshon.webpage.v1alpha1.ImportPageResponse'
                 default:
                     description: Default error response
                     content:
