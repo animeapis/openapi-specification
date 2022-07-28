@@ -142,6 +142,43 @@ paths:
                         application/json:
                             schema:
                                 $ref: '#/components/schemas/google.rpc.Status'
+    /v1alpha1/sites/{site}/pages/{page}:query:
+        get:
+            tags:
+                - Archive
+            operationId: Archive_QueryPage
+            parameters:
+                - name: site
+                  in: path
+                  description: The site id.
+                  required: true
+                  schema:
+                    type: string
+                - name: page
+                  in: path
+                  description: The page id.
+                  required: true
+                  schema:
+                    type: string
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/animeshon.webpage.v1alpha1.QueryPageRequest'
+                required: true
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/animeshon.webpage.v1alpha1.QueryPageResponse'
+                default:
+                    description: Default error response
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/google.rpc.Status'
     /v1alpha1/sites/{site}:import:
         post:
             tags:
@@ -258,6 +295,24 @@ components:
                 content:
                     type: string
                     description: The page content according to the html selector.
+        animeshon.webpage.v1alpha1.QueryPageRequest:
+            required:
+                - name
+                - query
+            type: object
+            properties:
+                name:
+                    type: string
+                    description: The name of the page to query.
+                query:
+                    type: string
+                    description: The query to perform on the document in declarative query language.
+        animeshon.webpage.v1alpha1.QueryPageResponse:
+            type: object
+            properties:
+                result:
+                    type: string
+                    description: The document query result.
         google.protobuf.Any:
             type: object
             properties:
