@@ -327,8 +327,8 @@ components:
         animeshon.webpage.v1alpha1.QueryPageResponse_QueryPageResult:
             type: object
             properties:
-                body:
-                    $ref: '#/components/schemas/google.protobuf.Any'
+                value:
+                    $ref: '#/components/schemas/google.protobuf.Value'
         google.protobuf.Any:
             type: object
             properties:
@@ -337,6 +337,8 @@ components:
                     description: The type of the serialized message.
             additionalProperties: true
             description: Contains an arbitrary serialized message along with a @type that describes the type of the serialized message.
+        google.protobuf.Value:
+            description: Represents a dynamically typed value which can be either null, a number, a string, a boolean, a recursive struct value, or a list of values.
         google.rpc.Status:
             type: object
             properties:
