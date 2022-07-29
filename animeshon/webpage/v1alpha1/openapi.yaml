@@ -311,8 +311,24 @@ components:
             type: object
             properties:
                 result:
+                    $ref: '#/components/schemas/animeshon.webpage.v1alpha1.QueryPageResponse_QueryPageResult'
+                error:
+                    $ref: '#/components/schemas/animeshon.webpage.v1alpha1.QueryPageResponse_QueryPageError'
+        animeshon.webpage.v1alpha1.QueryPageResponse_QueryPageError:
+            type: object
+            properties:
+                code:
+                    type: integer
+                    description: The gRPC error code returned by the query.
+                    format: int32
+                details:
                     type: string
-                    description: The document query result.
+                    description: Additional details of the evaluation error.
+        animeshon.webpage.v1alpha1.QueryPageResponse_QueryPageResult:
+            type: object
+            properties:
+                body:
+                    $ref: '#/components/schemas/google.protobuf.Any'
         google.protobuf.Any:
             type: object
             properties:
