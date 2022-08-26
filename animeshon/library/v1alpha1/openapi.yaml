@@ -332,13 +332,13 @@ components:
         animeshon.library.v1alpha1.BatchCreatePlaylistItemsRequest:
             required:
                 - parent
-                - item
+                - items
             type: object
             properties:
                 parent:
                     type: string
                     description: The parent this playlist item belongs to.
-                item:
+                items:
                     type: array
                     items:
                         $ref: '#/components/schemas/animeshon.library.v1alpha1.PlaylistItem'
