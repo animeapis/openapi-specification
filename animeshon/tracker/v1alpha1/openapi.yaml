@@ -483,19 +483,19 @@ components:
         animeshon.tracker.v1alpha1.ProgressIndicatorTree_ProgressIndicator:
             type: object
             properties:
-                MinValue:
+                minValue:
                     type: integer
                     format: int32
-                MaxValue:
+                maxValue:
                     type: integer
                     format: int32
-                Value:
+                value:
                     type: integer
                     format: int32
-                Ratio:
+                ratio:
                     type: number
                     format: float
-                Threshold:
+                threshold:
                     type: integer
                     format: int32
         animeshon.tracker.v1alpha1.Tracker:
